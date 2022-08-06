@@ -168,4 +168,9 @@ class ProductController extends Controller
 
     }
     
+    public function prueba(Request $request){
+
+
+    }
+    
 }
