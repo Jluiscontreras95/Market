@@ -1,0 +1,5 @@
+{
+    "editor.guides.bracketPairs": true,
+    "live-reload.autoStart": true,
+    "live-reload.port": 35729
+}
