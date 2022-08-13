@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Product;
 use App\Category;
 use App\Provider;
-use App\ProductsxProvider;
+use App\Product_Provider;
 use Illuminate\Http\Request;
 use App\Http\Requests\Product\StoreRequest;
 use App\Http\Requests\Product\UpdateRequest;
@@ -24,60 +24,59 @@ class ProductController extends Controller
         $this->middleware('can:products.destroy')->only(['destroy']);
         $this->middleware('can:change.status.products')->only(['change_status']);
     }
-    
-      
+
+
     public function index()
     {
-        
+
         $products = Product::get();
         return view('admin.product.index', compact('products'));
-    
+
     }
 
-   
+
     public function create()
     {
         $categories = Category::get();
         $providers = Provider::get();
+        
         return view('admin.product.create', compact('categories','providers'));
 
     }
 
-    
+
     public function store(StoreRequest $request)
     {
         if($request->hasFile('picture')){
 
+            
+            $news = $request->input('provider_id');
+            $news = implode(',', $news);
+
+            $input = $request->except('news');
+            //Assign the "mutated" news value to $input
+            $input['news'] = $news;
             $file = $request->file('picture');
             $image_name = time().'_'.$file->getClientOriginalName();
             $file->move(public_path("/image"),$image_name);
-            $product = Product::create($request->all()+[ 'image' => $image_name,]);
-            $product->update(['code'=>$product->id]);
-            $products_provider = Product::get()->last();
-            $cont = new ProductsxProvider();
-            $cont->product_id = $products_provider->id;
-            $cont->provider_id = $products_provider->provider_id;
+            $product = Product::create($request->all()+[ 'image' => $image_name]);
+            $product->providers()->attach($request->providers);
 
-            $cont->save();
             return redirect()->route('products.index')->with('toast_success', '¡Producto agregado con éxito!');;
-        
-        }else{
 
+        }else{
+            
             $product = Product::create($request->all());
             $product->update(['code'=>$product->id]);
-            $products_provider = Product::get()->last();
-            $cont = new ProductsxProvider();
-            $cont->product_id = $products_provider->id;
-            $cont->provider_id = $products_provider->provider_id;
 
-            $cont->save();
+            $product->providers()->attach($request->providers);
             return redirect()->route('products.index')->with('toast_success', '¡Producto agregado con éxito!');;
 
         }
 
     }
 
-   
+
     public function show(Product $product)
     {
         $categories = Category::get();
@@ -87,7 +86,7 @@ class ProductController extends Controller
 
     }
 
-   
+
     public function edit(Product $product)
     {
         $categories = Category::get();
@@ -97,7 +96,7 @@ class ProductController extends Controller
 
     }
 
-  
+
     public function update(UpdateRequest $request, Product $product)
     {
 
@@ -105,22 +104,25 @@ class ProductController extends Controller
             $file = $request->file('picture');
             $image_name = time().'_'.$file->getClientOriginalName();
             $file->move(public_path("/image"),$image_name);
-            
-       
+
+
             $product->update($request->all()+[
                 'image' => $image_name,
             ]);
 
+            $product->providers()->sync($request->provider_id);
+
         }else{
 
             $product->update($request->all());
+            $product->providers()->sync($request->provider_id);
         }
-        
+
         return redirect()->route('products.index');
 
     }
 
-    
+
     public function destroy(Product $product)
     {
         $product->delete();
@@ -133,14 +135,14 @@ class ProductController extends Controller
 
             $product -> update(['status' => 'DESACTIVATED']);
             return redirect()->back();
-        
+
         } else {
-            
+
             $product -> update(['status' => 'ACTIVE']);
             return redirect()->back();
-        
+
         }
-        
+
     }
 
     public function get_products_by_id(Request $request){
@@ -157,20 +159,7 @@ class ProductController extends Controller
         }
     }
 
-    public function get_Providers(Request $request){
-
-        if ($request->ajax()) {
-            $providers_product = Productsxprovider::where('provider_id', $request->provider_id)
-            ->get();
-            return response()->json($providers_product);
-
-        }
-
-    }
     
-    public function prueba(Request $request){
 
 
-    }
-    
 }

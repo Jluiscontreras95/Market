@@ -10,7 +10,9 @@ class PurchaseDetails extends Model
         'purchase_id',
         'product_id',
         'quantity',
+        'measure',
         'price',
+        
 
     ];
 

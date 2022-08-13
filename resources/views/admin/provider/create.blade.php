@@ -61,6 +61,18 @@
                                     <small id="helpId" class="text-muted">Campo obligatorio.</small>
                                 </div>
                             </div>
+                        
+                            <div class="col">
+                                <div class="form-group">
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text" id="addon-wrapping">
+                                            <i class="fa fa-university menu-icon"></i>
+                                        </span>
+                                        <input type="number" class="form-control" name="account_bank" id="account_bank" placeholder="Número de cuenta bancaria del proveedor" aria-describedby="addon-wrapping" required>
+                                    </div>
+                                    <small id="helpId" class="text-muted">Campo obligatorio.</small>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row">
@@ -98,8 +110,6 @@
                             </div>
                         </div>
                    </div>
-
-
 
                     <button type="submit" class="btn btn-primary mr-2">Registrar</button>
                     <a href="{{route('providers.index')}}" class="btn btn-light">Cancelar</a>

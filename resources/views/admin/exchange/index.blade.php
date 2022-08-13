@@ -72,7 +72,7 @@
                                     <td>
                                         <a href="{{ route('exchanges.show', $exchange) }}">{{ $exchange->exchange_date }}</a>
                                     </td>
-                                    <td>{{ $exchange->description }}</td>
+                                    <td>Bs. {{ $exchange->description }}</td>
                                     <td style="width: 50px;">
                                         {!! Form::open( ['route'=>['exchanges.destroy', $exchange], 'method'=>'DELETE'] ) !!} 
 
@@ -116,11 +116,17 @@
 
             <div class="modal-body">
 
-                <div class="form-group">
-                    <label for="description">Descripción</label>
-                    <input class="form-control" data-inputmask="'alias': 'currency'"  name="description" id="description"/>
-                    
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text">Bs.</span>
+                            <input type="number" name="description" id="description" step="any" min="0.00" class="form-control" aria-describedby="helpId" placeholder="Tasa del día" required> 
+                        </div>
+                        <small id="helpId" class="text-muted">Campo obligatorio.</small>
+                    </div>
                 </div>
+            </div>
 
             </div>
             <div class="modal-footer">

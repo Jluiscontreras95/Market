@@ -29,6 +29,7 @@ class StoreRequest extends FormRequest
             'rif_number'=>'required|string|max:10|min:8|unique:providers',
             'address'=>'nullable|string|max:255',
             'phone'=>'required|string|max:11|min:11|unique:providers',
+            'account_bank'=>'required|string| unique:providers',
         ];
     }
     public function messages()
@@ -58,6 +59,10 @@ class StoreRequest extends FormRequest
             'address.max' =>'Solo se permiten 11 caracteres',
             'address.min' =>'Se requiere de 11 caracteres',
             'address.unique' =>'Ya se encuentra registrado',
+
+            'account_bank.required' => 'Este campo es requerido.',
+            'account_bank.string' => 'El valor no es correcto.',
+            'account_bank.unique' => 'Ya se encuentra registrado.',
         ];
     }
 }

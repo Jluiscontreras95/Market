@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Exchange;
+
 class HomeController extends Controller
 {
     /**
@@ -47,7 +49,7 @@ class HomeController extends Controller
 
         $totales=DB::select('SELECT 
         (select ifnull(sum(c.total),0) from purchases c where MONTH(purchase_date) = MONTH(CURDATE()) AND YEAR(purchase_date) = YEAR(CURDATE()) AND c.status="VALID") as totalcompra,
-        (select sum(v.total) from sales v where MONTH(sale_date) = MONTH(CURDATE()) AND YEAR(sale_date) = YEAR(CURDATE()) AND v.status="VALID") as totalventa');
+        (select ifnull(sum(v.total), 0) from sales v where MONTH(sale_date) = MONTH(CURDATE()) AND YEAR(sale_date) = YEAR(CURDATE()) AND v.status="VALID") as totalventa');
 
 
         $productosvendidos=DB::select('SELECT p.code as code, 
@@ -57,7 +59,8 @@ class HomeController extends Controller
         and year(v.sale_date)=year(curdate()) 
         group by p.code ,p.name, p.id , p.stock order by sum(dv.quantity) desc limit 10');
        
+       $exchange = Exchange::find(1);
        
-        return view('home', compact( 'comprasmes', 'ventasmes', 'ventasdia', 'totales', 'productosvendidos'));
+        return view('home', compact( 'comprasmes', 'ventasmes', 'ventasdia', 'totales', 'productosvendidos', 'exchange'));
     }
 }

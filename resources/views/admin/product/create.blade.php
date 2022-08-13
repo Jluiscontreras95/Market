@@ -97,8 +97,8 @@
 
                             <div class="col">
                                 <div class="form-group">
-                                    <select class="form-control selectpicker" name="provider_id" id="provider_id" data-live-search="true"  required>
-                                        <option value="" disabled selected>Seleccionar el proveedor</option>
+                                    <select class="form-control js-example-basic-multiple" name="providers[]" id="providers"  multiple="multiple" required>
+                                        <option disabled selected>Seleccionar el proveedor</option>
                                             @foreach ($providers as $provider)   
                                                 <option value="{{$provider->id}}">{{$provider->name}}</option>
                                             @endforeach

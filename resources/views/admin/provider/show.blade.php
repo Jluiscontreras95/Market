@@ -69,6 +69,11 @@
                                             {{$provider->rif_number}}
                                         </p>
                                         <hr>
+                                        <strong><i class="fa fa-university mr-1"></i>N° de cuenta</strong>
+                                        <p class="text-muted">
+                                            {{$provider->account_bank}}
+                                        </p>
+                                        <hr>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <strong><i class="fas fa-mobile mr-1"></i>Teléfono</strong>

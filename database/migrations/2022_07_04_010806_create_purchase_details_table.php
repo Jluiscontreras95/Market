@@ -20,6 +20,7 @@ class CreatePurchaseDetailsTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
             $table->integer('quantity');
+            $table->enum('measure',['KG','UND'])->default('UND');
             $table->decimal('price');
             $table->timestamps();
         });

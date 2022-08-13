@@ -65,6 +65,7 @@
                                     <th>Rif/Cedula</th>
                                     <th>Dirección</th>
                                     <th>Teléfono</th>
+                                    <th>N° de cuenta</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -79,6 +80,7 @@
                                     <td>{{ $provider->rif_number }}</td>
                                     <td>{{ $provider->address }}</td>
                                     <td>{{ $provider->phone }}</td>
+                                    <td>{{ $provider->account_bank }}</td>
                                     <td style="width: 50px;">
                                         {!! Form::open( ['route'=>['providers.destroy', $provider], 'method'=>'DELETE'] ) !!} 
 

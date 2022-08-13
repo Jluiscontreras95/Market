@@ -16,7 +16,6 @@ class Product extends Model
         'status',
         'taxproduct',
         'category_id',
-        'provider_id',
  
     ];
 
@@ -25,14 +24,9 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function provider()
+    public function providers()
     {    
-        return $this->belongsTo(Provider::class);
-    }
-
-    public function productsxprovider()
-    {    
-        return $this->hasManyThrough(Provider::class, ProductsxProvider::class);
+        return $this->belongsToMany(Provider::class)->withTimestamps();
     }
 
 }

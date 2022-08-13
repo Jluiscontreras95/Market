@@ -27,6 +27,7 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 {!! Form::open(['route'=>'purchases.store', 'method' => 'POST']) !!}
+                @csrf
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <h4 class="card-title">Registro de compras</h4>
@@ -96,17 +97,16 @@ function agregar(){
 function limpiar(){
     $("#quantity").val("");
     $("#price").val("");
-    $("#product_id").val("0");
-    $("#provider_id").val("0");
-    $("#tax").val("");
+    $("#product_id").val("");
+    $("#tax").val("0");
 }
 
 function totales(){
-    $("#total").html("PEN " + total.toFixed(2));
+    $("#total").html("Bs. " + total.toFixed(2));
     total_impuesto = total * impuesto / 100;
     total_pagar = total + total_impuesto;
-    $("#total_impuesto").html("PEN " + total_impuesto.toFixed(2));
-    $("#total_pagar_html").html("PEN " + total_pagar.toFixed(2));
+    $("#total_impuesto").html("Bs. " + total_impuesto.toFixed(2));
+    $("#total_pagar_html").html("Bs. " + total_pagar.toFixed(2));
     $("#total_pagar").val(total_pagar.toFixed(2));
 }
 
@@ -122,9 +122,9 @@ function eliminar(index){
     total = total - subtotal[index];
     total_impuesto = total * impuesto / 100;
     total_pagar_html = total + total_impuesto;
-    $("#total").html("PEN " + total);
-    $("#total_impuesto").html("PEN " + total_impuesto);
-    $("#total_pagar_html").html("PEN " + total_pagar_html);
+    $("#total").html("Bs.  " + total);
+    $("#total_impuesto").html("Bs. " + total_impuesto);
+    $("#total_pagar_html").html("Bs. " + total_pagar_html);
     $("#total_pagar").val(total_pagar_html.toFixed(2));
     $("#fila" + index).remove();
     evaluar();
@@ -132,24 +132,34 @@ function eliminar(index){
 }
 
 
+var product_id = $('#product_id');
 var provider_id = $('#provider_id');
-	
 
-    provider_id.change(function(){
+    product_id.change(function(){
+            
             $.ajax({
                 url: "{{route('get_Providers')}}",
                 method: 'GET',
                 data:{
-                    provider_id: provider_id.val(),
+                    product_id: product_id.val(),
+                    _token: $('input[name="_token"]').val(),
                 },
-                
-                dataType: 'json',
-                success: function(data){
-                    console.log(data);
-                    
-            }
-        });
+
+
+            }).done(function(response){
+                var response= JSON.parse(response);
+                console.log(response);
+
+                $('#provider_id').empty();
+                $('#provider_id').append(`<option value="0" disabled selected>Select Sub Category*</option>`);
+                response.forEach(element => {
+                    $('#provider_id').append(`<option value="${element['providers']['id']}">${element['providers']['name']}</option>`);
+                    });
+
+
+            });
     });
+
 
 
 

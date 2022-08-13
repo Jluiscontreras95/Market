@@ -71,6 +71,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($products as $product)
+                               
                                 <tr>
                                     <th scope="row">{{ $product->id }}</th>
                                     <td>
@@ -93,12 +94,18 @@
                                     </td>
                                     @endif
 
-
-
-
-
                                     <td>{{ $product->category->name }}</td>
-                                    <td>{{ $product->provider->name }}</td>
+
+                                    @foreach ($product->providers as $provider)
+                                    
+                                    <td>
+                                    
+                                        {{ $provider->name }} 
+                                        
+                                    </td>
+                                    
+                                    
+                                    @endforeach
                                     <td style="width: 50px;">
                                         {!! Form::open( ['route'=>['products.destroy', $product], 'method'=>'DELETE'] ) !!} 
 

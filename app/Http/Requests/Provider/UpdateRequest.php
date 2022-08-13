@@ -36,6 +36,9 @@ class UpdateRequest extends FormRequest
             
             'phone'=>'required|string|min:11|unique:providers,phone,'.
             $this->route('provider')->id.'|max:11',
+
+            'account_bank'=>'required|string| unique:providers,account_bank,'.
+            $this->route('provider')->id.'',
         ];
     }
      public function messages()
@@ -65,6 +68,10 @@ class UpdateRequest extends FormRequest
             'phone.max' =>'Solo se permiten 11 caracteres',
             'phone.min' =>'Se requiere de 11 caracteres',
             'phone.unique' =>'Ya se encuentra registrado',
+
+            'account_bank.required' => 'Este campo es requerido.',
+            'account_bank.string' => 'El valor no es correcto.',
+            'account_bank.unique' => 'Ya se encuentra registrado.',
         ];
     }
 }

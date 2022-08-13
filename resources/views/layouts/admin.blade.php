@@ -200,6 +200,7 @@
     {!! Html::script('web/js/form-repeater.js') !!} 
     {!! Html::script('web/js/form-validation.js') !!} 
     {!! Html::script('web/js/bt-maxLength.js') !!} 
+    {!! Html::script('web/js/select2.js') !!} 
     <!-- End custom js for this page-->
     @yield('scripts')
 

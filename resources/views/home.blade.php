@@ -31,7 +31,7 @@
                     <div class="float-right">
                         <i class="fas fa-cart-arrow-down fa-4x"></i>
                     </div>
-                    <div class="text-value h4"><strong>PEN {{$total->totalcompra}} (MES ACTUAL)</strong>
+                    <div class="text-value h4"><strong>Bs. {{$total->totalcompra}} /  $. {{$total->totalcompra / $exchange->description}} (MES ACTUAL)</strong>
                     </div>
                     <div class="h3">Compras</div>
                 </div>
@@ -50,7 +50,7 @@
                     <div class="float-right">
                         <i class="fas fa-shopping-cart fa-4x"></i>
                     </div>
-                    <div class="text-value h4"><strong>PEN {{$total->totalventa}} (MES ACTUAL) </strong>
+                    <div class="text-value h4"><strong>Bs. {{$total->totalventa}} /  $. {{$total->totalventa / $exchange->description}} (MES ACTUAL) </strong>
                     </div>
                     <div class="h3">Ventas</div>
                 </div>
@@ -149,8 +149,6 @@
             </div>
         </div>
     </div>
-
-    
 </div>
 @endsection
 @section('scripts')

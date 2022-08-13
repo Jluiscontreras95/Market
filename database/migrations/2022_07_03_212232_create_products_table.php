@@ -24,8 +24,6 @@ class CreateProductsTable extends Migration
             $table->enum('taxproduct',['SI','NO'])->default('SI');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
-            $table->unsignedBigInteger('provider_id');
-            $table->foreign('provider_id')->references('id')->on('providers');
             $table->timestamps();
         });
     }

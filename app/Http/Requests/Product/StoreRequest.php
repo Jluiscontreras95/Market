@@ -28,7 +28,7 @@ class StoreRequest extends FormRequest
             'name' => 'string|required|unique:products|max:255',
             'sell_price' => 'required|',
             'category_id' => 'integer|required|',
-            'provider_id' => 'integer|required|',
+            // 'provider_id' => 'integer|required|',
 
         ];
     }

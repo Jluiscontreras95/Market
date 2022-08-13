@@ -41,10 +41,7 @@ class PurchaseController extends Controller
     {
         $providers = Provider::get();
         $products = Product::where('status', 'ACTIVE')->get();
-        $providers_product = DB::select('SELECT p.id, e.id, p.name, e.name FROM productsxprovider, products p, providers e  WHERE productsxprovider.product_id = p.id AND productsxprovider.provider_id = e.id');
-            
-           
-        return view('admin.purchase.create', compact('providers','products','providers_product'));
+        return view('admin.purchase.create', compact('providers','products'));
 
     }
 
@@ -158,5 +155,20 @@ class PurchaseController extends Controller
         }
     }
 
+    public function get_Providers(Request $request){
+        
+        $product_id = $request->input('product_id');
+        
+        if ($request->ajax()) {
+            
+            $providers = Product::with('providers')->findOrFail($product_id);
+            return response(json_encode($providers),200)->header('Content-type', 'text/plain');
+
+        }
+
+    }
+
+
+    
 
 }

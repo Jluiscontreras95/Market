@@ -8,12 +8,12 @@ class Provider extends Model
 {
 
     protected $fillable = [
-        'name', 'email', 'rif_number', 'address','phone', 
+        'name', 'email', 'rif_number', 'address','phone', 'account_bank',
     ];
 
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsToMany(Product::class)->withTimestamps();
     }
 
 }

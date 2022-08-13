@@ -29,7 +29,6 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    
 
                     <div class="form-group row">
                         <div class="col-md-6 text-center">
@@ -37,10 +36,6 @@
                             <p>{{$purchase->provider->name}}</p>
                         </div>
 
-                        <!-- <div class="col-md-4 text-center">
-                            <label for="documento" class="form-control-label">Documento</label>
-                            <p>{{$purchase->types_identification}}</p>
-                        </div>  -->
                         <div class="col-md-6 text-center">
                             <label for="num_compra" class="form-control-label">Número de compra</label>
                             <p>{{$purchase->id}}</p>
@@ -107,7 +102,7 @@
                                     <tr>
                                         <td>{{$purchaseDetail->product->name}}</td>
                                         <td>{{$purchaseDetail->price}}</td>
-                                        <td>{{$purchaseDetail->quantity}}</td>
+                                        <td>{{$purchaseDetail->quantity}}{{$purchaseDetail->measure}}</td>
                                         <td>s/{{number_format($purchaseDetail->quantity*$purchaseDetail->price,2)}}</td>
                                     </tr>
                                     @endforeach
