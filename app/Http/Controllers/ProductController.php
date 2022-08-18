@@ -6,6 +6,7 @@ use App\Product;
 use App\Category;
 use App\Provider;
 use App\Product_Provider;
+use App\Exchange;
 use Illuminate\Http\Request;
 use App\Http\Requests\Product\StoreRequest;
 use App\Http\Requests\Product\UpdateRequest;
@@ -49,13 +50,6 @@ class ProductController extends Controller
     {
         if($request->hasFile('picture')){
 
-            
-            $news = $request->input('provider_id');
-            $news = implode(',', $news);
-
-            $input = $request->except('news');
-            //Assign the "mutated" news value to $input
-            $input['news'] = $news;
             $file = $request->file('picture');
             $image_name = time().'_'.$file->getClientOriginalName();
             $file->move(public_path("/image"),$image_name);
@@ -80,8 +74,9 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $categories = Category::get();
-        $providers = Provider::get();
-        return view('admin.product.show', compact('product','categories','providers'));
+        $exchange = Exchange::latest()->first();
+        
+        return view('admin.product.show', compact('product','categories', 'exchange'));
 
 
     }
@@ -110,12 +105,12 @@ class ProductController extends Controller
                 'image' => $image_name,
             ]);
 
-            $product->providers()->sync($request->provider_id);
+            $product->providers()->sync($request->providers);
 
         }else{
 
             $product->update($request->all());
-            $product->providers()->sync($request->provider_id);
+            $product->providers()->sync($request->providers);
         }
 
         return redirect()->route('products.index');

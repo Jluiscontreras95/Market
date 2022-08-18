@@ -49,15 +49,8 @@
                         <textarea name="description" id="description" class="form-control" placeholder="Descripción" rows="3" >{{$role->description}}</textarea>
                     </div>
 
-
-
-
-
-
                     @include('admin.role._form')
                     
-
-
 
                     <button type="submit" class="btn btn-primary mr-2">Actualizar</button>
                     <a href="{{route('roles.index')}}" class="btn btn-light">Cancelar</a>

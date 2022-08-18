@@ -29,7 +29,7 @@ class UpdateRequest extends FormRequest
             
             'sell_price' => 'required|',
             'category_id' => 'integer|required|',
-            'provider_id' => 'integer|required|',
+            //'provider_id' => 'integer|required|',
 
         ];
     }
@@ -47,8 +47,8 @@ class UpdateRequest extends FormRequest
             'category_id.required' => 'El valor tiene que ser entero.',
             'category_id.required' => 'Este campo es requerido.',
 
-            'provider_id.required' => 'El valor tiene que ser entero.',
-            'provider_id.required' => 'Este campo es requerido.',
+        //     'provider_id.required' => 'El valor tiene que ser entero.',
+        //     'provider_id.required' => 'Este campo es requerido.',
         ];
     }
 }

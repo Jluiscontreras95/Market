@@ -161,7 +161,7 @@ class PurchaseController extends Controller
         
         if ($request->ajax()) {
             
-            $providers = Product::with('providers')->findOrFail($product_id);
+            $providers = Product::providers();
             return response(json_encode($providers),200)->header('Content-type', 'text/plain');
 
         }

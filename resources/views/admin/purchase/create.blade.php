@@ -141,21 +141,12 @@ var provider_id = $('#provider_id');
                 url: "{{route('get_Providers')}}",
                 method: 'GET',
                 data:{
-                    product_id: product_id.val(),
-                    _token: $('input[name="_token"]').val(),
+                    product_id: product_id.val()
+                    // _token: $('input[name="_token"]').val(),
                 },
-
-
-            }).done(function(response){
-                var response= JSON.parse(response);
-                console.log(response);
-
-                $('#provider_id').empty();
-                $('#provider_id').append(`<option value="0" disabled selected>Select Sub Category*</option>`);
-                response.forEach(element => {
-                    $('#provider_id').append(`<option value="${element['providers']['id']}">${element['providers']['name']}</option>`);
-                    });
-
+            }).done(res => {
+                $('#provider_id').append(`<option value="" disabled selected>Seleccione Proveedor</option>`);
+                $("#provider_id").empty().append(JSON.parse(res).map(e => "<option value="+e['id'] +">"+e['name']+"</option>").join(""));
 
             });
     });
@@ -165,11 +156,6 @@ var provider_id = $('#provider_id');
 
 
 </script>
-
-
-
-
-
 
 
 @endsection
