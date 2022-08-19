@@ -54,11 +54,25 @@
 
 <script>
 
-$(document).ready(function (){
-    $("#agregar").click(function (){
-        agregar();
+var product_id = $('#product_id');
+	
+    product_id.change(function (){
+            $.ajax({
+                url: "{{route('get_products_by_id')}}",
+                method: 'GET',
+                data:{
+                    product_id: product_id.val(),
+                },
+                success: function(data){
+                    $("#price").val(data.sell_price);
+                    $("#stock").val(data.stock);
+                    $("#code").val(data.code);
+                    $("#measure").val(data.measure);
+                    $("#measure_stock").val(data.measure);
+            }
+        });
     });
-});
+
 
 var cont = 0;
 total = 0;
@@ -72,31 +86,6 @@ function mostrarValores(){
     $("#price").val(datosProducto[2]);
     $("#stock").val(datosProducto[1]);
 }
-
-
-
-
-
-var product_id = $('#product_id');
-	
-    product_id.change(function(){
-            $.ajax({
-                url: "{{route('get_products_by_id')}}",
-                method: 'GET',
-                data:{
-                    product_id: product_id.val(),
-                },
-                success: function(data){
-                    $("#price").val(data.sell_price);
-                    $("#stock").val(data.stock);
-                    $("#code").val(data.code);
-            }
-        });
-    });
-
-
-
-
 
 
 $(obtener_registro());
@@ -125,7 +114,11 @@ $(obtener_registro());
         }
     })
 
-
+    $(document).ready(function (){
+    $("#agregar").click(function (){
+        agregar();
+    });
+});
 
 function agregar(){
     datosProducto =document.getElementById('product_id').value.split('_');
@@ -169,6 +162,7 @@ function limpiar(){
     $("#quantity").val("");
     $("#price").val("");
     $("#discount").val("0");
+    $("#code").val("");
 }
 
 function totales(){

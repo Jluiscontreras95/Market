@@ -7,6 +7,7 @@ use App\Provider;
 use App\Product;
 use App\PurchaseDetails;
 use App\Contability;
+use App\Exchange;
 use Illuminate\Http\Request;
 use App\Http\Requests\Purchase\StoreRequest;
 use App\Http\Requests\Purchase\UpdateRequest;
@@ -40,8 +41,9 @@ class PurchaseController extends Controller
     public function create()
     {
         $providers = Provider::get();
+        $exchange = Exchange::select('description')->latest()->first();
         $products = Product::where('status', 'ACTIVE')->get();
-        return view('admin.purchase.create', compact('providers','products'));
+        return view('admin.purchase.create', compact('providers','products','exchange'));
 
     }
 
@@ -55,7 +57,7 @@ class PurchaseController extends Controller
 
         foreach ($request->product_id as $key =>$product){
             $results[] = array("product_id"=>$request->product_id[$key],
-            "quantity"=>$request->quantity[$key], "price"=>$request->price[$key]);
+            "quantity"=>$request->quantity[$key], "price"=>$request->price[$key], "measure"=>$request->measure[$key],);
         }
         
         $purchase->purchaseDetails()->createMany($results);
@@ -155,13 +157,13 @@ class PurchaseController extends Controller
         }
     }
 
-    public function get_Providers(Request $request){
+    public function get_Products(Request $request){
         
-        $product_id = $request->input('product_id');
+        $provider_id = $request->input('provider_id');
         
         if ($request->ajax()) {
             
-            $providers = Product::providers();
+            $providers = Provider::findOrFail($provider_id)->products()->get();
             return response(json_encode($providers),200)->header('Content-type', 'text/plain');
 
         }

@@ -51,7 +51,6 @@
 
 
 
-
 @endsection
 @section('scripts')
 
@@ -71,16 +70,17 @@ subtotal = [];
 $("#guardar").hide();
 
 function agregar(){
-    product_id = $("#product_id").val();
-    product = $("#product_id option:selected").text();
+    product_id = $("#product").val();
+    product = $("#product option:selected").text();
     quantity = $("#quantity").val();
     price = $("#price").val();
     impuesto = $("#tax").val();
+    measure = $("#measure").val();
 
-    if(product_id != "" && quantity !="" && quantity > 0 && price != ""){
+    if(product_id != "" && quantity !="" && quantity > 0 && price != "" && measure != ""){
         subtotal[cont] = quantity * price;
         total = total + subtotal[cont];
-        var fila = '<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar(' + cont + ');"><i class="fa fa-times"></i></button></td><td><input type="hidden" name="product_id[]" value="' + product_id +'">' + product + '</td><td><input type="hidden" id="price[]" name="price[]" value="' + price + '"><input class="form-control" type="number" id="price[]" value="' + price + '" disabled></td><td><input type="hidden" name="quantity[]" value="' + quantity + '"><input class="form-control" type="number" value="' + quantity + '" disabled></td><td align="right">s/' + subtotal[cont] + '</td></tr>';
+        var fila = '<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar(' + cont + ');"><i class="fa fa-times"></i></button></td><td><input type="hidden" name="product_id[]" value="' + product_id +'">' + product + '</td><td><input type="hidden" id="price[]" name="price[]" value="' + price + '"><input class="form-control"  type="number" id="price[]" value="' + price + '" disabled></td><td><input type="hidden" name="quantity[]" value="' + quantity + '"><input class="form-control"  type="number" value="' + quantity + '" disabled></td><td><input type="hidden" name="measure[]" value="' + measure + '"><input class="form-control" style="width: 120px;" type="text" value="' + measure + '" disabled></td><td align="right">s/' + subtotal[cont] + '</td></tr>';
         cont++;
         limpiar();
         totales();
@@ -97,17 +97,25 @@ function agregar(){
 function limpiar(){
     $("#quantity").val("");
     $("#price").val("");
-    $("#product_id").val("");
     $("#tax").val("0");
+    $('#measure').val('default');
+    $('#product').selectpicker('render');
+    $('#measure').selectpicker('refresh');
 }
 
 function totales(){
     $("#total").html("Bs. " + total.toFixed(2));
+    exchange = '{{$exchange->description}}';
     total_impuesto = total * impuesto / 100;
     total_pagar = total + total_impuesto;
+    total_divisas = total_pagar / exchange;
     $("#total_impuesto").html("Bs. " + total_impuesto.toFixed(2));
     $("#total_pagar_html").html("Bs. " + total_pagar.toFixed(2));
     $("#total_pagar").val(total_pagar.toFixed(2));
+    $("#total_pagar_divisas_html").html("$. "+total_divisas.toFixed(2));
+    $("#total_pagar_divisas").val(total_divisas.toFixed(2));
+
+    console.log(total_divisas);
 }
 
 function evaluar() {
@@ -132,28 +140,29 @@ function eliminar(index){
 }
 
 
-var product_id = $('#product_id');
+var product_id = $('#product');
 var provider_id = $('#provider_id');
 
-    product_id.change(function(){
+    provider_id.change(function(){
             
+            $('#product').empty();
+            $('#product').selectpicker('refresh');
+
             $.ajax({
-                url: "{{route('get_Providers')}}",
+                url: "{{route('get_Products')}}",
                 method: 'GET',
                 data:{
-                    product_id: product_id.val()
-                    // _token: $('input[name="_token"]').val(),
+                    provider_id: provider_id.val(),
+                    _token: $('input[name="_token"]').val(),
                 },
             }).done(res => {
-                $('#provider_id').append(`<option value="" disabled selected>Seleccione Proveedor</option>`);
-                $("#provider_id").empty().append(JSON.parse(res).map(e => "<option value="+e['id'] +">"+e['name']+"</option>").join(""));
-
+                $('#product').val('default')
+                $('#product').append('<option value="" disabled selected>Seleccione Productos</option>');
+                $('#product').append(JSON.parse(res).map(e => "<option value="+e['id'] +">"+e['name']+"</option>").join(""));
+                $('#product').selectpicker('refresh');
+                
             });
     });
-
-
-
-
 
 </script>
 

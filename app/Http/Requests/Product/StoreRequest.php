@@ -27,6 +27,7 @@ class StoreRequest extends FormRequest
 
             'name' => 'string|required|unique:products|max:255',
             'sell_price' => 'required|',
+            'measure' => 'required|',
             'category_id' => 'integer|required|',
             // 'provider_id' => 'integer|required|',
 
@@ -42,6 +43,7 @@ class StoreRequest extends FormRequest
             
 
             'sell_price.required' => 'Este campo es requerido.',
+            'measure.required' => 'Este campo es requerido.',
 
             'category_id.required' => 'El valor tiene que ser entero.',
             'category_id.required' => 'Este campo es requerido.',

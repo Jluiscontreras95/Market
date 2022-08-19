@@ -66,7 +66,7 @@ Route::get('change_status/sales/{sale}', 'SaleController@change_status')-> name(
 /* Rutas para las peticiones ajax*/
 Route::get('get_products_by_barcode', 'ProductController@get_products_by_barcode')-> name('get_products_by_barcode');
 Route::get('get_products_by_id', 'ProductController@get_products_by_id')-> name('get_products_by_id');
-Route::get('get_Providers', 'PurchaseController@get_Providers')->name('get_Providers');
+Route::get('get_Products', 'PurchaseController@get_Products')->name('get_Products');
 
 
 Route::get('/prueba', function () {

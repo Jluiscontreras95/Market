@@ -31,7 +31,7 @@
                     <div class="float-right">
                         <i class="fas fa-cart-arrow-down fa-4x"></i>
                     </div>
-                    <div class="text-value h4"><strong>Bs. {{$total->totalcompra}} /  $. {{$total->totalcompra / $exchange->description}} (MES ACTUAL)</strong>
+                    <div class="text-value h4"><strong>Bs. {{number_format($total->totalcompra,2)}} /  $. {{number_format($total->totalcompra / $exchange->description, 2)}} (MES ACTUAL)</strong>
                     </div>
                     <div class="h3">Compras</div>
                 </div>
@@ -50,7 +50,7 @@
                     <div class="float-right">
                         <i class="fas fa-shopping-cart fa-4x"></i>
                     </div>
-                    <div class="text-value h4"><strong>Bs. {{$total->totalventa}} /  $. {{$total->totalventa / $exchange->description}} (MES ACTUAL) </strong>
+                    <div class="text-value h4"><strong>Bs. {{number_format($total->totalventa,2)}} /  $. {{number_format($total->totalventa / $exchange->description, 2)}} (MES ACTUAL) </strong>
                     </div>
                     <div class="h3">Ventas</div>
                 </div>

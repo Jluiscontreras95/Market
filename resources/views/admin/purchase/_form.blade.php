@@ -1,29 +1,27 @@
-
 <div>
     <div class="row">
         <div class="col">
             <div class="form-group">
-                <select class="form-control selectpicker" name="product_id" id="product_id" data-live-search="true" >
-                    <option value="" disabled selected>Seleccionar producto</option>
-                        @foreach ($products as $product)   
-                        <option value="{{$product->id}}">{{$product->name}}</option>
+                <select class="form-control selectpicker" name="provider_id" id="provider_id" data-live-search="true">
+                   <option value="" disabled selected>Seleccione Proveedor</option>
+                        @foreach ($providers as $provider)   
+                            <option value="{{$provider->id}}">{{$provider->name}}</option>
                         @endforeach
                 </select>
                 <small id="helpId" class="text-muted">Campo obligatorio.</small>
             </div>
         </div>
-    
+    </div>
+    <div class="row">
         <div class="col">
             <div class="form-group">
-                <select class="form-control" name="provider_id" id="provider_id" >
-                    <!-- <option value="" disabled selected>Seleccionar proveedor</option> -->
+                <select class="form-control selectpicker" name="product" id="product" autocomplete="off" data-live-search="true" title="seleccione uno de los siguientes...">
+                    <option value="" disabled selected>Seleccione producto</option>
                 </select>
                 <small id="helpId" class="text-muted">Campo obligatorio.</small>
             </div>
         </div>
-
     </div>
-
     <div class="row">
         <div class="col">
             <div class="form-group">
@@ -36,10 +34,9 @@
                 <small id="helpId" class="text-muted">Campo obligatorio.</small>
             </div>
         </div>
-
         <div class="col">
             <div class="form-group">
-                <select class="form-control selectpicker" name="measure" id="measure" data-live-search="true" >
+                <select class="form-control selectpicker" name="measure" id="measure" data-live-search="true" title="seleccione una medida.....">
                     <option value="" disabled selected>Seleccionar medida</option>
                     <option value="KG">KG</option>
                     <option value="UND">UNIDADES</option>
@@ -47,7 +44,6 @@
                 <small id="helpId" class="text-muted">Campo obligatorio.</small>
             </div>
         </div>
-    
         <div class="col">
             <div class="form-group">
                 <div class="input-group flex-nowrap">
@@ -60,7 +56,6 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col">
             <div class="form-group">
@@ -74,14 +69,10 @@
             </div>
         </div>
     </div>
-
 </div>
-
-
 <div class="form-group">
     <button type="button" id="agregar" name="agregar" class="btn btn-primary float-right">Agregar producto</button>
 </div>
-
 <div class="form-group">
     <h4 class="card-tittle">Detalles de compra</h4>
     <div class="table-responsive col-md12">
@@ -92,12 +83,13 @@
                     <th>Producto</th>
                     <th>Precio(Bs.)</th>
                     <th>Cantidad</th>
+                    <th>Escala</th>
                     <th>SubTotal(Bs.)</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                    <th colspan="4">
+                    <th colspan="5">
                         <p align="right">TOTAL:</p>
                     </th>
                     <th>
@@ -105,7 +97,7 @@
                     </th>
                 </tr>
                 <tr id="dvOcultar">
-                    <th colspan="4">
+                    <th colspan="5">
                         <p align="right">TOTAL IMPUESTO (16%):</p>
                     </th>
                     <th>
@@ -113,13 +105,17 @@
                     </th>
                 </tr>
                 <tr>
-                    <th colspan="4">
+                    <th colspan="5">
                         <p align="right">TOTAL PAGAR:</p>
                     </th>
                     <th>
                         <p align="right">
                             <span align="right" id="total_pagar_html">Bs. 0.00</span>
                             <input type="hidden" name="total" id="total_pagar">
+                        </p>
+                        <p align="right">
+                            <span align="right" id="total_pagar_divisas_html">$. 0.00</span>
+                            <input type="hidden" name="total" id="total_pagar_divisas">
                         </p>
                     </th>
                 </tr>

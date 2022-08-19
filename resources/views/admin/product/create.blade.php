@@ -99,6 +99,29 @@
                                     <small id="helpId" class="text-muted">Campo obligatorio.</small>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <select class="form-control selectpicker" name="measure" id="measure" data-live-search="true" title="Este producto será comprado en....." required>
+                                            <option value="" disabled selected>Seleccionar medida</option>
+                                            <option value="KG">KG</option>
+                                            <option value="UND">UND</option> 
+                                        </select>
+                                    </div>
+                                    <small id="helpId" class="text-muted">Campo obligatorio.</small>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
                             <div class="row">
                                 <div class="col">
                                     <div class="card-body">
