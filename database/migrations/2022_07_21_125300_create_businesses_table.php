@@ -20,6 +20,8 @@ class CreateBusinessesTable extends Migration
             $table->string('logo');
             $table->string('email');
             $table->string('address');
+            $table->string('phone_1');
+            $table->string('phone_2')->nullable();
             $table->string('rif');
             $table->enum('taxpayer',['SI','NO'])->default('NO');
             $table->timestamps();

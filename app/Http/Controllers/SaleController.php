@@ -7,12 +7,13 @@ use App\Client;
 use App\Product;
 use App\SaleDetail;
 use App\Contability;
+use App\Business;
 use Illuminate\Http\Request;
 use App\Http\Requests\Sale\StoreRequest;
 use App\Http\Requests\Sale\UpdateRequest;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\Snappy\Facades\SnappyPdf;
 use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
@@ -117,22 +118,6 @@ class SaleController extends Controller
        // return redirect()->route('sales.index');
     }
 
-    
-    public function pdf(Sale $sale)
-    {
-        $subtotal = 0;
-        $saleDetails = $sale->saleDetails;
-        
-        foreach ($saleDetails as $saleDetail){
-            $subtotal += $saleDetail->quantity * $saleDetail->price; 
-        }
-
-        $pdf = Pdf::loadView('admin.sale.pdf', compact('sale','saleDetails','subtotal'));
-        return $pdf->download('reporte_de_venta_'.$sale->id.'.pdf');
-
-    }
-
-
     public function print(Sale $sale)
     {
         try {
@@ -182,4 +167,35 @@ class SaleController extends Controller
         }
     }
 
+
+    public function pdf(Sale $sale)
+    {
+        $subtotal = 0;
+        $saleDetails = $sale->saleDetails;
+        
+        foreach ($saleDetails as $saleDetail){
+            $subtotal += $saleDetail->quantity * $saleDetail->price; 
+        }
+        $businesses = Business::get();
+
+        $pdf = SnappyPdf::loadView('admin.sale.pdf', compact('sale','saleDetails','subtotal','businesses'));
+        return $pdf->inline('reporte_de_venta_'.$sale->id.'.pdf');
+
+    }
+
+    public function prueba(Sale $sale)
+    {
+        $subtotal = 0;
+        $saleDetails = $sale->saleDetails;
+        
+        foreach ($saleDetails as $saleDetail){
+            $subtotal += $saleDetail->quantity * $saleDetail->price; 
+        }
+        $businesses = Business::get();
+
+       return view('prueba', compact('sale','saleDetails','subtotal','businesses'));
+
+    }
+
 }
+

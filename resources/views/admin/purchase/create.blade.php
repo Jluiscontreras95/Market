@@ -99,7 +99,7 @@ function limpiar(){
     $("#price").val("");
     $("#tax").val("0");
     $('#measure').val('default');
-    $('#product').selectpicker('render');
+    $('#measure').selectpicker('render');
     $('#measure').selectpicker('refresh');
 }
 

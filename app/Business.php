@@ -11,6 +11,8 @@ class Business extends Model
         'description',
         'logo',
         'email',
+        'phone_1',
+        'phone_2',
         'address',
         'ruc',
         'taxpayer',

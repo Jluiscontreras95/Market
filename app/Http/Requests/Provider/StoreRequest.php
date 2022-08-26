@@ -26,7 +26,7 @@ class StoreRequest extends FormRequest
         return [
             'name'=>'required|string|max:255', 
             'email'=>'required|email|string|max:255|unique:providers',
-            'rif_number'=>'required|string|max:10|min:8|unique:providers',
+            'rif_number'=>'required|string|max:10|min:7|unique:providers',
             'address'=>'nullable|string|max:255',
             'phone'=>'required|string|max:11|min:11|unique:providers',
             'account_bank'=>'required|string| unique:providers',

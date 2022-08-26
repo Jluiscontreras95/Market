@@ -72,4 +72,12 @@ class ClientController extends Controller
         $client->delete();
         return redirect()->route('clients.index');
     }
+
+    public function get_Clients_by_dni(Request $request)
+    {
+        if ($request->ajax()) {
+            $client = Client::where('dni', $request->dni)->firstOrFail();
+            return response()->json($client);
+        }
+    }
 }

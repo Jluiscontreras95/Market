@@ -54,14 +54,14 @@
 
 <script>
 
-var product_id = $('#product_id');
+var product_id = $('#product');
 	
     product_id.change(function (){
             $.ajax({
                 url: "{{route('get_products_by_id')}}",
                 method: 'GET',
                 data:{
-                    product_id: product_id.val(),
+                    product_id: product_id.val()
                 },
                 success: function(data){
                     $("#price").val(data.sell_price);
@@ -69,7 +69,9 @@ var product_id = $('#product_id');
                     $("#code").val(data.code);
                     $("#measure").val(data.measure);
                     $("#measure_stock").val(data.measure);
+                    return product_id;
             }
+            
         });
     });
 
@@ -79,10 +81,10 @@ total = 0;
 subtotal = [];
 
 $("#guardar").hide();
-$("#product_id").change(mostrarValores);
+$("#product").change(mostrarValores);
 
 function mostrarValores(){
-    datosProducto =document.getElementById('product_id').value.split('_');
+    datosProducto =document.getElementById('product').value.split('_');
     $("#price").val(datosProducto[2]);
     $("#stock").val(datosProducto[1]);
 }
@@ -101,7 +103,7 @@ $(obtener_registro());
                 console.log(data);
                 $("#price").val(data.sell_price);
                 $("#stock").val(data.stock);
-                $("#product_id").val(data.id);
+                $("#product").val(data.id);
             }
         });
     }
@@ -121,19 +123,33 @@ $(obtener_registro());
 });
 
 function agregar(){
-    datosProducto =document.getElementById('product_id').value.split('_');
+    datosProducto =document.getElementById('product').value.split('_');
     
     product_id = datosProducto[0]; 
-    product = $("#product_id option:selected").text();
+    product = $("#product option:selected").text();
     quantity = $("#quantity").val();
     discount = $("#discount").val();
     price = $("#price").val();
     stock = $("#stock").val();
     impuesto = $("#tax").val();
 
-    if (product_id != "" && quantity !="" && quantity > 0 && discount != "" && price != "") {
-    
-            if(parseInt(stock) >= parseInt(quantity)){
+
+    // if (discount = ""){
+    //         discount = $("#discount").val("0");
+    //         return discount;
+    //     }else{
+    //         discount = $("#discount").val();
+    //         return discount;
+    //     }
+
+    // $('#product').val('default');
+    // $('#product').selectpicker('render');
+    // $('#product').selectpicker('refresh');
+        console.log(discount);
+
+    if (product_id != "" && quantity !="" && quantity > 0 &&  price != "") {
+
+        if(parseInt(stock) >= parseInt(quantity)){
             subtotal[cont] = (quantity * price) - (quantity * price * discount / 100) ;
             total = total + subtotal[cont];
             var fila ='<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar(' + cont + ');"><i class="fa fa-times"></i></button></td><td><input type="hidden" id="product_id[]" name="product_id[]" value="' + product_id +'"/>' + product + '</td><td><input type="hidden" id="price[]" name="price[]" value="' + price + '"/><input class="form-control" type="number"  value="' + parseFloat(price).toFixed(2) + '" disabled/></td><td><input type="hidden" id="discount[]" name="discount[]" value="' + parseFloat(discount).toFixed(2) + '"/><input class="form-control" type="number" value="' + parseFloat(discount).toFixed(2) + '" disabled/></td><td><input type="hidden" id="quantity[]" name="quantity[]" value="' + quantity + '"/><input class="form-control" type="number" value="' + quantity + '" disabled/></td><td align="right">s/' + parseFloat(subtotal[cont]).toFixed(2) + '</td></tr>';
@@ -150,7 +166,7 @@ function agregar(){
         }
 
      }else{
-        Swal.fire({
+            Swal.fire({
                 type: 'error',
                 text: 'Rellene todos los campos del detalle de la venta.',
             })
@@ -158,11 +174,15 @@ function agregar(){
 }
 
 function limpiar(){
-    $("#product_id").val("");
     $("#quantity").val("");
     $("#price").val("");
-    $("#discount").val("0");
+    $("#discount").val("");
     $("#code").val("");
+    $("#measure_stock").val("");
+    $("#stock").val("");
+    $("#measure").val("");
+    $('#product').val("");
+    
 }
 
 function totales(){
@@ -194,6 +214,53 @@ function eliminar(index){
     evaluar();
 
 }
+
+$(obtener_registro_clientes());
+    function obtener_registro_clientes(dni){
+        $.ajax({
+            url: "{{route('get_Clients_by_dni')}}",
+            type: 'GET',
+            data:{
+                dni: dni
+            },
+            dataType: 'json',
+            success:function(data){
+                console.log(data);
+                $("#client_name").val(data.name);
+                $("#client_id").val(data.id);
+                console.log(data.id);
+            }
+        });
+    }
+
+    $(document).on('keyup', '#dni', function(){
+        var valorResultado = $(this).val();
+        if(valorResultado!=""){
+            obtener_registro_clientes(valorResultado);
+        }else{
+            obtener_registro_clientes();
+        }
+    })
+
+
+    // $(document).ready(function(){
+
+    //     $.ajax({
+    //         url: "{{route('get_Only_products')}}",
+    //         method: 'POST',
+    //         dataType: "json",
+    //         success: function(res){
+    //             console.log(res);
+
+    //                 $('#product_id').append('<option value="" disabled selected>Seleccione Productos</option>');
+    //                 $('#product_id').append(JSON.parse(res).map(e => "<option value="+e['id'] +">"+e['name']+"</option>").join(""));
+    //                 $('#product_id').selectpicker('refresh');
+                
+
+    //         }
+    //     });
+
+    // });
 
 </script>
 

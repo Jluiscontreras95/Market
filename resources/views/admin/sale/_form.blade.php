@@ -12,12 +12,13 @@
         </div>
         <div class="col">
             <div class="form-group">
-                <select class="form-control selectpicker" name="client_id" id="client_id" data-live-search="true">
-                   <option value="" disabled selected>Seleccione Cliente</option>
-                        @foreach ($clients as $client)   
-                            <option value="{{$client->id}}">{{$client->name}}</option>
-                        @endforeach
-                </select>
+                <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping">
+                        <i class="fa fa-plus menu-icon"></i>
+                    </span>
+                    <!-- <input type="text" class="form-control" name="client_name" id="client_name" placeholder="Cliente" aria-describedby="addon-wrapping" disabled> -->
+                    <input type="text" class="form-control" name="client_id" id="client_id" placeholder="Cliente" aria-describedby="addon-wrapping" >
+                </div>
                 <small id="helpId" class="text-muted">Campo obligatorio.</small>
             </div>
         </div>
@@ -27,7 +28,7 @@
     <div class="row">
         <div class="col">
             <div class="form-group">
-                <select class="form-control selectpicker" name="product_id" id="product_id" data-live-search="true" title="seleccione un producto.....">
+                <select class="form-control " name="product" id="product"  title="seleccione un producto.....">
                     <option value="" disabled selected>Seleccionar producto</option>
                     @foreach ($products as $product)   
                         <option value="{{$product->id}}">{{$product->name}}</option>
@@ -56,7 +57,7 @@
                     <span class="input-group-text" id="addon-wrapping">
                         <i class="fa fa-plus menu-icon"></i>
                     </span>
-                    <input type="number" class="form-control" name="quantity" id="quantity" placeholder="Cantidad" aria-describedby="addon-wrapping" >
+                    <input type="number" class="form-control" name="quantity" id="quantity" placeholder="Cantidad a vender" aria-describedby="addon-wrapping" >
                 </div>
                 <small id="helpId" class="text-muted">Campo obligatorio.</small>
             </div>
@@ -154,10 +155,10 @@
                 <tr>
                     <th>Eliminar</th>
                     <th>Producto</th>
-                    <th>Precio de venta(PEN)</th>
+                    <th>Precio de venta(Bs.)</th>
                     <th>Descuento</th>
                     <th>Cantidad</th>
-                    <th>SubTotal(PEN)</th>
+                    <th>SubTotal(Bs.)</th>
                 </tr>
             </thead>
             <tfoot>
@@ -167,7 +168,7 @@
                         <p align="right">TOTAL:</p>
                     </th>
                     <th>
-                        <p align="right"><span id="total">PEN 0.00</span></p>
+                        <p align="right"><span id="total">Bs. 0.00</span></p>
                     </th>
                 </tr>
                 <tr id="dvOcultar">
@@ -175,7 +176,7 @@
                         <p align="right">TOTAL IMPUESTO (18%):</p>
                     </th>
                     <th>
-                        <p align="right"><span id="total_impuesto">PEN 0.00</span></p>
+                        <p align="right"><span id="total_impuesto">Bs. 0.00</span></p>
                     </th>
                 </tr>
                 <tr>
@@ -184,7 +185,7 @@
                     </th>
                     <th>
                         <p align="right">
-                            <span align="right" id="total_pagar_html">PEN 0.00</span>
+                            <span align="right" id="total_pagar_html">Bs. 0.00</span>
                             <input type="hidden" name="total" id="total_pagar">
                         </p>
                     </th>

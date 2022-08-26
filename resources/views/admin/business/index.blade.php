@@ -157,6 +157,18 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="phone_1">Teléfono Principal</label>
+                    <input type="number" class="form-control" name="phone_1" id="phone_1" value="{{$business->phone_1}}"
+                        aria-describedby="helpId">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone_2">Teléfono Alternativo</label>
+                    <input type="number" class="form-control" name="phone_2" id="phone_2" value="{{$business->phone_2}}"
+                        aria-describedby="helpId">
+                </div>
+
+                <div class="form-group">
                     <label for="address">Dirección</label>
                     <input type="text" class="form-control" name="address" id="address" value="{{$business->address}}"
                         aria-describedby="helpId">

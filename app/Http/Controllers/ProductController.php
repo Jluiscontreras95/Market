@@ -154,6 +154,12 @@ class ProductController extends Controller
         }
     }
 
+    public function get_Only_products(){
+       
+            $products = Product::get();
+            return response()->json($products);
+        
+    }
     
 
 

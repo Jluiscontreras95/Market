@@ -1,211 +1,177 @@
+
 <!DOCTYPE>
 <html>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Reporte de compra</title>
-<style>
-    body {
-        /*position: relative;*/
-        /*width: 16cm;  */
-        /*height: 29.7cm; */
-        /*margin: 0 auto; */
-        /*color: #555555;*/
-        /*background: #FFFFFF; */
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-        /*font-family: SourceSansPro;*/
-    }
-
-
-    #datos {
-        float: left;
-        margin-top: 0%;
-        margin-left: 2%;
-        margin-right: 2%;
-        /*text-align: justify;*/
-    }
-
-    #encabezado {
-        text-align: center;
-        margin-left: 35%;
-        margin-right: 35%;
-        font-size: 15px;
-    }
-
-    #fact {
-        /*position: relative;*/
-        float: right;
-        margin-top: 2%;
-        margin-left: 2%;
-        margin-right: 2%;
-        font-size: 20px;
-        background: #33AFFF;
-    }
-
-    section {
-        clear: left;
-    }
-
-    #cliente {
-        text-align: left;
-    }
-
-    #faproveedor {
-        width: 40%;
-        border-collapse: collapse;
-        border-spacing: 0;
-        margin-bottom: 15px;
-    }
-
-    #fac,
-    #fv,
-    #fa {
-        color: #FFFFFF;
-        font-size: 15px;
-    }
-
-    #faproveedor thead {
-        padding: 20px;
-        background: #33AFFF;
-        text-align: left;
-        border-bottom: 1px solid #FFFFFF;
-    }
-
-    #faccomprador {
-        width: 100%;
-        border-collapse: collapse;
-        border-spacing: 0;
-        margin-bottom: 15px;
-    }
-
-    #faccomprador thead {
-        padding: 20px;
-        background: #33AFFF;
-        text-align: center;
-        border-bottom: 1px solid #FFFFFF;
-    }
-
-    #facproducto {
-        width: 100%;
-        border-collapse: collapse;
-        border-spacing: 0;
-        margin-bottom: 15px;
-    }
-
-    #facproducto thead {
-        padding: 20px;
-        background: #33AFFF;
-        text-align: center;
-        border-bottom: 1px solid #FFFFFF;
-    }
-
-</style>
-
+<head>
+    <style>
+        <?php include( public_path() . '/css/bootstrap/bootstrap.css' );?>
+    </style>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Reporte de venta</title>
+    <style>
+        strong{
+            font-size: x-large !important;
+            color: red !important;
+        }
+        .Color{
+            color: red !important;
+        }
+    </style>
+</head>
 <body>
-  
-    <header>
-        {{--  <div id="logo">
-            <img src="img/logo.png" alt="" id="imagen">
-        </div>  --}}
-        <div>
-            <table id="datos">
+    <section>
+        <div class="container bg-light">
+            <div class="row align-items-center">
+                <div class="col text-center">
+                    @foreach ($businesses as $business)
+                        <img src="..\..\..\public\image\logo2.jpeg" alt="profile" class="text-center"> 
+                    @endforeach
+                </div>
+                <div class="col">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Lugar de emision</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Sede Principal</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Dia</th>
+                                <th scope="col">Mes</th>
+                                <th scope="col">Año</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">{{\Carbon\Carbon::parse($sale->sale_date)->format('d')}}</th>
+                                <th scope="row">{{\Carbon\Carbon::parse($sale->sale_date)->format('M')}}</th>
+                                <th scope="row">{{\Carbon\Carbon::parse($sale->sale_date)->format('y')}}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <hr>
+                        <h4 class="text-center">{{$business->address}}</h4>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                @foreach ($saleDetails as $saleDetail)
+                    <div class="col">
+                        <p> Factura: <strong class="ml-3">N° {{$saleDetail->sale_id}}</strong> </p>
+                    </div>
+                    <div class="col">
+                        <p> N° de Control: <strong class="ml-3"> {{$saleDetail->sale_id}}</strong> </p>
+                    </div>
+                @endforeach
+                <hr>
+            </div>
+            <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th id="">DATOS DEL VENDEDOR</th>
+                        <th scope="col">Nombre Apellido o Razón Social:</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th>
-                            <p id="proveedor">
-                                Nombre: {{$sale->user->name}}
-                                <br>
-                                Email: {{$sale->user->email}}
-                            </p>
-                        </th>
+                        <th scope="row">{{$sale->client->name}}</th>
                     </tr>
                 </tbody>
             </table>
-        </div>
-        <div id="fact">
-            <p>
-                NUMERO DE VENTA
-                <br />
-                {{$sale->id}}
-            </p>
-        </div>
-    </header>
-    <br>
-
-   
-    <br>
-    <section>
-        <div>
-            <table id="facproducto">
+            <table class="table table-bordered">
                 <thead>
-                    <tr id="fa">
-                        <th>CANTIDAD</th>
-                        <th>PRODUCTO</th>
-                        <th>PRECIO VENTA(PEN)</th>
-                        <th>DESCUENTO(%)</th>
-                        <th>SUBTOTAL(PEN)</th>
+                    <tr>
+                        <th scope="col">Domicilio Fiscal:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">{{$sale->client->address}}</th>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Teléfono:</th>
+                        <th scope="col">RIF:</th>
+                        <th scope="col">Condiciones de pago:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">{{$sale->client->phone}}</th>
+                        <th scope="row">{{$sale->client->dni}}</th>
+                        <th scope="row"></th>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Kilos/Unidades:</th>
+                        <th scope="col">Articulos:</th>
+                        <th scope="col">P.Kgs/Und:</th>
+                        <th scope="col">Descuento:</th>
+                        <th scope="col">Monto:</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($saleDetails as $saleDetail)
-                    <tr>
-                        
-                        <td>{{$saleDetail->quantity}}</td>
-                        <td>{{$saleDetail->product->name}}</td>
-                        <td>s/ {{$saleDetail->price}}</td>
-                        <td>{{$saleDetail->discount}}</td>
-                        <td>s/ {{number_format($saleDetail->quantity * $saleDetail->price - $saleDetail->quantity * $saleDetail->price * $saleDetail->discount / 100 ,2)}}</td>
-                    </tr>
+                        <tr>
+                            <th scope="row">{{$saleDetail->quantity}}</th>
+                            <th scope="row">{{$saleDetail->product->name}}</th>
+                            <th scope="row">Bs.{{$saleDetail->price}}</th>
+                            <th scope="row">Bs.{{$saleDetail->discount}}</th>
+                            <th scope="row">Bs.{{number_format($saleDetail->quantity * $saleDetail->price - $saleDetail->quantity * $saleDetail->price * $saleDetail->discount / 100 ,2)}}</th>
+                        </tr>
                     @endforeach
                 </tbody>
-                <tfoot>
-                 
-                    <tr>
-                        <th colspan="4">
-                            <p align="right">SUBTOTAL:</p>
-                        </th>
-                        <td>
-                            <p align="right">s/ {{number_format($subtotal,2)}}<p>
-                        </td>
-                    </tr>
-                  
-                    <tr>
-                        <th colspan="4">
-                            <p align="right">TOTAL IMPUESTO ({{$sale->tax}}%):</p>
-                        </th>
-                        <td>
-                            <p align="right">s/ {{number_format($subtotal * $sale->tax / 100 ,2)}}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th colspan="4">
-                            <p align="right">TOTAL PAGAR:</p>
-                        </th>
-                        <td>
-                            <p align="right">s/ {{number_format($sale->total ,2)}}<p>
-                        </td>
-                    </tr>
-                  
-                </tfoot>
             </table>
+            <div class="row">
+                <div class="col">
+                    <h4 class="text-center mt-5 color">ORIGINAL CLIENTE</h4>
+                </div>
+                <div class="col">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Base Imponible:</th>
+                                <th scope="col">Bs.{{number_format($subtotal,2)}}</th>
+                            </tr>
+                            <tr>
+                                <th scope="col">IVA _(%):</th>
+                                <th scope="col">Bs.{{number_format($subtotal * $sale->tax / 100 ,2)}}</th>
+                            </tr>
+                            <tr>
+                                <th scope="col">Valor Total:</th>
+                                <th scope="col">Bs.{{number_format($sale->total ,2)}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <h5>ESTA FACTURA VA SIN TACHADURAS NI ENMENDADURAS.</h5>
+                </div>
+            </div>
         </div>
     </section>
-    <br>
-    <br>
-    <footer>
-        <!--puedes poner un mensaje aqui-->
-        <div id="datos">
-            <p id="encabezado">
-                {{--  <b>{{$company->name}}</b><br>{{$company->description}}<br>Telefono:{{$company->telephone}}<br>Email:{{$company->email}}  --}}
-            </p>
-        </div>
-    </footer>
 </body>
-
+<footer>
+</footer>
 </html>
