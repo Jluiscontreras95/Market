@@ -1,226 +1,282 @@
 <!DOCTYPE>
 <html>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Reporte de compra</title>
-<style>
-    body {
-        /*position: relative;*/
-        /*width: 16cm;  */
-        /*height: 29.7cm; */
-        /*margin: 0 auto; */
-        /*color: #555555;*/
-        /*background: #FFFFFF; */
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-        /*font-family: SourceSansPro;*/
-    }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Reporte de compra</title>
+        <style>
+            <?php 
+                include( public_path() . '/css/bootstrap/bootstrap.css' );
+            ?>
 
+            p {
+                font-size: 15px;
+            }
+        </style>
+    </head>
+    <body>
 
-    #datos {
-        float: left;
-        margin-top: 0%;
-        margin-left: 2%;
-        margin-right: 2%;
-        /*text-align: justify;*/
-    }
-
-    #encabezado {
-        text-align: center;
-        margin-left: 35%;
-        margin-right: 35%;
-        font-size: 15px;
-    }
-
-    #fact {
-        /*position: relative;*/
-        float: right;
-        margin-top: 2%;
-        margin-left: 2%;
-        margin-right: 2%;
-        font-size: 20px;
-        background: #33AFFF;
-    }
-
-    section {
-        clear: left;
-    }
-
-    #cliente {
-        text-align: left;
-    }
-
-    #faproveedor {
-        width: 40%;
-        border-collapse: collapse;
-        border-spacing: 0;
-        margin-bottom: 15px;
-    }
-
-    #fac,
-    #fv,
-    #fa {
-        color: #FFFFFF;
-        font-size: 15px;
-    }
-
-    #faproveedor thead {
-        padding: 20px;
-        background: #33AFFF;
-        text-align: left;
-        border-bottom: 1px solid #FFFFFF;
-    }
-
-    #faccomprador {
-        width: 100%;
-        border-collapse: collapse;
-        border-spacing: 0;
-        margin-bottom: 15px;
-    }
-
-    #faccomprador thead {
-        padding: 20px;
-        background: #33AFFF;
-        text-align: center;
-        border-bottom: 1px solid #FFFFFF;
-    }
-
-    #facproducto {
-        width: 100%;
-        border-collapse: collapse;
-        border-spacing: 0;
-        margin-bottom: 15px;
-    }
-
-    #facproducto thead {
-        padding: 20px;
-        background: #33AFFF;
-        text-align: center;
-        border-bottom: 1px solid #FFFFFF;
-    }
-
-</style>
-
-<body>
-  
-    <header>
-        {{--  <div id="logo">
-            <img src="img/logo.png" alt="" id="imagen">
-        </div>  --}}
-        <div>
-            <table id="datos">
-                <thead>
+    <div class="col-3 float-left">
+        <table class="table table-bordered">
+            <thead class="thead-dark">   
+                <tr>
+                    <th scope="col" ><p>Nombre o Razón Social del Agente de la Retención.</p></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($businesses as $business)
                     <tr>
-                        <th id="">DATOS DEL PROVEEDOR</th>
+                        <td scope="row">{{$business->name}}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>
-                            <p id="proveedor">Nombre: {{$purchase->provider->name}}<br>
-                                {{--  {{$purchase->provider->document_type}}-COMPRA: {{$purchase->provider->document_number}}<br>  --}}
-                                Dirección: {{$purchase->provider->address}}<br>
-                                Teléfono: {{$purchase->provider->phone}}<br>
-                                Email: {{$purchase->provider->email}}</p>
-                        </th>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div id="fact">
-            {{--  <p>{{$purchase->provider->document_type}} COMPRA<br />
-                {{$purchase->provider->document_number}}</p>  --}}
-                <p>NUMERO DE COMPRA<br />
-                    {{$purchase->id}}</p>
-        </div>
-    </header>
-    <br>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    <div class="col-3 float-left">
+        <table class="table table-bordered">
+            <thead class="thead-dark">   
+                <tr>
+                    <th scope="col" ><p>RIF del Agente de la Retención.</p></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">{{$business->rif}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="col-6 float-right">
+        <table class="table table-bordered">
+            <thead class="thead-dark">   
+                <tr>
+                    <th scope="col" ><p>xxxxxxxxxxxx</p></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    
+    <div class="col-6 float-right">
+        <table class="table table-bordered">
+            <thead class="thead-dark">   
+                <tr>
+                    <th scope="col" ><p>Fecha de Emision.</p></th>
+                    <th scope="col" ><p>Fecha de Entrega.</p></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">{{\Carbon\Carbon::parse($purchase->purchase_date)->format('d/m/y')}}</td>
+                    <td scope="row">{{\Carbon\Carbon::parse($purchase->purchase_date)->format('d/m/y')}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-6 float-left">
+        <table class="table table-bordered">
+            <thead class="thead-dark">   
+                <tr>
+                    <th scope="col" ><p></p></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="col-6 float-right">
+        <table class="table table-bordered">
+            <thead class="thead-dark">   
+                <tr>
+                    <th scope="col" ><p>Periodo Fiscal</p></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    
+    <div class="col-6 float-left">
+        <table class="table table-bordered">
+            <thead class="thead-dark">   
+                <tr>
+                    <th scope="col" ><p></p></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="col-6 float-left">
+        <table class="table table-bordered">
+            <thead class="thead-dark">   
+                <tr>
+                    <th scope="col" ><p></p></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
 
-   
-    <br>
-    <section>
-        <div>
-            <table id="faccomprador">
-                <thead>
-                    <tr id="fv">
-                        <th>COMPRADOR</th>
-                        <th>FECHA COMPRA</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{$purchase->user->name}}</td>
-                        <td>{{$purchase->created_at}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-    <br>
-    <section>
-        <div>
-            <table id="facproducto">
-                <thead>
-                    <tr id="fa">
-                        <th>CANTIDAD</th>
-                        <th>PRODUCTO</th>
-                        <th>PRECIO COMPRA (PEN)</th>
-                        <th>SUBTOTAL (PEN)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($purchaseDetails as $purchaseDetail)
-                    <tr>
-                        <td>{{$purchaseDetail->quantity}}</td>
-                        <td>{{$purchaseDetail->product->name}}</td>
-                        <td>s/ {{$purchaseDetail->price}}</td>
-                        <td>s/ {{number_format($purchaseDetail->quantity*$purchaseDetail->price,2)}}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                 
-                    <tr>
-                        <th colspan="3">
-                            <p align="right">SUBTOTAL:</p>
-                        </th>
-                        <td>
-                            <p align="right">s/ {{number_format($subtotal,2)}}<p>
-                        </td>
-                    </tr>
-                  
-                    <tr>
-                        <th colspan="3">
-                            <p align="right">TOTAL IMPUESTO ({{$purchase->tax}}%):</p>
-                        </th>
-                        <td>
-                            <p align="right">s/ {{number_format($subtotal*$purchase->tax/100,2)}}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th colspan="3">
-                            <p align="right">TOTAL PAGAR:</p>
-                        </th>
-                        <td>
-                            <p align="right">s/ {{number_format($purchase->total,2)}}<p>
-                        </td>
-                    </tr>
-                  
-                </tfoot>
-            </table>
-        </div>
-    </section>
-    <br>
-    <br>
+    <div class="col-6 float-right">
+        <table class="table table-bordered">
+            <thead class="thead-dark">   
+                <tr>
+                    <th scope="col" ><p>Año.</p></th>
+                    <th scope="col" ><p>Mes.</p></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">{{\Carbon\Carbon::parse($purchase->purchase_date)->format('y')}}</td>
+                    <td scope="row">{{\Carbon\Carbon::parse($purchase->purchase_date)->format('M')}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-3 float-left">
+        <table class="table table-bordered">
+            <thead class="thead-dark">   
+                <tr>
+                    <th scope="col" ><p>Nombre o Razón Social del Retenido.</p></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">{{$purchase->provider->name}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-3 float-left">
+        <table class="table table-bordered">
+            <thead class="thead-dark">   
+                <tr>
+                    <th scope="col" ><p>RIF del Retenido.</p></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">{{$purchase->provider->rif_number}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="col">
+        <table class="table table-bordered">
+            <thead class="thead-dark">   
+                <tr>
+                    <th scope="col" ><p>Dirección Fiscal del Agente de la Retención.</p></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">{{$business->address}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    
+    
+    
+
+
+
+
+        <table class="table table-bordered">
+            <thead class="thead-dark">   
+                <tr>
+                    <th scope="col" ><p>Oper.</p></th>
+                    <th scope="col" ><p>Fecha de Documento</p></th>
+                    <th scope="col" ><p>N° de Factura</p></th>
+                    <th scope="col" ><p>N° de Control de Factura</p></th>
+                    <th scope="col" ><p>N° de Nota de Debito</p></th>
+                    <th scope="col" ><p>N° de Factura Afectada</p></th>
+                    <th scope="col" ><p>Monto Total de la Factura</p></th>
+                    <th scope="col" ><p>Monto Excento en BS.</p></th>
+                    <th scope="col" ><p>Base Imponible en Bs.</p></th>
+                    <th scope="col" ><p>% Cuota</p></th>
+                    <th scope="col" ><p>I.V.A. Causado en Bs.</p></th>
+                    <th scope="col" ><p>% a Retener</p></th>
+                    <th scope="col" ><p>Retenido en Bs.</p></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach ($purchaseDetails as $purchaseDetail)
+            @endforeach
+                <tr>
+                    <td scope="row">1</td>
+                    <td scope="row">{{\Carbon\Carbon::parse($purchase->purchase_date)->format('d/m/y')}}</td>
+                    <td scope="row">{{ $purchaseDetail->purchase_id }}</td>
+                    <td scope="row"></td>
+                    <td scope="row"></td>
+                    <td scope="row">{{ $purchaseDetail->purchase_id }}</td>
+                    <td scope="row">{{number_format($purchase->total,2)}}</td>
+                    <td scope="row"></td>
+                    <td scope="row"></td>
+                    <td scope="row">16%</td>
+                    <td scope="row"></td>
+                    <td scope="row">75%</td>
+                    <td scope="row"></td>
+                </tr>
+            </tbody>
+            <tfoot class="border-0">
+                <tr>
+                    <th colspan="6"><p align="right">TOTAL:</p></th>
+                    <th colspan=""><p align="right">{{number_format($purchase->total,2)}}</p></th>
+                    <th colspan=""><p align="right"></p></th>
+                    <th colspan=""><p align="right"></p></th>
+                    <th colspan=""><p align="right">x</p></th>
+                    <th colspan=""><p align="right"></p></th>
+                    <th colspan=""><p align="right">x</p></th>
+                    <th colspan=""><p align="right"></p></th>
+                </tr>
+                <tr id="dvOcultar">
+                    <th colspan="6"><p align="right">NETO A PAGAR:</p></th>
+                    <th colspan="7"><p align="right">x</p></th>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="container">
+            <div class="float-left pt-5">
+                <p>______________________________________________________________________</p>
+                <p>Firma Sujeto Retenido</p>
+            </div>
+
+            <div class="float-right pt-5">
+                <p>_______________________________________________________________________</p>
+                <p class="text-right">Firma y Sello del Agente de Retención</p>
+            </div>
+
+            <div class="float-right pt-5">
+                <p class="text-center">Este comprobante se emite en función de lo establecido en el articulo 16 de la providencia administrativa N° SNAT/2015/0049 de fecha 14/07/2015 publicada en Gaceta Oficial N° 40720 de fecha 18/08/2015</p>
+            </div>
+        </div>        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </body>
     <footer>
-        <!--puedes poner un mensaje aqui-->
-        <div id="datos">
-            <p id="encabezado">
-                {{--  <b>{{$company->name}}</b><br>{{$company->description}}<br>Telefono:{{$company->telephone}}<br>Email:{{$company->email}}  --}}
-            </p>
-        </div>
+
     </footer>
-</body>
 
 </html>

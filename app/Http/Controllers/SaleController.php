@@ -178,22 +178,9 @@ class SaleController extends Controller
         }
         $businesses = Business::get();
 
-        $pdf = SnappyPdf::loadView('admin.sale.pdf', compact('sale','saleDetails','subtotal','businesses'));
+        $pdf = SnappyPdf::setOption('enable-local-file-access', true);
+        $pdf->loadView('admin.sale.pdf', compact('sale','saleDetails','subtotal','businesses'))->setPaper('a4');
         return $pdf->inline('reporte_de_venta_'.$sale->id.'.pdf');
-
-    }
-
-    public function prueba(Sale $sale)
-    {
-        $subtotal = 0;
-        $saleDetails = $sale->saleDetails;
-        
-        foreach ($saleDetails as $saleDetail){
-            $subtotal += $saleDetail->quantity * $saleDetail->price; 
-        }
-        $businesses = Business::get();
-
-       return view('prueba', compact('sale','saleDetails','subtotal','businesses'));
 
     }
 

@@ -8,12 +8,13 @@ use App\Product;
 use App\PurchaseDetails;
 use App\Contability;
 use App\Exchange;
+use App\Business;
+use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Http\Request;
 use App\Http\Requests\Purchase\StoreRequest;
 use App\Http\Requests\Purchase\UpdateRequest;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 
 class PurchaseController extends Controller
@@ -115,24 +116,7 @@ class PurchaseController extends Controller
        // $purchase->delete();
        // return redirect()->route('purchases.index');
     }
-    
-    public function pdf(Purchase $purchase)
-    {
-        $subtotal = 0;
-        $purchaseDetails = $purchase->purchaseDetails;
-        
-        foreach ($purchaseDetails as $purchaseDetail){
-            $subtotal += $purchaseDetail->quantity * $purchaseDetail->price; 
-        }
 
-        $pdf = Pdf::loadView('admin.purchase.pdf', compact('purchase','purchaseDetails','subtotal'));
-        return $pdf->download('reporte_de_compra_'.$purchase->id.'.pdf');
-
-
-        // $providers = Provider::get();
-        // return view('admin.purchase.edit', compact('purchase'));
-
-    }
 
     public function upload(UpdateRequest $request, Purchase $purchase)
     {
@@ -171,6 +155,21 @@ class PurchaseController extends Controller
     }
 
 
-    
+    public function pdf(Purchase $purchase)
+    {
+        $subtotal = 0;
+        $purchaseDetails = $purchase->purchaseDetails;
+        
+        foreach ($purchaseDetails as $purchaseDetail){
+            $subtotal += $purchaseDetail->quantity * $purchaseDetail->price; 
+        }
+
+        $businesses = Business::get();
+
+        $pdf = SnappyPdf::setOption('enable-local-file-access', true);
+        $pdf->loadView('admin.purchase.pdf', compact('purchase','purchaseDetails','subtotal', 'businesses'))->setPaper('a4')->setOrientation('landscape');
+        return $pdf->inline('retención_de_compra'.$purchase->id.'.pdf');
+
+    }
 
 }
