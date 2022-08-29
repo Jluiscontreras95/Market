@@ -1,11 +1,4 @@
 
-
-<h3>Permisos especiales</h3>
-<div class="form-group">
-    <label>{!! Form::radio('special', 'all-access') !!} Acceso Total</label>
-    <label>{!! Form::radio('special', 'no-access') !!} Ningún Acceso</label>
-</div>
-
 <h3>Lista de permisos</h3>
 <div class="form-group">
     <ul class="list-unstyled">
@@ -13,7 +6,7 @@
             <li>
                 <label>
                     {!! Form::checkbox('permissions[]', $permission->id, null) !!}
-                    {{$permission->name}}
+                    {{$permission->action}} / 
                     <em>{{$permission->description}}</em>
                 </label>
             </li>

@@ -91,10 +91,6 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                             aria-labelledby="profileDropdown">
-                             <a class="dropdown-item">
-                                <i class="fas fa-cog text-primary"></i>
-                                Settings
-                            </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Logout"
                             onclick="event.preventDefault();
@@ -102,8 +98,9 @@
                                 <i class="fas fa-power-off text-primary"></i>
                                 Logout
                             </a>
-                            <form id="logout-form" action="" method="POST" style="display: none;">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
+
                             </form>
                         </div>
                     </li>

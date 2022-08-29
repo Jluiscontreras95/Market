@@ -11,6 +11,8 @@ use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\PrinterController;
 use App\Http\Controllers\ContabilityController;
 use App\Http\Controllers\ExchangeController;
+use App\Http\Controllers\RoleController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,10 +26,13 @@ use App\Http\Controllers\ExchangeController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
+Auth::routes(['register'=> false, 'reset'=> false]);
 
+
+Route::middleware(["auth"])->group(function(){
 
 /* Rutas para los reportes*/
 Route::get('sales/reports_day', 'ReportController@reports_day')-> name('reports.day');
@@ -63,6 +68,8 @@ Route::get('change_status/products/{product}', 'ProductController@change_status'
 Route::get('change_status/purchases/{purchase}', 'PurchaseController@change_status')-> name('change.status.purchases');
 Route::get('change_status/sales/{sale}', 'SaleController@change_status')-> name('change.status.sales');
 
+});
+
 /* Rutas para las peticiones ajax*/
 Route::get('get_products_by_barcode', 'ProductController@get_products_by_barcode')-> name('get_products_by_barcode');
 Route::get('get_products_by_id', 'ProductController@get_products_by_id')-> name('get_products_by_id');
@@ -71,11 +78,8 @@ Route::get('get_Clients_by_dni', 'ClientController@get_Clients_by_dni')->name('g
 Route::post('get_Only_products', 'ClientController@get_Only_products')->name('get_Only_products');
 
 
-// Route::get('/prueba', function () {
-//     return view('prueba');
-// });
 
-Auth::routes();
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/prueba/{sale}', 'SaleController@prueba')->name('prueba');

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Caffeinated\Shinobi\Models\Role;
-use Caffeinated\Shinobi\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -33,8 +33,10 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
-        $role = Role::create($request->all());
-        $role->permissions()->sync($request->get('permissions'));
+        // $arr = array($request->permissions);
+        // $permissions2 = implode(" ", $arr);
+        $role = Role::create($request->except('permissions'));
+        $role->permissions()->sync($request->permissions);
         return redirect()->route('roles.index');
     }
 

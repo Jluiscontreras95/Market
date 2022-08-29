@@ -15,11 +15,25 @@
                 </div>
             </div>
         </li>
-        @can('home')
         <li class="nav-item">
             <a class="nav-link" href="{{route('home')}}">
                 <i class="fa fa-home menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
+            </a>
+        </li>
+        @can('purchases.index')
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('purchases.index')}}">
+                <i class="fas fa-cart-plus menu-icon"></i>
+                <span class="menu-title">Compras</span>
+            </a>
+        </li>
+        @endcan
+        @can('sales.index')
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('sales.index')}}">
+                <i class="fas fa-shopping-cart menu-icon"></i>
+                <span class="menu-title">Ventas</span>
             </a>
         </li>
         @endcan
@@ -51,22 +65,7 @@
                 </ul>
             </div>
         </li>
-        @can('purchases.index')
-        <li class="nav-item">
-            <a class="nav-link" href="{{route('purchases.index')}}">
-                <i class="fas fa-cart-plus menu-icon"></i>
-                <span class="menu-title">Compras</span>
-            </a>
-        </li>
-        @endcan
-        @can('sales.index')
-        <li class="nav-item">
-            <a class="nav-link" href="{{route('sales.index')}}">
-                <i class="fas fa-shopping-cart menu-icon"></i>
-                <span class="menu-title">Ventas</span>
-            </a>
-        </li>
-        @endcan
+        
         @can('contabilities.index')
         <li class="nav-item">
             <a class="nav-link" href="{{route('contabilities.index')}}">

@@ -40,14 +40,6 @@
                         <label for="name">Nombre</label>
                         <input type="text" name="name" id="name" class="form-control" placeholder="" value="{{$role->name}}" required>
                     </div>
-                    <div class="form-group">
-                        <label for="slug">Slug</label>
-                        <input type="text" name="slug" id="slug" class="form-control" placeholder="" value="{{$role->slug}}" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Descripción</label>
-                        <textarea name="description" id="description" class="form-control" placeholder="Descripción" rows="3" >{{$role->description}}</textarea>
-                    </div>
 
                     @include('admin.role._form')
                     

@@ -17,168 +17,155 @@
     </head>
     <body>
 
-    <div class="col-3 float-left">
-        <table class="table table-bordered">
-            <thead class="thead-dark">   
-                <tr>
-                    <th scope="col" ><p>Nombre o Razón Social del Agente de la Retención.</p></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($businesses as $business)
+        <div class="col-3 float-left">
+            <table class="table table-bordered">
+                <thead class="thead-dark">   
                     <tr>
-                        <td scope="row">{{$business->name}}</td>
+                        <th scope="col" ><p>Nombre o Razón Social del Agente de la Retención.</p></th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-    <div class="col-3 float-left">
-        <table class="table table-bordered">
-            <thead class="thead-dark">   
-                <tr>
-                    <th scope="col" ><p>RIF del Agente de la Retención.</p></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td scope="row">{{$business->rif}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    
-    <div class="col-6 float-right">
-        <table class="table table-bordered">
-            <thead class="thead-dark">   
-                <tr>
-                    <th scope="col" ><p>xxxxxxxxxxxx</p></th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-    
-    <div class="col-6 float-right">
-        <table class="table table-bordered">
-            <thead class="thead-dark">   
-                <tr>
-                    <th scope="col" ><p>Fecha de Emision.</p></th>
-                    <th scope="col" ><p>Fecha de Entrega.</p></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td scope="row">{{\Carbon\Carbon::parse($purchase->purchase_date)->format('d/m/y')}}</td>
-                    <td scope="row">{{\Carbon\Carbon::parse($purchase->purchase_date)->format('d/m/y')}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="col-6 float-left">
-        <table class="table table-bordered">
-            <thead class="thead-dark">   
-                <tr>
-                    <th scope="col" ><p></p></th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-    <div class="col-6 float-right">
-        <table class="table table-bordered">
-            <thead class="thead-dark">   
-                <tr>
-                    <th scope="col" ><p>Periodo Fiscal</p></th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-    
-    <div class="col-6 float-left">
-        <table class="table table-bordered">
-            <thead class="thead-dark">   
-                <tr>
-                    <th scope="col" ><p></p></th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-    <div class="col-6 float-left">
-        <table class="table table-bordered">
-            <thead class="thead-dark">   
-                <tr>
-                    <th scope="col" ><p></p></th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-
-    <div class="col-6 float-right">
-        <table class="table table-bordered">
-            <thead class="thead-dark">   
-                <tr>
-                    <th scope="col" ><p>Año.</p></th>
-                    <th scope="col" ><p>Mes.</p></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td scope="row">{{\Carbon\Carbon::parse($purchase->purchase_date)->format('y')}}</td>
-                    <td scope="row">{{\Carbon\Carbon::parse($purchase->purchase_date)->format('M')}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="col-3 float-left">
-        <table class="table table-bordered">
-            <thead class="thead-dark">   
-                <tr>
-                    <th scope="col" ><p>Nombre o Razón Social del Retenido.</p></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td scope="row">{{$purchase->provider->name}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="col-3 float-left">
-        <table class="table table-bordered">
-            <thead class="thead-dark">   
-                <tr>
-                    <th scope="col" ><p>RIF del Retenido.</p></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td scope="row">{{$purchase->provider->rif_number}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    
-    <div class="col">
-        <table class="table table-bordered">
-            <thead class="thead-dark">   
-                <tr>
-                    <th scope="col" ><p>Dirección Fiscal del Agente de la Retención.</p></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td scope="row">{{$business->address}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    
-    
-    
-    
-
-
-
-
+                </thead>
+                <tbody>
+                    @foreach ($businesses as $business)
+                        <tr>
+                            <td scope="row">{{$business->name}}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="col-3 float-left">
+            <table class="table table-bordered">
+                <thead class="thead-dark">   
+                    <tr>
+                        <th scope="col" ><p>RIF del Agente de la Retención.</p></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">{{$business->rif}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-6 float-right">
+            <table class="table table-bordered">
+                <thead class="thead-dark">   
+                    <tr>
+                        <th scope="col" ><p>xxxxxxxxxxxx</p></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="col-6 float-right">
+            <table class="table table-bordered">
+                <thead class="thead-dark">   
+                    <tr>
+                        <th scope="col" ><p>Fecha de Emision.</p></th>
+                        <th scope="col" ><p>Fecha de Entrega.</p></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">{{\Carbon\Carbon::parse($purchase->purchase_date)->format('d/m/y')}}</td>
+                        <td scope="row">{{\Carbon\Carbon::parse($purchase->purchase_date)->format('d/m/y')}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-6 float-left">
+            <table class="table table-bordered">
+                <thead class="thead-dark">   
+                    <tr>
+                        <th scope="col" ><p></p></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="col-6 float-right">
+            <table class="table table-bordered">
+                <thead class="thead-dark">   
+                    <tr>
+                        <th scope="col" ><p>Periodo Fiscal</p></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="col-6 float-left">
+            <table class="table table-bordered">
+                <thead class="thead-dark">   
+                    <tr>
+                        <th scope="col" ><p></p></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="col-6 float-left">
+            <table class="table table-bordered">
+                <thead class="thead-dark">   
+                    <tr>
+                        <th scope="col" ><p></p></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="col-6 float-right">
+            <table class="table table-bordered">
+                <thead class="thead-dark">   
+                    <tr>
+                        <th scope="col" ><p>Año.</p></th>
+                        <th scope="col" ><p>Mes.</p></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">{{\Carbon\Carbon::parse($purchase->purchase_date)->format('y')}}</td>
+                        <td scope="row">{{\Carbon\Carbon::parse($purchase->purchase_date)->format('M')}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-3 float-left">
+            <table class="table table-bordered">
+                <thead class="thead-dark">   
+                    <tr>
+                        <th scope="col" ><p>Nombre o Razón Social del Retenido.</p></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">{{$purchase->provider->name}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-3 float-left">
+            <table class="table table-bordered">
+                <thead class="thead-dark">   
+                    <tr>
+                        <th scope="col" ><p>RIF del Retenido.</p></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">{{$purchase->provider->rif_number}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <table class="table table-bordered">
+                <thead class="thead-dark">   
+                    <tr>
+                        <th scope="col" ><p>Dirección Fiscal del Agente de la Retención.</p></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row">{{$business->address}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <table class="table table-bordered">
             <thead class="thead-dark">   
                 <tr>
@@ -248,35 +235,7 @@
                 <p class="text-center">Este comprobante se emite en función de lo establecido en el articulo 16 de la providencia administrativa N° SNAT/2015/0049 de fecha 14/07/2015 publicada en Gaceta Oficial N° 40720 de fecha 18/08/2015</p>
             </div>
         </div>        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </body>
     <footer>
-
     </footer>
-
 </html>
