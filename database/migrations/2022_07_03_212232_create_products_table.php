@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('code')->unique()->nullable();
             $table->string('name')->unique();
-            $table->integer('stock')->default(0);
+            $table->decimal('stock',12,2)->default(0);
             $table->enum('measure',['KG','UND'])->default('UND');
             $table->string('image')->nullable();
             $table->decimal('sell_price',12,2);

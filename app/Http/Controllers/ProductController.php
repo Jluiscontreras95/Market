@@ -142,7 +142,7 @@ class ProductController extends Controller
 
     public function get_products_by_id(Request $request){
         if ($request->ajax()) {
-            $products = Product::findOrFail($request->product_id);
+            $products = Product::where('id', $request->product_id)->firstOrFail();
             return response()->json($products);
         }
     }

@@ -305,7 +305,31 @@ class RoleSeeder extends Seeder
             'name'          =>'exchanges.create',
             'description'   =>'Permite establecer que tasa ó intercambios va a tener presente el sistema.',
          ])->syncRoles($role1);
+         Permission::create([
+            'action'        => 'Navegar libro contable',
+            'name'          => 'contabilities.index',
+            'description'   => 'Lista y navega todos los usuarios del sistema',
+        ])->syncRoles($role1);
+        Permission::create([
+            'action'        => 'Creación de libro contable',
+            'name'          => 'contabilities.create',
+            'description'   => 'Podría crear nuevos usuarios en el sistema',
+        ])->syncRoles($role1);
+        Permission::create([
+            'action'        => 'Ver detalle de libro contable',
+            'name'          => 'contabilities.show',
+            'description'   => 'Ve en detalle cada usuario del sistema',            
+        ])->syncRoles($role1);
+        Permission::create([
+            'action'        => 'Edición de libro contable',
+            'name'          => 'contabilities.edit',
+            'description'   => 'Podría editar cualquier dato de un usuario del sistema',
+        ])->syncRoles($role1);
+        Permission::create([
+            'action'        => 'Eliminar libro contable',
+            'name'          => 'contabilities.destroy',
+            'description'   => 'Podría eliminar cualquier usuario del sistema',      
+        ])->syncRoles($role1);
 
     }
-
 }

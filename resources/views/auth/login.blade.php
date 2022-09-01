@@ -2,7 +2,14 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center pt-5 mt-5 m-1">
+        <div class="row justify-content-center">
+            <div class="col text-center">
+                @foreach ($businesses as $business)
+                    <img src="{{asset('image/'.$business->logo)}}" alt="">
+                @endforeach
+            </div>
+        </div>
+        <div class="row justify-content-center pt-2 mt-5 m-1">
             <div class="col-md-6 col-sm-8 col-xl-4 col-lg-5 formulario">
                 <form method="POST" action="{{ route('login') }}">
                     @csrf

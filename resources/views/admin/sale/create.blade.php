@@ -25,15 +25,20 @@
                 <li class="breadcrumb-item active" aria-current="page">Registro de ventas</li>
             </ol>
         </nav>
+    
+    
     </div>
     <div class="row">
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 {!! Form::open(['route'=>'sales.store', 'method' => 'POST']) !!}
                     <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <h4 class="card-title">Registro de ventas</h4>
+                        <div class="d-flex justify-content-end">
+                            <a class="nav-link" href="{{route('clients.create')}}">
+                                <span class="btn btn-primary">+ Registrar Cliente</span>
+                            </a>
                         </div>
+
                     
                          @include('admin.sale._form')
                     
@@ -54,32 +59,34 @@
 
 <script>
 
-var product_id = $('#product');
-	
-    product_id.change(function (){
-            $.ajax({
-                url: "{{route('get_products_by_id')}}",
-                method: 'GET',
-                data:{
-                    product_id: product_id.val()
-                },
-                success: function(data){
-                    $("#price").val(data.sell_price);
-                    $("#stock").val(data.stock);
-                    $("#code").val(data.code);
-                    $("#measure").val(data.measure);
-                    $("#measure_stock").val(data.measure);
-                    return product_id;
+$('#product').change(function (){
+    $.ajax({
+        url: "{{route('get_products_by_id')}}",
+        method: 'GET',
+        data:{
+            product_id: $('#product').val()
+        },
+        dataType: 'json',
+        success: function(data){
+            $("#price").val(data.sell_price);
+            $("#stock").val(data.stock);
+            $("#code").val(data.code);
+            $("#measure").html(data.measure);
+            $("#measure_stock").html(data.measure);
+
+            if(data.taxproduct === "SI"){
+                $("#tax_product").val("16");
+            }else{
+                $("#tax-product").val("0");
             }
-            
-        });
+        }
     });
+});
 
 
 var cont = 0;
 total = 0;
 subtotal = [];
-
 $("#guardar").hide();
 $("#product").change(mostrarValores);
 
@@ -89,34 +96,40 @@ function mostrarValores(){
     $("#stock").val(datosProducto[1]);
 }
 
-
 $(obtener_registro());
-    function obtener_registro(code){
-        $.ajax({
-            url: "{{route('get_products_by_barcode')}}",
-            type: 'GET',
-            data:{
-                code: code
-            },
-            dataType: 'json',
-            success:function(data){
-                console.log(data);
-                $("#price").val(data.sell_price);
-                $("#stock").val(data.stock);
-                $("#product").val(data.id);
-            }
-        });
-    }
-    $(document).on('keyup', '#code', function(){
-        var valorResultado = $(this).val();
-        if(valorResultado!=""){
-            obtener_registro(valorResultado);
-        }else{
-            obtener_registro();
-        }
-    })
+function obtener_registro(code){
+    $.ajax({
+        url: "{{route('get_products_by_barcode')}}",
+        type: 'GET',
+        data:{
+            code: code
+        },
+        dataType: 'json',
+        success:function(data){
+            console.log(data);
+            $("#price").val(data.sell_price);
+            $("#stock").val(data.stock);
+            $("#product").val(data.id);
 
-    $(document).ready(function (){
+            if(data.taxproduct === "SI"){
+                $("#tax_product").val("16");
+            }else{
+                $("#tax-product").val("0");
+            }
+        }
+    });
+}
+
+$(document).on('keyup', '#code', function(){
+    var valorResultado = $(this).val();
+    if(valorResultado!=""){
+        obtener_registro(valorResultado);
+    }else{
+        obtener_registro();
+    }
+})
+
+$(document).ready(function (){
     $("#agregar").click(function (){
         agregar();
     });
@@ -124,35 +137,23 @@ $(obtener_registro());
 
 function agregar(){
     datosProducto =document.getElementById('product').value.split('_');
-    
     product_id = datosProducto[0]; 
     product = $("#product option:selected").text();
     quantity = $("#quantity").val();
     discount = $("#discount").val();
     price = $("#price").val();
     stock = $("#stock").val();
-    impuesto = $("#tax").val();
-
-
-    // if (discount = ""){
-    //         discount = $("#discount").val("0");
-    //         return discount;
-    //     }else{
-    //         discount = $("#discount").val();
-    //         return discount;
-    //     }
-
-    // $('#product').val('default');
-    // $('#product').selectpicker('render');
-    // $('#product').selectpicker('refresh');
-        console.log(discount);
+    tax = $("#tax_product").val();
 
     if (product_id != "" && quantity !="" && quantity > 0 &&  price != "") {
 
+        if(discount === ""){
+            discount = 0;
+        }
         if(parseInt(stock) >= parseInt(quantity)){
             subtotal[cont] = (quantity * price) - (quantity * price * discount / 100) ;
             total = total + subtotal[cont];
-            var fila ='<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar(' + cont + ');"><i class="fa fa-times"></i></button></td><td><input type="hidden" id="product_id[]" name="product_id[]" value="' + product_id +'"/>' + product + '</td><td><input type="hidden" id="price[]" name="price[]" value="' + price + '"/><input class="form-control" type="number"  value="' + parseFloat(price).toFixed(2) + '" disabled/></td><td><input type="hidden" id="discount[]" name="discount[]" value="' + parseFloat(discount).toFixed(2) + '"/><input class="form-control" type="number" value="' + parseFloat(discount).toFixed(2) + '" disabled/></td><td><input type="hidden" id="quantity[]" name="quantity[]" value="' + quantity + '"/><input class="form-control" type="number" value="' + quantity + '" disabled/></td><td align="right">s/' + parseFloat(subtotal[cont]).toFixed(2) + '</td></tr>';
+            var fila ='<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar(' + cont + ');"><i class="fa fa-times"></i></button></td><td><input type="hidden" id="product_id[]" name="product_id[]" value="' + product_id +'"/>' + product + '</td><td><input type="hidden" id="price[]" name="price[]" value="' + price + '"/><input class="form-control" type="number"  value="' + parseFloat(price).toFixed(2) + '" disabled/></td><td><input type="hidden" id="discount[]" name="discount[]" value="' + parseFloat(discount).toFixed(2) + '"/><input class="form-control" type="number" value="' + parseFloat(discount).toFixed(2) + '" disabled/></td><td><input type="hidden" id="quantity[]" name="quantity[]" value="' + quantity + '"/><input class="form-control" type="number" value="' + quantity + '" disabled/></td><td><input type="hidden" id="tax[]" name="tax[]" value="' + tax + '"/></td><td align="right">s/' + parseFloat(subtotal[cont]).toFixed(2) + '</td></tr>';
             cont++;
             limpiar();
             totales();
@@ -164,13 +165,12 @@ function agregar(){
                 text: 'La cantidad a vender supera el stock.',
             })
         }
-
-     }else{
-            Swal.fire({
-                type: 'error',
-                text: 'Rellene todos los campos del detalle de la venta.',
-            })
-        }
+    }else{
+        Swal.fire({
+            type: 'error',
+            text: 'Rellene todos los campos del detalle de la venta.',
+        })
+    }
 }
 
 function limpiar(){
@@ -182,16 +182,23 @@ function limpiar(){
     $("#stock").val("");
     $("#measure").val("");
     $('#product').val("");
-    
+    $('#tax_product').val("");
 }
 
 function totales(){
-    $("#total").html("PEN " + total.toFixed(2));
-    total_impuesto = total * impuesto / 100;
+    $("#total").html("Bs. " + total.toFixed(2));
+
+    exchange = '{{$exchange->description}}';
+    total_impuesto = total * tax / 100;
     total_pagar = total + total_impuesto;
-    $("#total_impuesto").html("PEN " + total_impuesto.toFixed(2));
-    $("#total_pagar_html").html("PEN " + total_pagar.toFixed(2));
+    total_divisas = total_pagar / exchange;
+    
+    $("#total_impuesto").html("Bs. " + total_impuesto.toFixed(2));
+    $("#total_tax").val(total_impuesto.toFixed(2));
+    $("#total_pagar_html").html("Bs. " + total_pagar.toFixed(2));
     $("#total_pagar").val(total_pagar.toFixed(2));
+    $("#total_pagar_divisas_html").html("$. "+total_divisas.toFixed(2));
+    $("#total_pagar_divisas").val(total_divisas.toFixed(2));
 }
 
 function evaluar() {
@@ -206,9 +213,9 @@ function eliminar(index){
     total = total - subtotal[index];
     total_impuesto = total * impuesto / 100;
     total_pagar_html = total + total_impuesto;
-    $("#total").html("PEN " + total);
-    $("#total_impuesto").html("PEN " + total_impuesto);
-    $("#total_pagar_html").html("PEN " + total_pagar_html);
+    $("#total").html("Bs. " + total);
+    $("#total_impuesto").html("Bs. " + total_impuesto);
+    $("#total_pagar_html").html("Bs. " + total_pagar_html);
     $("#total_pagar").val(total_pagar_html.toFixed(2));
     $("#fila" + index).remove();
     evaluar();
@@ -216,58 +223,33 @@ function eliminar(index){
 }
 
 $(obtener_registro_clientes());
-    function obtener_registro_clientes(dni){
-        $.ajax({
-            url: "{{route('get_Clients_by_dni')}}",
-            type: 'GET',
-            data:{
-                dni: dni
-            },
-            dataType: 'json',
-            success:function(data){
-                console.log(data);
-                $("#client_name").val(data.name);
-                $("#client_id").val(data.id);
-                console.log(data.id);
-            }
-        });
-    }
-
-    $(document).on('keyup', '#dni', function(){
-        var valorResultado = $(this).val();
-        if(valorResultado!=""){
-            obtener_registro_clientes(valorResultado);
-        }else{
-            obtener_registro_clientes();
+function obtener_registro_clientes(dni){
+    $.ajax({
+        url: "{{route('get_Clients_by_dni')}}",
+        type: 'GET',
+        data:{
+            dni: dni
+        },
+        dataType: 'json',
+        success:function(data){
+            console.log(data);
+            $("#client_name").val(data.name);
+            $("#client_id").val(data.id);
+            console.log(data.id);
         }
-    })
+    });
+}
 
-
-    // $(document).ready(function(){
-
-    //     $.ajax({
-    //         url: "{{route('get_Only_products')}}",
-    //         method: 'POST',
-    //         dataType: "json",
-    //         success: function(res){
-    //             console.log(res);
-
-    //                 $('#product_id').append('<option value="" disabled selected>Seleccione Productos</option>');
-    //                 $('#product_id').append(JSON.parse(res).map(e => "<option value="+e['id'] +">"+e['name']+"</option>").join(""));
-    //                 $('#product_id').selectpicker('refresh');
-                
-
-    //         }
-    //     });
-
-    // });
+$(document).on('keyup', '#dni', function(){
+    var valorResultado = $(this).val();
+    if(valorResultado!=""){
+        obtener_registro_clientes(valorResultado);
+    }else{
+        obtener_registro_clientes();
+    }
+});
 
 </script>
-
-
-
-
-
 
 
 @endsection

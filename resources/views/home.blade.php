@@ -130,8 +130,8 @@
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$productosvendido->name}}</td>
                                     <td>{{$productosvendido->code}}</td>
-                                    <td><strong>{{$productosvendido->stock}}</strong> Unidades</td>
-                                    <td><strong>{{$productosvendido->quantity}}</strong> Unidades</td>
+                                    <td><strong>{{number_format($productosvendido->stock, 2)}}</strong> {{$productosvendido->measure}}</td>
+                                    <td><strong>{{number_format($productosvendido->quantity, 2)}}</strong> {{$productosvendido->measure}}</td>
                                     <td>
                                         <a class="btn btn-primary"
                                             href="{{route('products.show', $productosvendido->id)}}">
@@ -216,6 +216,9 @@
                 }
             });
             var varVenta=document.getElementById('ventas_diarias').getContext('2d');
+            var green_yellow_gradient = varVenta.createLinearGradient(0, 0, 0, 600);
+                green_yellow_gradient.addColorStop(0, 'green');
+                green_yellow_gradient.addColorStop(1, 'yellow');
             var charVenta = new Chart(varVenta, {
                 type: 'bar',
                 data: {
@@ -228,10 +231,17 @@
                         label: 'Ventas',
                         data: [<?php foreach ($ventasdia as $reg)
                         {echo ''. $reg->totaldia.',';} ?>],
-                        backgroundColor: 'rgba(20, 204, 20, 1)',
-                        borderColor: 'rgba(54, 162, 235, 0.2)',
+                        backgroundColor: green_yellow_gradient,
+                        borderColor: green_yellow_gradient,
                         borderWidth: 1
                     }]
+
+
+
+                    
+
+
+
                 },
                 options: {
                     scales: {

@@ -20,7 +20,7 @@ class CreateSalesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');       
             $table->dateTime('sale_date');
-            $table->decimal('tax');
+            $table->decimal('total_tax');
             $table->decimal('total');
             $table->enum('status',['VALID','CANCELED'])->default('VALID');
             $table->string('picture')->nullable();

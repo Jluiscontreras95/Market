@@ -11,7 +11,7 @@ class Sale extends Model
         'client_id',
         'user_id',
         'sale_date',
-        'tax',
+        'total_tax',
         'total',
         'status',
         'picture',

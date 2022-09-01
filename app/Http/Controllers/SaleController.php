@@ -8,6 +8,7 @@ use App\Product;
 use App\SaleDetail;
 use App\Contability;
 use App\Business;
+use App\Exchange;
 use Illuminate\Http\Request;
 use App\Http\Requests\Sale\StoreRequest;
 use App\Http\Requests\Sale\UpdateRequest;
@@ -46,13 +47,15 @@ class SaleController extends Controller
     {
         $clients = Client::get();
         $products = Product::get();
-        return view('admin.sale.create', compact('clients','products'));
+        $exchange = Exchange::select('description')->latest()->first();
+        return view('admin.sale.create', compact('clients','products','exchange'));
 
     }
 
     
     public function store(StoreRequest $request)
     {
+       
         $sale = Sale::create($request->all()+[
             'user_id'=>Auth::user()->id,
             'sale_date'=>Carbon::now('America/Caracas'),
@@ -60,8 +63,9 @@ class SaleController extends Controller
 
         foreach ($request->product_id as $key =>$product){
             $results[] = array("product_id"=>$request->product_id[$key],
-            "quantity"=>$request->quantity[$key], "price"=>$request->price[$key], "discount"=>$request->discount[$key]);
+            "quantity"=>$request->quantity[$key], "price"=>$request->price[$key], "discount"=>$request->discount[$key], "tax"=>$request->tax[$key]);
         }
+
         $sale->saleDetails()->createMany($results);
 
 

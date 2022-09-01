@@ -52,7 +52,7 @@ class HomeController extends Controller
         (select ifnull(sum(v.total), 0) from sales v where MONTH(sale_date) = MONTH(CURDATE()) AND YEAR(sale_date) = YEAR(CURDATE()) AND v.status="VALID") as totalventa');
 
 
-        $productosvendidos=DB::select('SELECT p.code as code, 
+        $productosvendidos=DB::select('SELECT p.code as code, p.measure as measure,
         sum(dv.quantity) as quantity, p.name as name , p.id as id , p.stock as stock from products p 
         inner join sale_details dv on p.id=dv.product_id 
         inner join sales v on dv.sale_id=v.id where v.status="VALID" 
