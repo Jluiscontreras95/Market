@@ -25,33 +25,33 @@ class UpdateRequest extends FormRequest
     {
         return [
 
-            'name' => 'string|required|unique:products,name,'.$this->route('product')->id .'|max:255',
+            // 'name' => 'string|required|unique:products,name,'.$this->route('product')->id .'|max:255',
             
-            'sell_price' => 'required|',
-            'measure' => 'required|',
-            'category_id' => 'integer|required|',
-            //'provider_id' => 'integer|required|',
+            // 'sell_price' => 'required|',
+            // 'measure' => 'required|',
+            // 'category_id' => 'integer|required|',
+            // 'provider_id' => 'integer|required|',
 
         ];
     }
     public function messages()
     {
         return[
-            'name.string' => 'El valor no es correcto.',
-            'name.required' => 'Este campo es requerido.',
-            'name.unique' => 'Este campo ya está registrado.',
-            'name.max' => 'Solo se permite 255 caracteres.',
+            // 'name.string' => 'El valor no es correcto.',
+            // 'name.required' => 'Este campo es requerido.',
+            // 'name.unique' => 'Este campo ya está registrado.',
+            // 'name.max' => 'Solo se permite 255 caracteres.',
             
 
-            'sell_price.required' => 'Este campo es requerido.',
+            // 'sell_price.required' => 'Este campo es requerido.',
 
-            'measure.required' => 'Este campo es requerido.',
+            // 'measure.required' => 'Este campo es requerido.',
 
-            'category_id.required' => 'El valor tiene que ser entero.',
-            'category_id.required' => 'Este campo es requerido.',
+            // 'category_id.required' => 'El valor tiene que ser entero.',
+            // 'category_id.required' => 'Este campo es requerido.',
 
-        //     'provider_id.required' => 'El valor tiene que ser entero.',
-        //     'provider_id.required' => 'Este campo es requerido.',
+            //  'provider_id.required' => 'El valor tiene que ser entero.',
+            //  'provider_id.required' => 'Este campo es requerido.',
         ];
     }
 }

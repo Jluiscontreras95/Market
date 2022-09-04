@@ -60,7 +60,11 @@ class HomeController extends Controller
         group by p.code ,p.name, p.id , p.stock order by sum(dv.quantity) desc limit 10');
        
        $exchange = Exchange::latest()->first();
-       
+
         return view('home', compact( 'comprasmes', 'ventasmes', 'ventasdia', 'totales', 'productosvendidos', 'exchange'));
+                 
+
+       
+        
     }
 }

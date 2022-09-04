@@ -1,3 +1,7 @@
+<div class="form-group">
+    <label for="name">Nombre</label>
+    <input type="text" name="name" id="name" class="form-control" placeholder="Nombre del rol. Ejm: Vendedores, Almacenista....."  required>
+</div>
 
 <h3>Lista de permisos</h3>
 <div class="form-group">
@@ -13,3 +17,6 @@
         @endforeach
     </ul>    
 </div>
+
+<button type="submit" class="btn btn-primary mr-2">Registrar</button>
+<a href="{{route('roles.index')}}" class="btn btn-light">Cancelar</a>

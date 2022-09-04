@@ -41,7 +41,6 @@
                     
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title">Ventas</h4>
-                        {{--  <i class="fas fa-ellipsis-v"></i>  --}}
                         <div class="btn-group">
                             <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-ellipsis-v"></i>
@@ -91,7 +90,6 @@
                                     @endif
 
                                     <td style="width: 50px;">
-                                        <!-- <a href="{{route('prueba', $sale)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-file-pdf"></i></a> -->
                                         <a href="{{route('sales.pdf', $sale)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-file-pdf"></i></a>
                                         <a href="{{route('sales.print', $sale)}}" class="jsgrid-button jsgrid-edit-button"><i class="fas fa-print"></i></a>
                                         <a href="{{route('sales.show', $sale)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-eye"></i></a>

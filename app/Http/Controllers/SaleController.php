@@ -66,6 +66,8 @@ class SaleController extends Controller
             "quantity"=>$request->quantity[$key], "price"=>$request->price[$key], "discount"=>$request->discount[$key], "tax"=>$request->tax[$key]);
         }
 
+        
+
         $sale->saleDetails()->createMany($results);
 
 
@@ -161,11 +163,17 @@ class SaleController extends Controller
         if ($sale -> status == 'VALID'){
 
             $sale -> update(['status' => 'CANCELED']);
+            $cont= Contability::where('sale_id', $sale->id);
+            $cont->update(['status' => 'CANCELED']);
+
             return redirect()->back();
         
         } else {
             
             $sale -> update(['status' => 'VALID']);
+            $cont= Contability::where('sale_id', $sale->id);
+            $cont->update(['status' => 'VALID']);
+            
             return redirect()->back();
         
         }

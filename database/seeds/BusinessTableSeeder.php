@@ -15,7 +15,7 @@ class BusinessTableSeeder extends Seeder
         Business::create([
             'name'=>'Unicos de Los Valles & 2016 C.A.',
             'description'=>'Empresa de verduras y hortalizas de primera calidad.',
-            'logo'=>'logo.png',
+            'logo'=>'logo2.jpeg',
             'email'=>'Ejemplo@gmail.com',
             'phone_1'=>'04129379145',
             'phone_2'=>'04140296361',

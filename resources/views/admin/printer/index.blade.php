@@ -1,15 +1,6 @@
 @extends('layouts.admin')
 @section('title','Configuración de impresora')
 @section('styles')
-<style type="text/css">
-    .unstyled-button {
-        border: none;
-        padding: 0;
-        background: none;
-    }
-
-</style>
-
 @endsection
 @section('options')
 @endsection
@@ -32,31 +23,21 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title">Configuración de impresora</h4>
                     </div>
-
-            <div class="form-group">
-                <strong><i class="fas fa-file-signature mr-1"></i> Nombre </strong>
-
-                <p class="text-muted">
-                    {{$printer->name}}
-                </p>
-                <hr>
+                    <div class="form-group">
+                        <strong><i class="fas fa-file-signature mr-1"></i> Nombre </strong>
+                        <p class="text-muted py-3">{{$printer->name}}</p>
+                        <hr>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal-2">Actualizar</button>
+                </div>
             </div>
-
-
-        </div>
-        <div class="card-footer text-muted">
-
-            <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal"
-                data-target="#exampleModal-2">Actualizar</button>
-
         </div>
     </div>
-</div>
-</div>
 </div>
 
 
@@ -71,24 +52,20 @@
                 </button>
             </div>
 
-
             {!! Form::model($printer,['route'=>['printers.update',$printer], 'method'=>'PUT','files' => true]) !!}
 
-
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="name">Nombre</label>
-                    <input type="text" class="form-control" name="name" id="name" value="{{$printer->name}}"
-                        aria-describedby="helpId">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control" name="name" id="name" value="{{$printer->name}}" aria-describedby="helpId">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Actualizar</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                 </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-success">Actualizar</button>
-                <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-            </div>
-
-        {!! Form::close() !!}
+            {!! Form::close() !!}
 
         </div>
     </div>

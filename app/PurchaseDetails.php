@@ -12,6 +12,7 @@ class PurchaseDetails extends Model
         'quantity',
         'measure',
         'price',
+        'tax',
         
 
     ];

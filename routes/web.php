@@ -80,6 +80,7 @@ Route::get('get_products_by_id', 'ProductController@get_products_by_id')-> name(
 Route::get('get_Products', 'PurchaseController@get_Products')->name('get_Products');
 Route::get('get_Clients_by_dni', 'ClientController@get_Clients_by_dni')->name('get_Clients_by_dni');
 Route::post('get_Only_products', 'ClientController@get_Only_products')->name('get_Only_products');
+Route::get('get_Measure', 'ProductController@get_Measure')-> name('get_Measure');
 
 
 

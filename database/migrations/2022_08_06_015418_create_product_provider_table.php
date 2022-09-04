@@ -16,9 +16,9 @@ class CreateProductProviderTable extends Migration
         Schema::create('product_provider', function (Blueprint $table) {
             // $table->id();
             $table->unsignedBigInteger('provider_id');
-            $table->foreign('provider_id')->references('id')->on('providers');
+            $table->foreign('provider_id')->references('id')->on('providers')->cascadeOnDelete();
             $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete();;
             $table->timestamps();
         });
     }

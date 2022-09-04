@@ -19,42 +19,10 @@ class ContabilityController extends Controller
     {
         $contabilities = Contability::get()->where('status', 'VALID');
 
-        $totales=DB::select('SELECT (SUM(have) - SUM(must)) as total  
-                                FROM contabilities 
-                                WHERE status="VALID";');
+        $totales_activos=DB::select('SELECT (SUM(have) - SUM(must)) as total FROM contabilities WHERE status="VALID";');
+        $totales_desactivos=DB::select('SELECT (SUM(have) - SUM(must)) as total FROM contabilities WHERE status="CANCELED";');
+        $totales_generales=DB::select('SELECT (SUM(have) - SUM(must)) as total FROM contabilities');
 
-
-
-        return view('admin.contability.index', compact('contabilities', 'totales'));
-    }
-
-    public function create()
-    {
-        
-    }
-
-    public function store(Request $request)
-    {
-        
-    }
-
-    public function show($id)
-    {
-        
-    }
-
-    public function edit($id)
-    {
-        
-    }
-
-    public function update(Request $request, $id)
-    {
-        
-    }
-
-    public function destroy($id)
-    {
-        
+        return view('admin.contability.index', compact('contabilities', 'totales_generales', 'totales_activos', 'totales_desactivos'));
     }
 }

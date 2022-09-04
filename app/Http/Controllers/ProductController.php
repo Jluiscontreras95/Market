@@ -95,6 +95,7 @@ class ProductController extends Controller
     public function update(UpdateRequest $request, Product $product)
     {
 
+       
         if($request->hasFile('picture')){
             $file = $request->file('picture');
             $image_name = time().'_'.$file->getClientOriginalName();
@@ -116,7 +117,6 @@ class ProductController extends Controller
         return redirect()->route('products.index');
 
     }
-
 
     public function destroy(Product $product)
     {
@@ -154,10 +154,11 @@ class ProductController extends Controller
         }
     }
 
-    public function get_Only_products(){
-       
-            $products = Product::get();
-            return response()->json($products);
+    public function get_Measure(Request $request){
+            if ($request->ajax()) {
+                $products = Product::where('id', $request->product_id)->firstOrFail();
+                return response()->json($products);
+            }
         
     }
     

@@ -51,6 +51,8 @@ class PurchaseController extends Controller
     
     public function store(StoreRequest $request)
     {
+       
+
         $purchase = Purchase::create($request->all()+[
             'user_id'=>Auth::user()->id,
             'purchase_date'=>Carbon::now('America/Caracas'),
@@ -58,8 +60,10 @@ class PurchaseController extends Controller
 
         foreach ($request->product_id as $key =>$product){
             $results[] = array("product_id"=>$request->product_id[$key],
-            "quantity"=>$request->quantity[$key], "price"=>$request->price[$key], "measure"=>$request->measure[$key],);
+            "quantity"=>$request->quantity[$key], "price"=>$request->price[$key], "measure"=>$request->measure[$key], "tax"=>$request->tax[$key]);
         }
+
+        
         
         $purchase->purchaseDetails()->createMany($results);
 

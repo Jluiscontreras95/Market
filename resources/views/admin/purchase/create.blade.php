@@ -9,43 +9,37 @@
 @endsection
 @section('content')
 
-
-<div class="content-wrapper">
-    <div class="page-header">
-        <h3 class="page-title">
-        Registro de compras
-        </h3>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Panel administrador</a></li>
-                <li class="breadcrumb-item"><a href="{{route('purchases.index')}}">Compras</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Registro de compras</li>
-            </ol>
-        </nav>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-                {!! Form::open(['route'=>'purchases.store', 'method' => 'POST']) !!}
-                @csrf
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">Registro de compras</h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Panel administrador</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('purchases.index')}}">Compras</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Registro de compras</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <h4 class="card-title">Registro de compras</h4>
                         </div>
                         <hr>
-                         @include('admin.purchase._form')
-                    
-                    </div>
 
-                    <div class="card-footer text-muted">
-                        <button type="submit" id="guardar" class="btn btn-primary float-right">Registrar</button>
-                        <a href="{{route('purchases.index')}}" class="btn btn-light">Cancelar</a>
+                        {!! Form::open(['route'=>'purchases.store', 'method' => 'POST']) !!}
+                            @csrf
+
+                            @include('admin.purchase._form')
+
+                        {!! Form::close() !!}
                     </div>
-                {!! Form::close() !!}
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 @endsection
 @section('scripts')
@@ -53,7 +47,7 @@
 
 <script>
 
-    $(document).ready(function (){
+$(document).ready(function (){
     $("#agregar").click(function (){
         agregar();
     });
@@ -70,13 +64,13 @@ function agregar(){
     product = $("#product option:selected").text();
     quantity = $("#quantity").val();
     price = $("#price").val();
-    impuesto = $("#tax").val();
     measure = $("#measure").val();
+    tax = $("#tax_product").val();
 
     if(product_id != "" && quantity !="" && quantity > 0 && price != "" && measure != ""){
         subtotal[cont] = quantity * price;
         total = total + subtotal[cont];
-        var fila = '<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar(' + cont + ');"><i class="fa fa-times"></i></button></td><td><input type="hidden" name="product_id[]" value="' + product_id +'">' + product + '</td><td><input type="hidden" id="price[]" name="price[]" value="' + price + '"><input class="form-control"  type="number" id="price[]" value="' + price + '" disabled></td><td><input type="hidden" name="quantity[]" value="' + quantity + '"><input class="form-control"  type="number" value="' + quantity + '" disabled></td><td><input type="hidden" name="measure[]" value="' + measure + '"><input class="form-control" style="width: 120px;" type="text" value="' + measure + '" disabled></td><td align="right">s/' + subtotal[cont] + '</td></tr>';
+        var fila = '<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar(' + cont + ');"><i class="fa fa-times"></i></button></td><td><input type="hidden" name="product_id[]" value="' + product_id +'">' + product + '</td><td><input type="hidden" id="price[]" name="price[]" value="' + price + '"><input class="form-control"  type="number" id="price[]" value="' + price + '" disabled></td><td><input type="hidden" name="quantity[]" value="' + quantity + '"><input class="form-control"  type="number" value="' + quantity + '" disabled></td><td><input type="hidden" name="measure[]" value="' + measure + '"><input class="form-control" style="width: 120px;" type="text" value="' + measure + '" disabled></td><td><input type="hidden" id="tax[]" name="tax[]" value="' + tax + '"/></td><td align="right">s/' + subtotal[cont] + '</td></tr>';
         cont++;
         limpiar();
         totales();
@@ -101,11 +95,20 @@ function limpiar(){
 
 function totales(){
     $("#total").html("Bs. " + total.toFixed(2));
+
     exchange = '{{$exchange->description}}';
-    total_impuesto = total * impuesto / 100;
+
+    if (exchange == null) {
+        
+        exchange = 0; 
+
+    } 
+    
+    total_impuesto = total * tax / 100;
     total_pagar = total + total_impuesto;
     total_divisas = total_pagar / exchange;
     $("#total_impuesto").html("Bs. " + total_impuesto.toFixed(2));
+    $("#total_tax").val(total_impuesto.toFixed(2));
     $("#total_pagar_html").html("Bs. " + total_pagar.toFixed(2));
     $("#total_pagar").val(total_pagar.toFixed(2));
     $("#total_pagar_divisas_html").html("$. "+total_divisas.toFixed(2));
@@ -139,26 +142,52 @@ function eliminar(index){
 var product_id = $('#product');
 var provider_id = $('#provider_id');
 
-    provider_id.change(function(){
-            
-            $('#product').empty();
-            $('#product').selectpicker('refresh');
+provider_id.change(function(){
+        
+    $('#product').empty();
+    $('#product').selectpicker('refresh');
 
-            $.ajax({
-                url: "{{route('get_Products')}}",
-                method: 'GET',
-                data:{
-                    provider_id: provider_id.val(),
-                    _token: $('input[name="_token"]').val(),
-                },
-            }).done(res => {
-                $('#product').val('default')
-                $('#product').append('<option value="" disabled selected>Seleccione Productos</option>');
-                $('#product').append(JSON.parse(res).map(e => "<option value="+e['id'] +">"+e['name']+"</option>").join(""));
-                $('#product').selectpicker('refresh');
-                
-            });
+    $.ajax({
+        url: "{{route('get_Products')}}",
+        method: 'GET',
+        data:{
+            provider_id: provider_id.val(),
+            _token: $('input[name="_token"]').val(),
+        },
+    }).done(res => {
+        $('#product').val('default')
+        $('#product').append('<option value="" disabled selected>Seleccione Productos</option>');
+        $('#product').append(JSON.parse(res).map(e => "<option value="+e['id'] +">"+e['name']+"</option>").join(""));
+        $('#product').selectpicker('refresh');
+        
     });
+});
+
+$('#product').change(function(){
+            
+        $.ajax({
+            url: "{{route('get_Measure')}}",
+            method: 'GET',
+            data:{
+                product_id: $('#product').val(),
+                _token: $('input[name="_token"]').val(),
+            },
+            dataType: 'json',
+        }).done(res => {
+            console.log(res);
+            $("#measure").val(res.measure);
+            $("#measure_tag").html(res.measure);
+
+            if (res.taxproduct == "SI") {
+                $("#tax_product").val(16);
+            }else{
+                $("#tax_product").val(0);
+            }
+            
+        });
+    });
+
+
 
 </script>
 

@@ -22,6 +22,7 @@ class CreatePurchaseDetailsTable extends Migration
             $table->integer('quantity');
             $table->enum('measure',['KG','UND'])->default('UND');
             $table->decimal('price');
+            $table->decimal('tax');
             $table->timestamps();
         });
     }

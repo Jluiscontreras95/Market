@@ -11,7 +11,7 @@ class Purchase extends Model
     'provider_id',
     'user_id',
     'purchase_date',
-    'tax',
+    'total_tax',
     'total',
     'status',
     'picture',

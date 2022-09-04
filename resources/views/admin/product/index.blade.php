@@ -2,23 +2,23 @@
 @section('title','Gestión de productos')
 @section('styles')
 
-<style type="text/css">
-    .unstyled-button
-     {
-        border:none;
-        padding: 0;
-        background: none;
-     }
+    <style type="text/css">
+        .unstyled-button
+        {
+            border:none;
+            padding: 0;
+            background: none;
+        }
 
-</style>
+    </style>
 
 @endsection
 @section('create')
-<li class="nav-item d-none d-lg-flex">
-    <a class="nav-link" href="{{route('products.create')}}">
-        <span class="btn btn-primary">+ Crear nuevo</span>
-    </a>
-</li>
+    <li class="nav-item d-none d-lg-flex">
+        <a class="nav-link" href="{{route('products.create')}}">
+            <span class="btn btn-primary">+ Crear nuevo producto</span>
+        </a>
+    </li>
 @endsection
 @section('preference')
 @endsection
@@ -26,9 +26,7 @@
 
 <div class="content-wrapper">
     <div class="page-header">
-        <h3 class="page-title">
-            Productos
-        </h3>
+        <h3 class="page-title">Productos</h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Panel administrador</a></li>
@@ -66,7 +64,7 @@
                             <tbody>
                                 @foreach ($products as $product)
                                     <tr>
-                                        <th scope="row">{{ $product->id }}</th>
+                                        <th scope="row">{{$loop->iteration}}</th>
                                         <td>
                                             <a href="{{ route('products.show', $product) }}">{{ $product->name }}</a>
                                         </td> 
