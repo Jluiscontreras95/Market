@@ -5,6 +5,7 @@
         <div class="row justify-content-center">
             <div class="col text-center">
                     <img src="{{asset('image/logo-mini.png')}}" alt="">
+                    <!-- <h1 class="bg-gradient-primary">Los únicos de los valles</h1> -->
             </div>
         </div>
         <div class="row justify-content-center pt-2 mt-5 m-1">
