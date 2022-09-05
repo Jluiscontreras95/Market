@@ -33,11 +33,14 @@
 </div>
 <h5>Datos del producto</h5>
 <hr>
+
+
+
 <div class="row">
     <div class="col">
         <div class="form-group">
         <label for="product" class="label">Seleccione producto.</label>
-            <select class="form-control " name="product" id="product">
+            <select class="form-control  selectpicker" name="product" id="product" autocomplete="off" data-live-search="true" title="seleccione uno de los siguientes...">
                 <option value="" disabled selected>Seleccionar producto</option>
                 @foreach ($products as $product)   
                     <option value="{{$product->id}}">{{$product->name}}</option>
@@ -46,6 +49,13 @@
             <small id="helpId" class="text-muted">Campo obligatorio.</small>
         </div>
     </div>
+
+
+
+
+
+
+
     <div class="col">
         <div class="form-group">
         <label for="code" class="label">Código de barra del producto.</label>

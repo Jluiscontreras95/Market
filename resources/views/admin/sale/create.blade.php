@@ -77,7 +77,7 @@ $('#product').change(function (){
             if(data.taxproduct === "SI"){
                 $("#tax_product").val("16");
             }else{
-                $("#tax-product").val("0");
+                $("#tax_product").val("0");
             }
         }
     });
@@ -181,7 +181,9 @@ function limpiar(){
     $("#measure_stock").val("");
     $("#stock").val("");
     $("#measure").val("");
-    $('#product').val("");
+    $('#product').val('default');
+    $('#product').selectpicker('render');
+    $('#product').selectpicker('refresh');
     $('#tax_product').val("");
 }
 

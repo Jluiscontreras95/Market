@@ -4,9 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col text-center">
-                @foreach ($businesses as $business)
-                    <img src="{{asset('image/'.$business->logo)}}" alt="">
-                @endforeach
+                    <img src="{{asset('image/logo-mini.png')}}" alt="">
             </div>
         </div>
         <div class="row justify-content-center pt-2 mt-5 m-1">

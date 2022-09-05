@@ -3,6 +3,15 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="shortcut icon" href="{{ asset('image/favicon.ico') }}" type="image/x-icon">
+        <link rel="icon" href="{{ asset('image/favicon.ico') }}" type="image/x-icon">
+
+
+
+
+
+
         <title>@yield('title')</title>
         {!! Html::style('web/vendors/iconfonts/font-awesome/css/all.min.css') !!}
         {!! Html::style('web/vendors/css/vendor.bundle.base.css') !!}
@@ -18,8 +27,8 @@
         <div class="container-scroller">
             <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
                 <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                    <a class="navbar-brand brand-logo" href=""><img src="{{asset('image/logo2.jpeg')}}" alt="logo" /></a>
-                    <a class="navbar-brand brand-logo-mini" href=""><img src="{{asset('web/images/logo-mini.svg')}}"alt="logo"/></a>
+                    <a class="navbar-brand brand-logo" href=""><img src="{{asset('image/logo2.png')}}"  alt="logo" /></a>
+                    <a class="navbar-brand brand-logo-mini" href=""><img src="{{asset('image/logo-mini.png')}}"  alt="logo"/></a>
                 </div>
                 <div class="navbar-menu-wrapper d-flex align-items-stretch">
                     <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -67,13 +76,13 @@
                         </li>
                         <li class="nav-item nav-profile dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                                <img src="{{asset('web/images/faces/face16.jpg')}}" alt="profile" />
+                                <img src="{{asset('image/logo-mini.png')}}" alt="profile" />
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <i class="fas fa-power-off text-primary"></i>
-                                    Logout
+                                    Salir
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf

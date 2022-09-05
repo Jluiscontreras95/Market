@@ -106,6 +106,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
+                                    <label for="description"><strong>1$ va a ser igual a.</strong></label>
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text">Bs.</span>
                                         <input type="number" name="description" id="description" step="any" min="0.00" class="form-control" aria-describedby="helpId" placeholder="Tasa del día" required> 

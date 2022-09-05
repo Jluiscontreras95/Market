@@ -124,8 +124,8 @@
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$productosvendido->name}}</td>
                                         <td>{{$productosvendido->code}}</td>
-                                        <td><strong>{{number_format($productosvendido->stock, 2)}}</strong> {{$productosvendido->measure}}</td>
-                                        <td><strong>{{number_format($productosvendido->quantity, 2)}}</strong> {{$productosvendido->measure}}</td>
+                                        <td><strong>{{number_format($productosvendido->stock, 2, ',', ' ')}}</strong> {{$productosvendido->measure}}</td>
+                                        <td><strong>{{number_format($productosvendido->quantity, 2,  ',', ' ')}}</strong> {{$productosvendido->measure}}</td>
                                         <td>
                                             <a class="btn btn-primary"
                                                 href="{{route('products.show', $productosvendido->id)}}">

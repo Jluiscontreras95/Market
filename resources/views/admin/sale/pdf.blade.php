@@ -52,15 +52,15 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-6 float-left pb-4">
+            <div class="col-6 float-left py-5 border border-danger">
                 @foreach ($businesses as $business)
-                    <img src="{{ public_path('image/'.$business->logo) }}">
+                    <img src="{{ public_path('image/'.$business->logo) }}" class="img-fluid " width="700px" height="200px">
                 @endforeach
             </div>
         </div>
         <hr>
         <div class="row">
-            <div class="col">    
+            <div class="col pt-5 mt-5">    
                 <h5 class="text-muted text-left">{{$business->address}}</h5>
                 <hr>
             </div>
@@ -79,40 +79,40 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">Nombre Apellido o Razón Social:</th>
+                    <th scope="col" class="text-left">Nombre Apellido o Razón Social:</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th scope="row">{{$sale->client->name}}</th>
+                    <th scope="row" class="text-left">{{$sale->client->name}}</th>
                 </tr>
             </tbody>
         </table>
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">Domicilio Fiscal:</th>
+                    <th scope="col" class="text-left">Domicilio Fiscal:</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th scope="row">{{$sale->client->address}}</th>
+                    <th scope="row" class="text-left">{{$sale->client->address}}</th>
                 </tr>
             </tbody>
         </table>
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">Teléfono:</th>
-                    <th scope="col">RIF:</th>
-                    <th scope="col">Condiciones de pago:</th>
+                    <th scope="col" class="text-left">Teléfono:</th>
+                    <th scope="col" class="text-left">C.I:</th>
+                    <th scope="col" class="text-left">Condiciones de pago:</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th scope="row">{{$sale->client->phone}}</th>
-                    <th scope="row">{{$sale->client->dni}}</th>
-                    <th scope="row"></th>
+                    <th scope="row" class="text-left">{{$sale->client->phone}}</th>
+                    <th scope="row" class="text-left">V-{{$sale->client->dni}}</th>
+                    <th scope="row" class="text-left"></th>
                 </tr>
             </tbody>
         </table>
