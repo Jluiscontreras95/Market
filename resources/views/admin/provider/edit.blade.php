@@ -48,9 +48,7 @@
                                         <div class="form-group">
                                             <label for="rif_number">Rif del proveedor</label>
                                             <div class="input-group flex-nowrap">
-                                                <span class="input-group-text" id="addon-wrapping">
-                                                    <i class="far fa-address-book menu-icon"></i>
-                                                </span>
+                                                <span class="input-group-text" id="addon-wrapping">J-</span>
                                                 <input type="number" class="form-control" name="rif_number" id="rif_number" placeholder="Cédula del proveedor" aria-describedby="addon-wrapping" value="{{$provider->rif_number}}" required>
                                             </div>
                                             <small id="helpId" class="text-muted">Campo obligatorio.</small>

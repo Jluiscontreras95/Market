@@ -56,7 +56,7 @@
                                             <p class="text-muted py-3">{{$provider->name}}</p>
                                             <hr>
                                             <strong><i class="fas fa-address-card mr-1"></i>Rif/Cédula</strong>
-                                            <p class="text-muted py-3">{{$provider->rif_number}}</p>
+                                            <p class="text-muted py-3">J-{{$provider->rif_number}}</p>
                                             <hr>
                                             <strong><i class="fa fa-university mr-1"></i>N° de cuenta</strong>
                                             <p class="text-muted py-3">{{$provider->account_bank}}</p>

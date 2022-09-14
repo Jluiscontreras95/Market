@@ -55,7 +55,7 @@
                                             <p class="text-muted pt-3">{{$client->name}}</p>
                                             <hr>
                                             <strong><i class="fas fa-address-card mr-1"></i>Cédula</strong>
-                                            <p class="text-muted pt-3">{{$client->dni}}</p>
+                                            <p class="text-muted pt-3">C.I -{{$client->dni}}</p>
                                             <hr>
                                             <strong><i class="fas fa-address-card mr-1"></i>Rif</strong>
                                             <p class="text-muted pt-3">{{$client->rif}}</p>

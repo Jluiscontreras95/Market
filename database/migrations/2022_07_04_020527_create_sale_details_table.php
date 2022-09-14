@@ -21,9 +21,26 @@ class CreateSaleDetailsTable extends Migration
             $table->foreign('product_id')->references('id')->on('products');
             $table->decimal('quantity');
             $table->decimal('price');
+            $table->decimal('cash')->nullable();
+            $table->decimal('debit')->nullable();
+            $table->decimal('biopayment')->nullable();
+            $table->decimal('dollar')->nullable();
+            $table->decimal('movilpayment')->nullable();
+            $table->decimal('transfer')->nullable();
             $table->decimal('tax');
             $table->decimal('discount');
             $table->timestamps();
+
+
+
+            
+
+
+
+
+
+
+
         });
 
 

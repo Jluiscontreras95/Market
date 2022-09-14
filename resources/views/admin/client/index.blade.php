@@ -70,7 +70,7 @@
                                             <td>
                                                 <a href="{{ route('clients.show', $client) }}">{{ $client->name }}</a>
                                             </td> 
-                                            <td>{{ $client->dni }}</td>
+                                            <td>C.I -{{ $client->dni }}</td>
                                             <td>{{ $client->phone }}</td>
                                             <td>{{ $client->email}}</td>
                                             <td style="width: 50px;">

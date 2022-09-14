@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Category;
 
 class CategorySeeder extends Seeder
 {
@@ -12,5 +13,9 @@ class CategorySeeder extends Seeder
     public function run()
     {
         //
+        Category::create([
+            'name'=>'Frutería',
+            'description'=>'Todo lo relacionado con frutas en general',
+        ]);
     }
 }

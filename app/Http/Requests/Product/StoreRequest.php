@@ -30,6 +30,8 @@ class StoreRequest extends FormRequest
             'measure' => 'required|',
             'category_id' => 'integer|required|',
             // 'provider_id' => 'integer|required|',
+            'cost_price' => 'required|',
+            'utility' => 'required|',
 
         ];
     }
@@ -40,9 +42,14 @@ class StoreRequest extends FormRequest
             'name.required' => 'Este campo es requerido.',
             'name.unique' => 'Este campo ya está registrado.',
             'name.max' => 'Solo se permite 255 caracteres.',
-            
 
             'sell_price.required' => 'Este campo es requerido.',
+
+            'cost_price.required' => 'Este campo es requerido.',          
+            
+            'utility.required' => 'Este campo es requerido.',
+            
+
             'measure.required' => 'Este campo es requerido.',
 
             'category_id.required' => 'El valor tiene que ser entero.',

@@ -106,7 +106,6 @@ function obtener_registro(code){
         },
         dataType: 'json',
         success:function(data){
-            console.log(data);
             $("#price").val(data.sell_price);
             $("#stock").val(data.stock);
             $("#product").val(data.id);
@@ -114,7 +113,7 @@ function obtener_registro(code){
             if(data.taxproduct === "SI"){
                 $("#tax_product").val("16");
             }else{
-                $("#tax-product").val("0");
+                $("#tax_product").val("0");
             }
         }
     });
@@ -145,7 +144,7 @@ function agregar(){
     stock = $("#stock").val();
     tax = $("#tax_product").val();
 
-    if (product_id != "" && quantity !="" && quantity > 0 &&  price != "") {
+    if (product_id != "" && quantity !="" && quantity > 0 &&  price != "" &&  tax != "") {
 
         if(discount === ""){
             discount = 0;
@@ -153,8 +152,11 @@ function agregar(){
         if(parseInt(stock) >= parseInt(quantity)){
             subtotal[cont] = (quantity * price) - (quantity * price * discount / 100) ;
             total = total + subtotal[cont];
-            var fila ='<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar(' + cont + ');"><i class="fa fa-times"></i></button></td><td><input type="hidden" id="product_id[]" name="product_id[]" value="' + product_id +'"/>' + product + '</td><td><input type="hidden" id="price[]" name="price[]" value="' + price + '"/><input class="form-control" type="number"  value="' + parseFloat(price).toFixed(2) + '" disabled/></td><td><input type="hidden" id="discount[]" name="discount[]" value="' + parseFloat(discount).toFixed(2) + '"/><input class="form-control" type="number" value="' + parseFloat(discount).toFixed(2) + '" disabled/></td><td><input type="hidden" id="quantity[]" name="quantity[]" value="' + quantity + '"/><input class="form-control" type="number" value="' + quantity + '" disabled/></td><td><input type="hidden" id="tax[]" name="tax[]" value="' + tax + '"/></td><td align="right">s/' + parseFloat(subtotal[cont]).toFixed(2) + '</td></tr>';
+            var fila ='<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar(' + cont + ');"><i class="fa fa-times"></i></button></td><td><input type="hidden" id="product_id[]" name="product_id[]" value="' + product_id +'"/>' + product + '</td><td><input type="hidden" id="price[]" name="price[]" value="' + price + '"/><input class="form-control" type="number"  value="' + parseFloat(price).toFixed(2) + '" disabled/></td><td><input type="hidden" id="discount[]" name="discount[]" value="' + parseFloat(discount).toFixed(2) + '"/><input class="form-control" type="number" value="' + parseFloat(discount).toFixed(2) + '" disabled/></td><td><input type="hidden" id="quantity[]" name="quantity[]" value="' + quantity + '"/><input class="form-control" type="number" value="' + quantity + '" disabled/></td><td><input type="hidden" id="tax[]" name="tax[]" onload="myScript()" value="' + tax + '"/></td><td align="right">s/' + parseFloat(subtotal[cont]).toFixed(2) + '</td></tr>';
+           
+            
             cont++;
+            
             limpiar();
             totales();
             evaluar();
@@ -188,6 +190,17 @@ function limpiar(){
 }
 
 function totales(){
+
+
+    $('#tax').onload = function(){
+        var elemt = [];
+        numero = 0;
+
+        
+    };
+    
+
+
     $("#total").html("Bs. " + total.toFixed(2));
 
     exchange = '{{$exchange->description}}';
@@ -195,6 +208,7 @@ function totales(){
     total_pagar = total + total_impuesto;
     total_divisas = total_pagar / exchange;
     
+    $("#cuenta_total").val(total_pagar.toFixed(2));   
     $("#total_impuesto").html("Bs. " + total_impuesto.toFixed(2));
     $("#total_tax").val(total_impuesto.toFixed(2));
     $("#total_pagar_html").html("Bs. " + total_pagar.toFixed(2));
@@ -212,13 +226,20 @@ function evaluar() {
 }
 
 function eliminar(index){
-    total = total - subtotal[index];
-    total_impuesto = total * impuesto / 100;
+    exchange = '{{$exchange->description}}';
+
+    total = total - subtotal[index]/total_tax[index];
+    total_impuesto = total * total_impuesto / 100;
     total_pagar_html = total + total_impuesto;
+    total_divisas = total_pagar / exchange;
     $("#total").html("Bs. " + total);
-    $("#total_impuesto").html("Bs. " + total_impuesto);
-    $("#total_pagar_html").html("Bs. " + total_pagar_html);
+    $("#total_impuesto").html("Bs. " + total_impuesto.toFixed(2));
+    $("#total_tax").val(total_impuesto.toFixed(2));
+    $("#total_pagar_html").html("Bs. " + total_pagar_html.toFixed(2));
     $("#total_pagar").val(total_pagar_html.toFixed(2));
+    $("#total_pagar_divisas_html").html("$. "+total_divisas.toFixed(2));
+    $("#total_pagar_divisas").val(total_divisas.toFixed(2));
+    $("#cuenta_total").val(total_pagar_html.toFixed(2));
     $("#fila" + index).remove();
     evaluar();
 
@@ -250,6 +271,37 @@ $(document).on('keyup', '#dni', function(){
         obtener_registro_clientes();
     }
 });
+
+
+
+
+var vuelto = 0;
+var falta = 0;
+
+$(".vuelto").on("focusout", event => {
+    let field_id = "#"+event.target.id;
+    vuelto += parseFloat($(field_id).val());
+    parseFloat($("#cuenta_lleva").val(vuelto));
+   
+});
+
+$(".vuelto").on("click", event => {
+    if (event.target.value == 0) {
+        return false;
+    }
+    vuelto -= parseFloat(event.target.value);
+    let field_id = "#"+event.target.id;
+    parseFloat($("#cuenta_lleva").val(vuelto));
+    $(field_id).val(0);
+
+});
+
+$("#cuenta_falta").on("click", event => {
+    falta = parseFloat($("#cuenta_total").val()) - parseFloat($("#cuenta_lleva").val());
+    parseFloat($("#cuenta_falta").val(falta));
+});
+
+
 
 </script>
 

@@ -71,6 +71,26 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
+                                            <label for="cost_price" class="label">Precio de costo</label>
+                                            <div class="input-group flex-nowrap">
+                                                <span class="input-group-text" id="addon-wrapping"><strong>Bs.</strong></span>
+                                                <input type="number" class="form-control" name="cost_price" id="cost_price" placeholder="Precio de costo" aria-describedby="addon-wrapping" require>
+                                            </div>
+                                            <small id="helpId" class="text-muted">Campo obligatorio.</small>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="utility" class="label">(%) Utilidad.</label>
+                                            <div class="input-group flex-nowrap">
+                                                <span class="input-group-text" id="addon-wrapping"><strong>%</strong></span>
+                                                <input type="number" class="form-control" name="utility" id="utility" placeholder="Utilidad" aria-describedby="addon-wrapping" require>
+                                            </div>
+                                            <small id="helpId" class="text-muted">Campo obligatorio.</small>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
                                             <label for="sell_price">Precio para la venta</label>
                                             <div class="input-group flex-nowrap">
                                                 <span class="input-group-text">Bs.</span>
@@ -79,6 +99,8 @@
                                             <small id="helpId" class="text-muted">Campo obligatorio.</small>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row">
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="category_id">Categoría</label>
@@ -104,7 +126,7 @@
                                         <small id="helpId" class="text-muted">Campo obligatorio.</small>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row pt-5">
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="measure">El producto será comprado/vendido en:</label>
@@ -142,5 +164,27 @@
 
 @endsection
 @section('scripts')
+
+<script>
+
+
+var cost_price = $('#cost_price');
+var utility = $('#utility');
+
+
+$('#cost_price, #utility').keyup(function(){
+
+    if (isNaN(parseFloat($('#cost_price').val())) &&  isNaN(parseFloat($('#utility').val()))) {
+        total += 0;
+    } else {
+        total = parseFloat($('#cost_price').val()) * parseFloat($('#utility').val());
+    }
+    $("#sell_price").val(total);
+    
+});
+
+
+</script>
+
 
 @endsection

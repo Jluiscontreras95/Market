@@ -179,3 +179,86 @@
         </table>
     </div>
 </div>
+<hr>
+<div class="row pt-4 pb-3">
+    <div class="col">
+        <h4>Formas de Pago</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="form-group">
+            <label for="cash" class="label">Efectivo.</label>
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text">Bs.</span>
+                <input type="number" class="form-control vuelto" value="0" name="cash" id="cash" step="0.01" placeholder="Monto en efectivo" aria-describedby="addon-wrapping" >
+            </div>
+            <small id="helpId" class="text-muted">Campo opcional.</small>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <label for="debit" class="label">Débito.</label>
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text">Bs.</span>
+                <input type="number" class="form-control vuelto" value="0" name="debit" id="debit" step="0.01" placeholder="Monto en débito" aria-describedby="addon-wrapping" >
+            </div>
+            <small id="helpId" class="text-muted">Campo opcional.</small>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <label for="biopayment" class="label">BioPago.</label>
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text">Bs.</span>
+                <input type="number" class="form-control vuelto" value="0" name="biopayment" id="biopayment" step="0.01" placeholder="Monto en biopago" aria-describedby="addon-wrapping" >
+            </div>
+            <small id="helpId" class="text-muted">Campo opcional.</small>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <label for="dollar" class="label">Divisas.</label>
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text">$.</span>
+                <input type="number" class="form-control vuelto" value="0" name="dollar" id="dollar" step="0.01" placeholder="Monto en biopago" aria-describedby="addon-wrapping" disabled>
+            </div>
+            <small id="helpId" class="text-muted">Campo opcional.</small>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <label for="movilpayment" class="label">Pago Movil.</label>
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text">Bs.</span>
+                <input type="number" class="form-control vuelto" value="0" name="movilpayment" id="movilpayment" step="0.01" placeholder="Monto en pago movil" aria-describedby="addon-wrapping" >
+            </div>
+            <small id="helpId" class="text-muted">Campo opcional.</small>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <label for="transfer" class="label">Transferencia Bancaria.</label>
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text">Bs.</span>
+                <input type="number" class="form-control vuelto" value="0" name="transfer" id="transfer" step="0.01" placeholder="Monto en transferencia bancaria" aria-describedby="addon-wrapping" >
+            </div>
+            <small id="helpId" class="text-muted">Campo opcional.</small>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <label class="label" for="cuenta_total">Total:</label>
+        <input type="number" class="form-control" name="cuenta_total" id="cuenta_total" step="0.01" value="0" disabled>
+    </div>
+    <div class="col">
+        <label class="label" for="cuenta_lleva">Lleva:</label>
+        <input type="number" class="form-control" name="cuenta_lleva" id="cuenta_lleva" step="0.01" value="0" disabled>
+    </div>
+    <div class="col">
+        <label class="label" for="cuenta_falta">Falta:</label>
+        <input type="number" class="form-control" name="cuenta_falta" id="cuenta_falta" step="0.01" value="0" disabled>
+    </div>
+</div>

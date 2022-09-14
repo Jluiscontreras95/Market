@@ -11,6 +11,12 @@ class SaleDetail extends Model
         'product_id',
         'quantity',
         'price',
+        'cash',
+        'debit',
+        'biopayment',
+        'dollar',
+        'movilpayment',
+        'transfer',
         'tax',
         'discount',
     ];

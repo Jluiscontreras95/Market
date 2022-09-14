@@ -61,7 +61,7 @@
                                         <th>Id</th>
                                         <th>Nombre</th>
                                         <th>Correo</th>
-                                        <th>Rif/Cedula</th>
+                                        <th>Rif</th>
                                         <th>Dirección</th>
                                         <th>Teléfono</th>
                                         <th>N° de cuenta</th>
@@ -76,7 +76,7 @@
                                                 <a href="{{ route('providers.show', $provider) }}">{{ $provider->name }}</a>
                                             </td> 
                                             <td>{{ $provider->email }}</td>
-                                            <td>{{ $provider->rif_number }}</td>
+                                            <td>J- {{ $provider->rif_number }}</td>
                                             <td>{{ $provider->address }}</td>
                                             <td>{{ $provider->phone }}</td>
                                             <td>{{ $provider->account_bank }}</td>

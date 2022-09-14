@@ -17,10 +17,12 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('code')->unique()->nullable();
             $table->string('name')->unique();
-            $table->decimal('stock',12,2)->default(0);
+            $table->decimal('stock')->default(0);
             $table->enum('measure',['KG','UND'])->default('UND');
             $table->string('image')->nullable();
-            $table->decimal('sell_price',12,2);
+            $table->decimal('cost_price');
+            $table->decimal('utility');
+            $table->decimal('sell_price');
             $table->enum('status',['ACTIVE','DESACTIVATED'])->default('ACTIVE');
             $table->enum('taxproduct',['SI','NO'])->default('SI');
             $table->unsignedBigInteger('category_id');

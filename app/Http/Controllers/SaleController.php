@@ -63,7 +63,7 @@ class SaleController extends Controller
 
         foreach ($request->product_id as $key =>$product){
             $results[] = array("product_id"=>$request->product_id[$key],
-            "quantity"=>$request->quantity[$key], "price"=>$request->price[$key], "discount"=>$request->discount[$key], "tax"=>$request->tax[$key]);
+            "quantity"=>$request->quantity[$key], "price"=>$request->price[$key], "discount"=>$request->discount[$key], "tax"=>$request->tax[$key], "cash"=>$request->input("cash"), "debit"=>$request->input("debit"), "biopayment"=>$request->input("biopayment"), "dollar"=>$request->input("dollar"), "movilpayment"=>$request->input("movilpayment"), "transfer"=>$request->input("transfer"));
         }
 
         
@@ -73,13 +73,11 @@ class SaleController extends Controller
 
         $sale = Sale::get()->last();
         $cont = new Contability();
-
         $cont->sale_id = $sale->id;
         $cont->have = $sale->total;
         $cont->contability_date = $sale->sale_date;
         $cont->description = "Venta";
         $cont->must = 0;
-
         $cont->save();
 
         
