@@ -19,6 +19,11 @@
             <span class="btn btn-primary">+ Crear nuevo producto</span>
         </a>
     </li>
+    <li class="nav-item d-none d-lg-flex">
+        <a class="nav-link" href="{{route('products.pdf')}}">
+            <span class="btn btn-primary">* Imprimir inventario</span>
+        </a>
+    </li>
 @endsection
 @section('preference')
 @endsection
@@ -56,8 +61,11 @@
                                     <th>Id</th>
                                     <th>Nombre</th>
                                     <th>Stock</th>
-                                    <th>Estado</th>
+                                    <th>Precio de costo</th>
+                                    <th>Utilidad(%)</th>
+                                    <th>Precio de venta</th>
                                     <th>Categoría</th>
+                                    <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -68,7 +76,11 @@
                                         <td>
                                             <a href="{{ route('products.show', $product) }}">{{ $product->name }}</a>
                                         </td> 
-                                        <td>{{ $product->stock }}</td>
+                                        <td>{{ $product->stock }} {{ $product->measure }}</td>
+                                        <td>Bs. {{ $product->cost_price }}</td>
+                                        <td>{{ $product->utility }}</td>
+                                        <td>Bs. {{ $product->sell_price }}</td>
+                                        <td>{{ $product->category->name }}</td>
                                         @if ($product->status == 'ACTIVE')
                                             <td>
                                                 <a class="jsgrid-button btn btn-success" href="{{route('change.status.products', $product)}}" title="Editar">
@@ -82,7 +94,6 @@
                                                 </a>
                                             </td>
                                         @endif
-                                        <td>{{ $product->category->name }}</td>
                                         <td style="width: 50px;">
                                             {!! Form::open( ['route'=>['products.destroy', $product], 'method'=>'DELETE'] ) !!} 
                                                 <a class="jsgrid-button jsgrid-edit-button" href="{{ route('products.edit', $product) }}" title="Editar">

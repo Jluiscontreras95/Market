@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Product\StoreRequest;
 use App\Http\Requests\Product\UpdateRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Barryvdh\Snappy\Facades\SnappyPdf;
+use Carbon\Carbon;
 
 class ProductController extends Controller
 {
@@ -24,6 +27,7 @@ class ProductController extends Controller
         $this->middleware('can:products.show')->only(['show']);
         $this->middleware('can:products.destroy')->only(['destroy']);
         $this->middleware('can:change.status.products')->only(['change_status']);
+        $this->middleware('can:products.pdf')->only(['pdf']);
     }
 
 
@@ -160,6 +164,18 @@ class ProductController extends Controller
                 return response()->json($products);
             }
         
+    }
+
+    public function pdf()
+    {
+        $products = Product::get();
+        $exchange = Exchange::latest()->first();
+        $fecha = Carbon::now('America/Caracas');
+
+        $pdf = SnappyPdf::setOption('enable-local-file-access', true);
+        $pdf->loadView('admin.product.pdf', compact('products', 'exchange', 'fecha'))->setPaper('a4')->setOrientation('landscape');
+        return $pdf->inline('reporte_de_inventario.pdf');
+
     }
     
 

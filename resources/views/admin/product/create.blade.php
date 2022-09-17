@@ -125,6 +125,18 @@
                                         </div>
                                         <small id="helpId" class="text-muted">Campo obligatorio.</small>
                                     </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="stock">stock inicial</label>
+                                            <div class="input-group flex-nowrap">
+                                                <span class="input-group-text">
+                                                    <i class="fa fa-home menu-icon"></i>
+                                                </span>
+                                                <input type="number" step="any" name="stock" id="stock" class="form-control" aria-describedby="helpId" placeholder="stock inicial" >   
+                                            </div>
+                                            <small id="helpId" class="text-muted">Campo opcional.</small>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row pt-5">
                                     <div class="col">

@@ -94,7 +94,7 @@
                                                 <strong>
                                                     <i class="fas fa-check-circle mr-1"></i> Stock
                                                 </strong>
-                                                <h5 class="pl-5 pt-2">{{$product->stock}}</h5>
+                                                <h5 class="pl-5 pt-2">{{$product->stock}} {{$product->measure}}</h5>
                                                 <hr>
                                             </div>
                                         </div>
@@ -103,7 +103,21 @@
                                                 <strong>
                                                     <i class="fas fa-shopping-cart mr-1"></i> Precio de venta
                                                 </strong>
-                                                <h5 class="pl-5 pt-2">Bs.{{$product->sell_price}} // $.{{ number_format($product->sell_price / $exchange->description), 2, '.', ','}}</h5>
+                                                <h5 class="pl-5 pt-2">Bs. {{$product->sell_price}} // $. {{ number_format($product->sell_price / $exchange->description), 2, '.', ','}}</h5>
+                                                <hr>
+                                            </div>
+                                            <div class="col">
+                                                <strong>
+                                                    <i class="fas fa-shopping-cart mr-1"></i> Precio de compra
+                                                </strong>
+                                                <h5 class="pl-5 pt-2">Bs. {{$product->cost_price}}</h5>
+                                                <hr>
+                                            </div>
+                                            <div class="col">
+                                                <strong>
+                                                    <i class="fas fa-shopping-cart mr-1"></i> Utilidad(%)
+                                                </strong>
+                                                <h5 class="pl-5 pt-2">{{$product->utility}}</h5>
                                                 <hr>
                                             </div>
                                         </div>

@@ -63,6 +63,7 @@ Route::resource('exchanges', 'ExchangeController')-> names('exchanges');
 Route::get('purchases/pdf/{purchase}', 'PurchaseController@pdf')->name('purchase.pdf');
 Route::get('sales/pdf/{sale}', 'SaleController@pdf')->name('sales.pdf');
 Route::get('sales/print/{sale}', 'SaleController@print')->name('sales.print');
+Route::get('products/pdf/stock', 'ProductController@pdf')->name('products.pdf');
 
 /* Rutas para subir archivos al sistema */
 Route::get('purchases/upload/{purchase}', 'PurchaseController@upload')-> name('upload.purchases');

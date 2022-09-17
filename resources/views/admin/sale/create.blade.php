@@ -194,13 +194,9 @@ function totales(){
 
     $('#tax').onload = function(){
         var elemt = [];
-        numero = 0;
-
-        
+        numero = 0;     
     };
     
-
-
     $("#total").html("Bs. " + total.toFixed(2));
 
     exchange = '{{$exchange->description}}';
@@ -218,6 +214,10 @@ function totales(){
 }
 
 function evaluar() {
+
+    let total = document.getElementById("cuenta_total").value;
+	let lleva = document.getElementById("cuenta_lleva").value;
+
     if (total > 0){
         $("#guardar").show();
     }else{
@@ -273,15 +273,21 @@ $(document).on('keyup', '#dni', function(){
 });
 
 
-
-
 var vuelto = 0;
 var falta = 0;
 
 $(".vuelto").on("focusout", event => {
     let field_id = "#"+event.target.id;
     vuelto += parseFloat($(field_id).val());
-    parseFloat($("#cuenta_lleva").val(vuelto));
+    parseFloat($("#cuenta_lleva").val(vuelto).toFixed(2));
+   
+});
+
+$("#dollar").on("focusout", event => {
+
+    exchange = '{{$exchange->description}}';
+    vuelto += parseFloat($("#dollar").val() * exchange );
+    parseFloat($("#cuenta_lleva").val(vuelto).toFixed(2));
    
 });
 
@@ -291,15 +297,39 @@ $(".vuelto").on("click", event => {
     }
     vuelto -= parseFloat(event.target.value);
     let field_id = "#"+event.target.id;
-    parseFloat($("#cuenta_lleva").val(vuelto));
+    parseFloat($("#cuenta_lleva").val(vuelto).toFixed(2));
+    $(field_id).val(0);
+
+});
+
+$("#dollar").on("click", event => {
+    if (event.target.value == 0) {
+        return false;
+    }
+    exchange = '{{$exchange->description}}';
+    vuelto -= parseFloat($("#dollar").val() * exchange );
+    parseFloat($("#cuenta_lleva").val(vuelto).toFixed(2));
     $(field_id).val(0);
 
 });
 
 $("#cuenta_falta").on("click", event => {
     falta = parseFloat($("#cuenta_total").val()) - parseFloat($("#cuenta_lleva").val());
-    parseFloat($("#cuenta_falta").val(falta));
+    parseFloat($("#cuenta_falta").val(falta).toFixed(2));
 });
+
+
+// $("#cuenta_lleva").on("change", event => {
+    
+//     var lleva = $("#total_lleva").val();
+//     var total = $("#cuenta_total").val()
+//     if ( total == lleva) {
+//         $("#guardar").show();
+//     }
+//         $("#guardar").hide();
+    
+
+// });
 
 
 

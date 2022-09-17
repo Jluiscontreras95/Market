@@ -240,6 +240,12 @@ class RoleSeeder extends Seeder
         ])->syncRoles([$role1, $role2]);
 
         Permission::create([
+         'action'        =>'Imprimir reporte de inventario',
+         'name'          =>'products.pdf',
+         'description'   =>'Puede imprimir reporte de inventario.',
+      ])->syncRoles($role1);
+
+        Permission::create([
            'action'        =>'Ver datos de la empresa',
            'name'          =>'businesses.index',
            'description'   =>'Navega por los datos de la empresa.',
@@ -251,7 +257,7 @@ class RoleSeeder extends Seeder
         ])->syncRoles($role1);
 
         Permission::create([
-           'action'        =>'er datos de la impresora',
+           'action'        =>'ver datos de la impresora',
            'name'          =>'printers.index',
            'description'   =>'Navega por los datos de la impresora.',
         ])->syncRoles($role1);

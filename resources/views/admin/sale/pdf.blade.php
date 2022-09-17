@@ -148,7 +148,7 @@
                         </tr>
                         <tr>
                             <th scope="col">IVA _(%):</th>
-                            <th scope="col">Bs.{{number_format($subtotal * $sale->tax / 100 ,2)}}</th>
+                            <th scope="col">Bs.{{number_format($sale->total_tax ,2)}}</th>
                         </tr>
                         <tr>
                             <th scope="col">Valor Total:</th>
