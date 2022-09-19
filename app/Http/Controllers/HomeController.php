@@ -57,7 +57,7 @@ class HomeController extends Controller
         inner join sale_details dv on p.id=dv.product_id 
         inner join sales v on dv.sale_id=v.id where v.status="VALID" 
         and year(v.sale_date)=year(curdate()) 
-        group by p.code ,p.name, p.id , p.stock order by sum(dv.quantity) desc limit 10');
+        group by p.code ,p.name, p.id , p.stock, p.measure order by sum(dv.quantity) desc limit 10');
        
        $exchange = Exchange::latest()->first();
 

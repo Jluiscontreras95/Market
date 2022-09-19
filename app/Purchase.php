@@ -32,4 +32,8 @@ class Purchase extends Model
    public function contability(){
       return $this->hasMany(Contability::class);
      }
+
+     public function retention(){
+      return $this->hasOne(Retention::class);
+     }
 }

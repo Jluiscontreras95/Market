@@ -41,6 +41,16 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col">
+                                        <div class="form-group" id="tax_div">
+                                            <label for="tax" class="label">(%) impuesto.</label>
+                                            <div class="input-group flex-nowrap">
+                                                <span class="input-group-text" id="addon-wrapping"><strong>%</strong></span>
+                                                <input type="number" class="form-control" name="tax" id="tax" step="any" placeholder="impuesto" aria-describedby="addon-wrapping" value="0" >
+                                            </div>
+                                            <small id="helpId" class="text-muted">Campo obligatorio.</small>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
@@ -74,7 +84,7 @@
                                             <label for="cost_price" class="label">Precio de costo</label>
                                             <div class="input-group flex-nowrap">
                                                 <span class="input-group-text" id="addon-wrapping"><strong>Bs.</strong></span>
-                                                <input type="number" class="form-control" name="cost_price" id="cost_price" placeholder="Precio de costo" aria-describedby="addon-wrapping" require>
+                                                <input type="number" class="form-control" step="any" name="cost_price" id="cost_price" placeholder="Precio de costo" aria-describedby="addon-wrapping" require>
                                             </div>
                                             <small id="helpId" class="text-muted">Campo obligatorio.</small>
                                         </div>
@@ -84,7 +94,7 @@
                                             <label for="utility" class="label">(%) Utilidad.</label>
                                             <div class="input-group flex-nowrap">
                                                 <span class="input-group-text" id="addon-wrapping"><strong>%</strong></span>
-                                                <input type="number" class="form-control" name="utility" id="utility" placeholder="Utilidad" aria-describedby="addon-wrapping" require>
+                                                <input type="number" class="form-control" name="utility" id="utility" step="any" placeholder="Utilidad" aria-describedby="addon-wrapping" require>
                                             </div>
                                             <small id="helpId" class="text-muted">Campo obligatorio.</small>
                                         </div>
@@ -94,7 +104,7 @@
                                             <label for="sell_price">Precio para la venta</label>
                                             <div class="input-group flex-nowrap">
                                                 <span class="input-group-text">Bs.</span>
-                                                <input type="number" step="any" name="sell_price" id="sell_price" class="form-control" aria-describedby="helpId" placeholder="Precio para a venta" required>   
+                                                <input type="number" step="any" name="sell_price" id="sell_price" step="any" class="form-control" aria-describedby="helpId" placeholder="Precio para a venta" required>   
                                             </div>
                                             <small id="helpId" class="text-muted">Campo obligatorio.</small>
                                         </div>
@@ -189,10 +199,28 @@ $('#cost_price, #utility').keyup(function(){
     if (isNaN(parseFloat($('#cost_price').val())) &&  isNaN(parseFloat($('#utility').val()))) {
         total += 0;
     } else {
-        total = parseFloat($('#cost_price').val()) * parseFloat($('#utility').val());
+        
+        total = parseFloat($('#cost_price').val()) + (parseFloat($('#cost_price').val()) *  parseFloat($('#utility').val()) / 100);
     }
     $("#sell_price").val(total);
     
+});
+
+$("#tax_div").hide();
+
+$("input[name='taxproduct']").change(function (){
+
+   
+    if ($(this).val() == 'SI') {
+
+        $("#tax_div").show();
+
+    }else{
+
+        $("#tax_div").hide();
+
+    };
+
 });
 
 

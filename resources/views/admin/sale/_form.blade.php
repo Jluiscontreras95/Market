@@ -137,23 +137,36 @@
                     <th>Eliminar</th>
                     <th>Producto</th>
                     <th>Precio de venta(Bs.)</th>
-                    <th>Descuento</th>
+                    <th>Descuento(%)</th>
                     <th>Cantidad</th>
+                    <th>Impuesto(%)</th>
                     <th>SubTotal(Bs.)</th>
+                    <th>Total(Bs.)</th>
+                    <th>Total excento</th>
+                    <th>Base imponible</th>
+                    <th>Iva</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                    <th colspan="6">
-                        <p align="right">TOTAL:</p>
+                    <th colspan="10">
+                        <p align="right">TOTAL EXENTO:</p>
                     </th>
                     <th>
-                        <p align="right"><span id="total">Bs. 0.00</span></p>
+                        <p align="right"><span id="total_exento">Bs. 0.00</span></p>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="10">
+                        <p align="right">BASE IMPONIBLE:</p>
+                    </th>
+                    <th>
+                        <p align="right"><span id="base_imponible">Bs. 0.00</span></p>
                     </th>
                 </tr>
                 <tr id="dvOcultar">
-                    <th colspan="6">
-                        <p align="right">TOTAL IMPUESTO (16%):</p>
+                    <th colspan="10">
+                        <p align="right">I.V.A (16%):</p>
                     </th>
                     <th>
                         <p align="right"><span id="total_impuesto">Bs. 0.00</span></p>
@@ -161,7 +174,16 @@
                     </th>
                 </tr>
                 <tr>
-                    <th colspan="6">
+                    <th colspan="10">
+                        <p align="right">TOTAL:</p>
+                    </th>
+                    <th>
+                        <p align="right"><span id="total">Bs. 0.00</span></p>
+                    </th>
+                </tr>
+                
+                <tr>
+                    <th colspan="10">
                         <p align="right">TOTAL PAGAR:</p>
                     </th>
                     <th>

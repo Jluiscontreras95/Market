@@ -176,4 +176,20 @@ class PurchaseController extends Controller
 
     }
 
+    public function retention(Purchase $purchase)
+    {
+        // 
+        
+        
+        $subtotal = 0;
+        $purchaseDetails = $purchase->purchaseDetails;
+        
+        foreach ($purchaseDetails as $purchaseDetail){
+            $subtotal += $purchaseDetail->quantity * $purchaseDetail->price; 
+        }
+
+        $businesses = Business::get();
+        return view('admin.retention.index', compact('purchase','purchaseDetails','subtotal'));
+    }
+
 }

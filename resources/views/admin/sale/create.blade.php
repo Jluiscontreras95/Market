@@ -73,20 +73,13 @@ $('#product').change(function (){
             $("#code").val(data.code);
             $("#measure").html(data.measure);
             $("#measure_stock").html(data.measure);
-
-            if(data.taxproduct === "SI"){
-                $("#tax_product").val("16");
-            }else{
-                $("#tax_product").val("0");
-            }
+            $("#tax_product").val(data.tax);
         }
     });
 });
 
 
-var cont = 0;
-total = 0;
-subtotal = [];
+
 $("#guardar").hide();
 $("#product").change(mostrarValores);
 
@@ -109,12 +102,7 @@ function obtener_registro(code){
             $("#price").val(data.sell_price);
             $("#stock").val(data.stock);
             $("#product").val(data.id);
-
-            if(data.taxproduct === "SI"){
-                $("#tax_product").val("16");
-            }else{
-                $("#tax_product").val("0");
-            }
+            $("#tax_product").val(data.tax);
         }
     });
 }
@@ -134,6 +122,13 @@ $(document).ready(function (){
     });
 });
 
+
+var cont = 0;
+total = 0;
+total_exento = [];
+base_imponible = [];
+subtotal = [];
+
 function agregar(){
     datosProducto =document.getElementById('product').value.split('_');
     product_id = datosProducto[0]; 
@@ -150,11 +145,44 @@ function agregar(){
             discount = 0;
         }
         if(parseInt(stock) >= parseInt(quantity)){
-            subtotal[cont] = (quantity * price) - (quantity * price * discount / 100) ;
-            total = total + subtotal[cont];
-            var fila ='<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar(' + cont + ');"><i class="fa fa-times"></i></button></td><td><input type="hidden" id="product_id[]" name="product_id[]" value="' + product_id +'"/>' + product + '</td><td><input type="hidden" id="price[]" name="price[]" value="' + price + '"/><input class="form-control" type="number"  value="' + parseFloat(price).toFixed(2) + '" disabled/></td><td><input type="hidden" id="discount[]" name="discount[]" value="' + parseFloat(discount).toFixed(2) + '"/><input class="form-control" type="number" value="' + parseFloat(discount).toFixed(2) + '" disabled/></td><td><input type="hidden" id="quantity[]" name="quantity[]" value="' + quantity + '"/><input class="form-control" type="number" value="' + quantity + '" disabled/></td><td><input type="hidden" id="tax[]" name="tax[]" onload="myScript()" value="' + tax + '"/></td><td align="right">s/' + parseFloat(subtotal[cont]).toFixed(2) + '</td></tr>';
-           
+            subtotal[cont] = (quantity * price) - (quantity * price * discount / 100);
+            total = subtotal[cont]+(subtotal[cont] * tax /100);
+
+            if (tax == 0) {
+
+                total_exento[cont] = subtotal[cont]; 
+                base_imponible[cont] = 0;
+                iva = 0;
+
+            }else{
+                total_exento[cont] = 0;
+                base_imponible[cont] = subtotal[cont];
+                iva = base_imponible * tax /100;
+
+                console.log({total_exento}, {base_imponible}, {iva});
+
+            };
+             
             
+            var fila ='<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar(' + cont + ');"><i class="fa fa-times"></i></button></td><td><input type="hidden" id="product_id[]" name="product_id[]" value="' + product_id +'"/>' + product + '</td><td><input type="hidden" id="price[]" name="price[]" value="' + price + '"/><input class="form-control" type="number"  value="' + parseFloat(price).toFixed(2) + '" disabled/></td><td><input type="hidden" id="discount[]" name="discount[]" value="' + parseFloat(discount).toFixed(2) + '"/><input class="form-control" type="number" value="' + parseFloat(discount).toFixed(2) + '" disabled/></td><td><input type="hidden" id="quantity[]" name="quantity[]" value="' + quantity + '"/><input class="form-control" type="number" value="' + quantity + '" disabled/></td><td><input type="hidden" id="tax[]" name="tax[]" onload="myScript()" value="' + tax + '"/><input class="form-control" type="number" value="' + parseFloat(tax).toFixed(2) + '" disabled/></td><td align="right">' + parseFloat(subtotal[cont]).toFixed(2) + '<td align="right">' + parseFloat(total).toFixed(2) + '</td></td><td align="right">' + parseFloat(total_exento[cont]).toFixed(2) + '</td><td align="right">' + parseFloat(base_imponible[cont]).toFixed(2) + '</td><td align="right">' + parseFloat(iva).toFixed(2) + '</td></tr>';
+           
+
+
+
+            // // const initialValue = 0;
+            // // const suma = total_exento.reduce((total_exento, elem) => total_exento + elem, initialValue);
+
+            // // const suma2 = base_imponible.reduce((base_imponible, elem) => base_imponible + elem, initialValue);
+            
+                
+            // // console.log(suma2);
+            // // $("#total_exento").html("Bs. " + suma);
+            
+
+
+
+
+
             cont++;
             
             limpiar();
@@ -199,10 +227,19 @@ function totales(){
     
     $("#total").html("Bs. " + total.toFixed(2));
 
+    
+   
+
+
     exchange = '{{$exchange->description}}';
     total_impuesto = total * tax / 100;
+    base_imponible= total + (total * tax  / 100);
     total_pagar = total + total_impuesto;
     total_divisas = total_pagar / exchange;
+
+
+
+
     
     $("#cuenta_total").val(total_pagar.toFixed(2));   
     $("#total_impuesto").html("Bs. " + total_impuesto.toFixed(2));
@@ -211,6 +248,8 @@ function totales(){
     $("#total_pagar").val(total_pagar.toFixed(2));
     $("#total_pagar_divisas_html").html("$. "+total_divisas.toFixed(2));
     $("#total_pagar_divisas").val(total_divisas.toFixed(2));
+
+    $("#base_imponible").html("Bs. " + base_imponible.toFixed(2));
 }
 
 function evaluar() {

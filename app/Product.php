@@ -18,6 +18,7 @@ class Product extends Model
         'sell_price',
         'status',
         'taxproduct',
+        'tax',
         'category_id',
  
     ];

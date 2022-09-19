@@ -58,6 +58,13 @@ class ProductController extends Controller
             $image_name = time().'_'.$file->getClientOriginalName();
             $file->move(public_path("/image"),$image_name);
             $product = Product::create($request->all()+[ 'image' => $image_name]);
+
+            if ($request->input('code') == null) {
+
+                $product->update(['code'=>$product->id]);
+            
+            }
+
             $product->providers()->attach($request->providers);
 
             return redirect()->route('products.index')->with('toast_success', '¡Producto agregado con éxito!');;
@@ -65,7 +72,12 @@ class ProductController extends Controller
         }else{
             
             $product = Product::create($request->all());
-            $product->update(['code'=>$product->id]);
+
+            if ($request->input('code') == null) {
+
+                $product->update(['code'=>$product->id]);
+            
+            }
 
             $product->providers()->attach($request->providers);
             return redirect()->route('products.index')->with('toast_success', '¡Producto agregado con éxito!');;

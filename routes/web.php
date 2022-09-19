@@ -58,9 +58,12 @@ Route::resource('users', 'UserController')-> names('users');
 Route::resource('roles', 'RoleController')-> names('roles');
 Route::resource('contabilities', 'ContabilityController')-> names('contabilities');
 Route::resource('exchanges', 'ExchangeController')-> names('exchanges');
+Route::resource('retentions', 'RetentionController')-> names('retentions');
 
 /* Rutas principales para impresiones en pdf e impresoras fiscales del sistema */
 Route::get('purchases/pdf/{purchase}', 'PurchaseController@pdf')->name('purchase.pdf');
+Route::post('purchases/retention/{purchase}', 'PurchaseController@retention')->name('purchase.retention');
+
 Route::get('sales/pdf/{sale}', 'SaleController@pdf')->name('sales.pdf');
 Route::get('sales/print/{sale}', 'SaleController@print')->name('sales.print');
 Route::get('products/pdf/stock', 'ProductController@pdf')->name('products.pdf');
