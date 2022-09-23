@@ -18,21 +18,19 @@ class ReportController extends Controller
         $this->middleware('can:reports.date')->only(['reports_date']);
     }
     public function reports_day(){
-        $sales = Sale::WhereDate('sale_date', Carbon::today('America/Caracas'))->with('saleDetails.product')->get();
+        $sales_t = Sale::WhereDate('sale_date', Carbon::today('America/Caracas'))
+                    ->with('saleDetails.product')
+                    ->get();
 
 
-        // $sales = DB::table('sales')
-        // ->join('sale_details', 'sales.id', '=', 'sale_details.sale_id')
-        // ->join('products', 'products.id', '=', 'sale_details.product_id')
-        // ->select('sales.*', 'products.*', 'sale_details.*')
-        // ->get();
+        $sales = DB::select('SELECT s.id as sale_id, s.sale_date as fecha, s.total as total, s.status as estado, COUNT(sd.sale_id) as totalProductos, SUM(p.utility) as totaUtilidadesDetal, SUM(p.utility_may) as totaUtilidadesMayor
+        FROM products p, sales s, sale_details sd  
+        WHERE sd.product_id = p.id 
+        AND sd.sale_id = s.id
+        GROUP BY sd.sale_id');
 
-
-
-
-
-        $total = $sales->sum('total');
-        return view('admin.report.reports_day', compact('sales','total'));
+        $total = $sales_t->sum('total');
+        return view('admin.report.reports_day', compact('sales', 'sales_t','total'));
     }
     public function reports_date(){
         $sales = Sale::whereDate('sale_date', Carbon::today('America/Caracas'))->get();

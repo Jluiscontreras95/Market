@@ -21,7 +21,12 @@
     </li>
     <li class="nav-item d-none d-lg-flex">
         <a class="nav-link" href="{{route('products.pdf')}}">
-            <span class="btn btn-primary">* Imprimir inventario</span>
+            <span class="btn btn-primary">* Imprimir inventario PDF</span>
+        </a>
+    </li>
+    <li class="nav-item d-none d-lg-flex">
+        <a class="nav-link" href="{{route('product.export')}}">
+            <span class="btn btn-primary">* Imprimir inventario EXCEL</span>
         </a>
     </li>
 @endsection
@@ -62,8 +67,10 @@
                                     <th>Nombre</th>
                                     <th>Stock</th>
                                     <th>Precio de costo</th>
-                                    <th>Utilidad(%)</th>
-                                    <th>Precio de venta</th>
+                                    <th>Utilidad(%) al detal</th>
+                                    <th>Precio de venta al detal</th>
+                                    <th>Utilidad(%) al mayor</th>
+                                    <th>Precio de venta al mayor</th>
                                     <th>Categoría</th>
                                     <th>Estado</th>
                                     <th>Acciones</th>
@@ -75,11 +82,22 @@
                                         <th scope="row">{{$loop->iteration}}</th>
                                         <td>
                                             <a href="{{ route('products.show', $product) }}">{{ $product->name }}</a>
-                                        </td> 
-                                        <td>{{ $product->stock }} {{ $product->measure }}</td>
+                                        </td>
+                                        @empty($product->measure_alter_cant)
+                                            <td>{{ $product->stock }} {{ $product->measure }}</td>
+                                        @else
+                                            <td>{{ $product->stock }} {{ $product->measure }} ó {{ number_format($product->stock / $product->measure_alter_cant , 2) }} {{ $product->measure_alter }}</td>
+                                        @endempty
                                         <td>Bs. {{ $product->cost_price }}</td>
                                         <td>{{ $product->utility }}</td>
                                         <td>Bs. {{ $product->sell_price }}</td>
+                                        @empty($product->cost_price_may && $product->utility_may && $product->sell_price_may)
+                                            <td>0.00</td>
+                                            <td>Bs. 0.00</td>
+                                        @else
+                                            <td>{{ $product->utility_may }}</td>
+                                            <td>Bs. {{ $product->sell_price_may }}</td>
+                                        @endempty
                                         <td>{{ $product->category->name }}</td>
                                         @if ($product->status == 'ACTIVE')
                                             <td>

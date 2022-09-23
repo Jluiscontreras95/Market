@@ -13,6 +13,8 @@ use App\Http\Requests\Product\UpdateRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\Snappy\Facades\SnappyPdf;
+use App\Exports\ProductsExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 
 class ProductController extends Controller
@@ -30,7 +32,6 @@ class ProductController extends Controller
         $this->middleware('can:products.pdf')->only(['pdf']);
     }
 
-
     public function index()
     {
 
@@ -38,7 +39,6 @@ class ProductController extends Controller
         return view('admin.product.index', compact('products'));
 
     }
-
 
     public function create()
     {
@@ -58,13 +58,10 @@ class ProductController extends Controller
             $image_name = time().'_'.$file->getClientOriginalName();
             $file->move(public_path("/image"),$image_name);
             $product = Product::create($request->all()+[ 'image' => $image_name]);
-
-            if ($request->input('code') == null) {
-
-                $product->update(['code'=>$product->id]);
-            
+            if ($request->input('code_product') == null) {
+                $product->update(['code_product'=>$product->id]);
             }
-
+            $product->update(['code'=>$product->id]);
             $product->providers()->attach($request->providers);
 
             return redirect()->route('products.index')->with('toast_success', '¡Producto agregado con éxito!');;
@@ -72,13 +69,10 @@ class ProductController extends Controller
         }else{
             
             $product = Product::create($request->all());
-
-            if ($request->input('code') == null) {
-
-                $product->update(['code'=>$product->id]);
-            
+            if ($request->input('code_product') == null) {
+                $product->update(['code_product'=>$product->id]);
             }
-
+            $product->update(['code'=>$product->id]);
             $product->providers()->attach($request->providers);
             return redirect()->route('products.index')->with('toast_success', '¡Producto agregado con éxito!');;
 
@@ -86,17 +80,14 @@ class ProductController extends Controller
 
     }
 
-
     public function show(Product $product)
     {
+        
         $categories = Category::get();
         $exchange = Exchange::latest()->first();
         
         return view('admin.product.show', compact('product','categories', 'exchange'));
-
-
     }
-
 
     public function edit(Product $product)
     {
@@ -104,14 +95,11 @@ class ProductController extends Controller
         $providers = Provider::get();
         return view('admin.product.edit', compact('product','categories','providers'));
 
-
     }
-
 
     public function update(UpdateRequest $request, Product $product)
     {
 
-       
         if($request->hasFile('picture')){
             $file = $request->file('picture');
             $image_name = time().'_'.$file->getClientOriginalName();
@@ -188,6 +176,11 @@ class ProductController extends Controller
         $pdf->loadView('admin.product.pdf', compact('products', 'exchange', 'fecha'))->setPaper('a4')->setOrientation('landscape');
         return $pdf->inline('reporte_de_inventario.pdf');
 
+    }
+
+    public function export() 
+    {
+        return Excel::download(new ProductsExport, 'Inventario.xlsx');
     }
     
 

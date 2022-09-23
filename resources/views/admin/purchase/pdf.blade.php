@@ -197,26 +197,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach ($purchaseDetails as $purchaseDetail)
-                @endforeach
                     <tr>
-                        <td scope="row">1</td>
+                        <td scope="row">{{$purchase->retention->purchase_id}}</td>
                         <td scope="row">{{\Carbon\Carbon::parse($purchase->purchase_date)->format('d/m/y')}}</td>
-                        <td scope="row">{{ $purchaseDetail->purchase_id }}</td>
-                        <td scope="row"></td>
-                        <td scope="row"></td>
-                        <td scope="row">{{ $purchaseDetail->purchase_id }}</td>
-                        <td scope="row">{{number_format($purchase->total,2)}}</td>
-                        <td scope="row"></td>
-                        <td scope="row"></td>
-                        <td scope="row">16%</td>
-                        <td scope="row"></td>
-                        <td scope="row">75%</td>
-                        <td scope="row"></td>
+                        <td scope="row">{{$purchase->retention->purchase_id}}</td>
+                        <td scope="row">{{$purchase->retention->n_control}}</td>
+                        <td scope="row">{{$purchase->retention->n_debit}}</td>
+                        <td scope="row">{{$purchase->retention->purchase_id}}</td>
+                        <td scope="row">{{number_format($purchase->retention->total,2)}}</td>
+                        <td scope="row">{{$purchase->retention->exempt_amount}}</td>
+                        <td scope="row">{{$purchase->retention->taxable_base}}</td>
+                        <td scope="row">{{$purchase->retention->share}}</td>
+                        <td scope="row">{{$purchase->retention->iva}}</td>
+                        <td scope="row">{{$purchase->retention->retention}}</td>
+                        <td scope="row">{{$purchase->retention->detained}}</td>
                     </tr>
                     <tr>
                         <th colspan="6"><p align="right">TOTAL:</p></th>
-                        <th colspan=""><p align="right">{{number_format($purchase->total,2)}}</p></th>
+                        <th colspan=""><p align="right">{{$purchase->retention->total_pagar }}</p></th>
                         <th colspan=""><p align="right"></p></th>
                         <th colspan=""><p align="right"></p></th>
                         <th colspan=""><p align="right">x</p></th>
@@ -226,8 +224,9 @@
                     </tr>
                     <tr id="dvOcultar">
                         <th colspan="6"><p align="right">NETO A PAGAR:</p></th>
-                        <th colspan="7"><p align="right">x</p></th>
+                        <th colspan="7"><p align="right">{{number_format($purchase->retention->total_neto)}}</p></th>
                     </tr>
+              
                 </tbody>
             </table>
 

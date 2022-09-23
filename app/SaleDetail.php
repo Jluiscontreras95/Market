@@ -10,6 +10,7 @@ class SaleDetail extends Model
         'sale_id',
         'product_id',
         'quantity',
+        'measure',
         'price',
         'cash',
         'debit',

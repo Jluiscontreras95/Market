@@ -90,7 +90,7 @@
                 </tr>
                 <tr id="dvOcultar">
                     <th colspan="6">
-                        <p align="right">TOTAL IMPUESTO (16%):</p>
+                        <p align="right">TOTAL IMPUESTO:</p>
                     </th>
                     <th>
                         <p align="right"><span id="total_impuesto">Bs. 0.00</span></p>

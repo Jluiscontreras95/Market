@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Retention;
 use App\Purchase;
 use App\Provider;
 use App\Product;
@@ -24,16 +25,6 @@ class RetentionController extends Controller
     {
         // 
         
-        
-        $subtotal = 0;
-        $purchaseDetails = $purchase->purchaseDetails;
-        
-        foreach ($purchaseDetails as $purchaseDetail){
-            $subtotal += $purchaseDetail->quantity * $purchaseDetail->price; 
-        }
-
-        $businesses = Business::get();
-        return view('admin.retention.index', compact('purchase','purchaseDetails','subtotal'));
     }
 
     /**
@@ -41,9 +32,10 @@ class RetentionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Purchase $purchase)
     {
         //
+        
     }
 
     /**
@@ -55,6 +47,13 @@ class RetentionController extends Controller
     public function store(Request $request)
     {
         //
+        
+            $retention = Retention::create($request->all());
+            
+            return redirect()->route('purchases.index')->with('toast_success', '¡Retencion agregada con éxito!');;
+
+        
+
     }
 
     /**
@@ -89,9 +88,27 @@ class RetentionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
         //
+        $retentionData = Retention::find($id);
+        $retentionData->purchase_id = request('purchase_id');
+        $retentionData->n_control = request('n_control');
+        $retentionData->n_debit = request('n_debit');
+        $retentionData->total = request('total');
+        $retentionData->exempt_amount = request('exempt_amount');
+        $retentionData->taxable_base = request('taxable_base');
+        $retentionData->share = request('share');
+        $retentionData->iva = request('iva');
+        $retentionData->retention = request('retention');
+        $retentionData->detained = request('detained');
+        $retentionData->total_pagar = request('total_pagar');
+        $retentionData->total_neto = request('total_neto');
+        
+        $retentionData->save();
+       
+        return redirect()->back();
+
     }
 
     /**
@@ -103,5 +120,51 @@ class RetentionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function get_Retention_create(Request $request){
+
+        if ($request->ajax()) {
+
+            $purchase_modal = Purchase::where('id', $request->purchase_id)->with('purchaseDetails', 'provider')->firstOrFail();
+            
+            return response()->json($purchase_modal);
+
+        }
+
+    }
+
+    public function get_Retention_edit(Request $request){
+
+        if ($request->ajax()) {
+
+            $purchase_modal = Purchase::where('id', $request->purchase_id)->with('purchaseDetails', 'provider', 'retention')->firstOrFail();
+            
+            return response()->json($purchase_modal);
+
+        }
+
+    }
+
+    public function get_Retention_update($id){
+
+        $retentionData = Retention::find($id);
+        $retentionData->purchase_id = request('purchase_id');
+        $retentionData->n_control = request('n_control');
+        $retentionData->n_debit = request('n_debit');
+        $retentionData->total = request('total');
+        $retentionData->exempt_amount = request('exempt_amount');
+        $retentionData->taxable_base = request('taxable_base');
+        $retentionData->share = request('share');
+        $retentionData->iva = request('iva');
+        $retentionData->retention = request('retention');
+        $retentionData->detained = request('detained');
+        $retentionData->total_pagar = request('total_pagar');
+        $retentionData->total_neto = request('total_neto');
+        
+        $retentionData->save();
+       
+        return json_encode(array('statusCode'=>200));
+
     }
 }

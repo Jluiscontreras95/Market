@@ -182,9 +182,11 @@ return [
         /*SnappyPDF*/
         Barryvdh\Snappy\ServiceProvider::class,
 
-
         /*CODIGOS-BARRAS*/
         Milon\Barcode\BarcodeServiceProvider::class,
+
+        /*EXCEL*/
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
 
@@ -242,6 +244,7 @@ return [
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
         'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
         'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

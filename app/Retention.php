@@ -19,6 +19,8 @@ class Retention extends Model
         'iva',
         'retention',
         'detained',
+        'total_pagar',
+        'total_neto',
 
     ];
 

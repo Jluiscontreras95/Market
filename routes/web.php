@@ -36,6 +36,7 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Auth::routes(['register'=> false, 'reset'=> false]);
 
 
+
 Route::middleware(["auth"])->group(function(){
 
 /* Rutas para los reportes*/
@@ -44,6 +45,8 @@ Route::get('sales/reports_date', 'ReportController@reports_date')-> name('report
 
 Route::post('sales/report_results', 'ReportController@report_results')->name('report.results');
 
+Route::get('purchases/retentions/{purchase}', 'RetentionController@create')->name('retention.create');
+Route::post('purchases/retentions/store', 'RetentionController@store')->name('retention.store');
 
 /* Rutas principales del sistema */
 Route::resource('categories', 'CategoryController')-> names('categories');
@@ -60,9 +63,11 @@ Route::resource('contabilities', 'ContabilityController')-> names('contabilities
 Route::resource('exchanges', 'ExchangeController')-> names('exchanges');
 Route::resource('retentions', 'RetentionController')-> names('retentions');
 
-/* Rutas principales para impresiones en pdf e impresoras fiscales del sistema */
+/* Rutas principales para impresiones en pdf, excel e impresoras fiscales del sistema */
 Route::get('purchases/pdf/{purchase}', 'PurchaseController@pdf')->name('purchase.pdf');
 Route::post('purchases/retention/{purchase}', 'PurchaseController@retention')->name('purchase.retention');
+
+Route::get('products/export/list', 'ProductController@export')-> name('product.export');
 
 Route::get('sales/pdf/{sale}', 'SaleController@pdf')->name('sales.pdf');
 Route::get('sales/print/{sale}', 'SaleController@print')->name('sales.print');
@@ -85,6 +90,10 @@ Route::get('get_Products', 'PurchaseController@get_Products')->name('get_Product
 Route::get('get_Clients_by_dni', 'ClientController@get_Clients_by_dni')->name('get_Clients_by_dni');
 Route::post('get_Only_products', 'ClientController@get_Only_products')->name('get_Only_products');
 Route::get('get_Measure', 'ProductController@get_Measure')-> name('get_Measure');
+Route::get('get_Retention_create', 'RetentionController@get_Retention_create')-> name('get_Retention_create');
+Route::get('get_Retention_edit', 'RetentionController@get_Retention_edit')-> name('get_Retention_edit');
+Route::post('get_Retention_update', 'RetentionController@get_Retention_update')-> name('get_Retention_update');
+
 
 
 

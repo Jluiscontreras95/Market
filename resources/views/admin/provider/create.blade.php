@@ -63,9 +63,9 @@
                                                 <span class="input-group-text" id="addon-wrapping">
                                                     <i class="fa fa-university menu-icon"></i>
                                                 </span>
-                                                <input type="number" class="form-control" name="account_bank" id="account_bank" placeholder="Número de cuenta bancaria del proveedor" aria-describedby="addon-wrapping" required>
+                                                <input type="number" class="form-control" name="account_bank" id="account_bank" placeholder="Número de cuenta bancaria del proveedor" aria-describedby="addon-wrapping">
                                             </div>
-                                            <small id="helpId" class="text-muted">Campo obligatorio.</small>
+                                            <small id="helpId" class="text-muted">Campo opcional.</small>
                                         </div>
                                     </div>
                                 </div>

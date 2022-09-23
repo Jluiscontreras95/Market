@@ -16,6 +16,8 @@
 @section('preference')
 @endsection
 @section('content')
+
+
 <div class="content-wrapper">
     <div class="page-header">
         <h3 class="page-title">
@@ -54,7 +56,7 @@
                         <div class="col-12 col-md-4 text-center">
                             <span>Cantidad de registros: <b></b></span>
                             <div class="form-group">
-                                <strong>{{$sales->count()}}</strong>
+                                <strong>{{$sales_t->count()}}</strong>
                             </div>
                         </div>
                         <div class="col-12 col-md-4 text-center">
@@ -64,8 +66,6 @@
                             </div>
                         </div>
                     </div>
-
-
                     <div class="table-responsive">
                         <table id="order-listing" class="table">
                             <thead>
@@ -79,33 +79,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            
-                                
-                                
                                 @foreach ($sales as $sale)
-                                
                                     <tr>
                                         <th scope="row">
-                                            <a href="{{route('sales.show', $sale)}}">{{$sale->id}}</a>
+                                            <a href="{{route('sales.show', $sale->sale_id)}}">{{$sale->sale_id}}</a>
                                         </th>
-                                        <td>{{\Carbon\Carbon::parse($sale->sale_date)->format('d M y h:i a')}}</td>
+                                        <td>{{\Carbon\Carbon::parse($sale->fecha)->format('d M y h:i a')}}</td>
                                         <td>{{$sale->total}}</td>
-                                        
-                                                <td>
-                                                @foreach ($sale->saleDetails as $detail)
-                                                        {{$detail->product->utility }}
-                                                @endforeach
-                                                </td>
-                                       
-
-                                        <td>{{$sale->status}}</td>
+                                        <td>{{number_format($sale->totaUtilidadesDetal) / number_format($sale->totalProductos) }}</td>
+                                        <td>{{$sale->estado}}</td>
                                         <td style="width: 50px;">
-                                            <a href="{{route('sales.pdf', $sale)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-file-pdf"></i></a>
-                                            <a href="{{route('sales.print', $sale)}}" class="jsgrid-button jsgrid-edit-button"><i class="fas fa-print"></i></a>
-                                            <a href="{{route('sales.show', $sale)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-eye"></i></a>
+                                            <a href="{{route('sales.pdf', $sale->sale_id)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-file-pdf"></i></a>
+                                            <a href="{{route('sales.print', $sale->sale_id)}}" class="jsgrid-button jsgrid-edit-button"><i class="fas fa-print"></i></a>
+                                            <a href="{{route('sales.show', $sale->sale_id)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-eye"></i></a>
                                         </td>
                                     </tr>
-                                
                                 @endforeach
                             </tbody>
                         </table>

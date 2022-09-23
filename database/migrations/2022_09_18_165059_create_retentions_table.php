@@ -19,13 +19,15 @@ class CreateRetentionsTable extends Migration
             $table->foreign('purchase_id')->references('id')->on('purchases');
             $table->string('n_control')->nullable();
             $table->string('n_debit')->nullable();
-            $table->string('total');
+            $table->string('total')->nullable();
             $table->string('exempt_amount')->nullable();
             $table->string('taxable_base')->nullable();
             $table->string('share')->nullable();
             $table->string('iva')->nullable();
             $table->string('retention')->nullable();
             $table->string('detained')->nullable();
+            $table->string('total_pagar')->nullable();
+            $table->string('total_neto')->nullable();
             $table->timestamps();
         });
     }

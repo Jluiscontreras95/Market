@@ -20,6 +20,7 @@ class CreateSaleDetailsTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
             $table->decimal('quantity');
+            $table->string('measure');
             $table->decimal('price');
             $table->decimal('cash')->nullable();
             $table->decimal('debit')->nullable();

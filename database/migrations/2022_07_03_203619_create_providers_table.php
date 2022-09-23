@@ -18,7 +18,7 @@ class CreateProvidersTable extends Migration
             $table->string('name')->unique();
             $table->string('email');
             $table->string('rif_number')->nullable();
-            $table->string('account_bank');
+            $table->string('account_bank')->nullable();
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
             $table->timestamps();

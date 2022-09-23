@@ -67,13 +67,14 @@
         </div>
         <div class="row">
             @foreach ($saleDetails as $saleDetail)
+            @endforeach
                 <div class="col-6 float-left">
-                    <p> Factura: <strong class="ml-3">N° {{$saleDetail->sale_id}}</strong> </p>
+                    <p> Factura: <strong class="ml-3">N° 0{{$saleDetail->sale_id}}</strong> </p>
                 </div>
                 <div class="col-6 float-right">
-                    <p> N° de Control: <strong class="ml-3"> {{$saleDetail->sale_id}}</strong> </p>
+                    <p> N° de Control: <strong class="ml-3">00-0{{$saleDetail->sale_id}}</strong> </p>
                 </div>
-            @endforeach
+            
             <hr>
         </div>
         <table class="table table-bordered">

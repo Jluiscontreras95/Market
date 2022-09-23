@@ -15,6 +15,7 @@
 @endsection
 @section('content')
 
+
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title"> Producto</h3>
@@ -87,37 +88,60 @@
                                                     <i class="fas fa-keyboard mr-1"></i> Código
                                                 </strong>
                                                 <br>
-                                                <h5 class="pl-5 pt-2">{{$product->code}}</h5>
+                                                <h5 class="pl-5 pt-2">{{$product->code_product}}</h5>
                                                 <hr>
                                             </div>
                                             <div class="col">
                                                 <strong>
                                                     <i class="fas fa-check-circle mr-1"></i> Stock
                                                 </strong>
-                                                <h5 class="pl-5 pt-2">{{$product->stock}} {{$product->measure}}</h5>
+                                                <h5 class="pl-5 pt-2">{{$product->stock}} {{$product->measure}} || {{ number_format($product->stock / $product->measure_alter_cant , 2) }} {{ $product->measure_alter }}</h5>
                                                 <hr>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col">
                                                 <strong>
-                                                    <i class="fas fa-shopping-cart mr-1"></i> Precio de venta
+                                                    <i class="fas fa-shopping-cart mr-1"></i> Precio de venta al detal
                                                 </strong>
                                                 <h5 class="pl-5 pt-2">Bs. {{$product->sell_price}} // $. {{ number_format($product->sell_price / $exchange->description), 2, '.', ','}}</h5>
                                                 <hr>
                                             </div>
                                             <div class="col">
                                                 <strong>
-                                                    <i class="fas fa-shopping-cart mr-1"></i> Precio de compra
+                                                    <i class="fas fa-shopping-cart mr-1"></i> Precio de compra al detal
                                                 </strong>
                                                 <h5 class="pl-5 pt-2">Bs. {{$product->cost_price}}</h5>
                                                 <hr>
                                             </div>
                                             <div class="col">
                                                 <strong>
-                                                    <i class="fas fa-shopping-cart mr-1"></i> Utilidad(%)
+                                                    <i class="fas fa-shopping-cart mr-1"></i> Utilidad(%) al detal
                                                 </strong>
                                                 <h5 class="pl-5 pt-2">{{$product->utility}}</h5>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <strong>
+                                                    <i class="fas fa-shopping-cart mr-1"></i> Precio de venta al mayor 
+                                                </strong>
+                                                <h5 class="pl-5 pt-2">Bs. {{$product->sell_price_may}} // $. {{ number_format($product->sell_price_may / $exchange->description), 2, '.', ','}}</h5>
+                                                <hr>
+                                            </div>
+                                            <div class="col">
+                                                <strong>
+                                                    <i class="fas fa-shopping-cart mr-1"></i> Precio de compra al mayor
+                                                </strong>
+                                                <h5 class="pl-5 pt-2">Bs. {{$product->cost_price_may}}</h5>
+                                                <hr>
+                                            </div>
+                                            <div class="col">
+                                                <strong>
+                                                    <i class="fas fa-shopping-cart mr-1"></i> Utilidad(%) al mayor
+                                                </strong>
+                                                <h5 class="pl-5 pt-2">{{$product->utility_may}}</h5>
                                                 <hr>
                                             </div>
                                         </div>

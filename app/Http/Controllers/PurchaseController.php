@@ -9,6 +9,7 @@ use App\PurchaseDetails;
 use App\Contability;
 use App\Exchange;
 use App\Business;
+use App\Retention;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Http\Request;
 use App\Http\Requests\Purchase\StoreRequest;
@@ -32,9 +33,10 @@ class PurchaseController extends Controller
 
     public function index()
     {
-        
+
         $purchases = Purchase::get();
-        return view('admin.purchase.index', compact('purchases'));
+        $businesses = Business::get();
+        return view('admin.purchase.index', compact('purchases', 'businesses'));
     
     }
 
@@ -78,6 +80,12 @@ class PurchaseController extends Controller
         $cont->must = $purchase->total;
 
         $cont->save();
+
+        $retentionData = new Retention();
+        $retentionData->purchase_id = $purchase->id;
+        $retentionData->n_control = "00-0$purchase->id";
+        
+        $retentionData->save();
 
         return redirect()->route('purchases.index');
 
@@ -163,6 +171,7 @@ class PurchaseController extends Controller
     {
         $subtotal = 0;
         $purchaseDetails = $purchase->purchaseDetails;
+        $retentions = $purchase->retention;
         
         foreach ($purchaseDetails as $purchaseDetail){
             $subtotal += $purchaseDetail->quantity * $purchaseDetail->price; 
@@ -171,15 +180,13 @@ class PurchaseController extends Controller
         $businesses = Business::get();
 
         $pdf = SnappyPdf::setOption('enable-local-file-access', true);
-        $pdf->loadView('admin.purchase.pdf', compact('purchase','purchaseDetails','subtotal', 'businesses'))->setPaper('a4')->setOrientation('landscape');
+        $pdf->loadView('admin.purchase.pdf', compact('purchase','purchaseDetails','subtotal', 'businesses', 'retentions'))->setPaper('a4')->setOrientation('landscape');
         return $pdf->inline('retención_de_compra'.$purchase->id.'.pdf');
 
     }
 
-    public function retention(Purchase $purchase)
+    public function modal(Purchase $purchase)
     {
-        // 
-        
         
         $subtotal = 0;
         $purchaseDetails = $purchase->purchaseDetails;
@@ -187,9 +194,9 @@ class PurchaseController extends Controller
         foreach ($purchaseDetails as $purchaseDetail){
             $subtotal += $purchaseDetail->quantity * $purchaseDetail->price; 
         }
-
+        
         $businesses = Business::get();
-        return view('admin.retention.index', compact('purchase','purchaseDetails','subtotal'));
+        return view('admin.purchase.index', compact('purchase','purchaseDetails','subtotal', 'businesses'));
     }
 
 }

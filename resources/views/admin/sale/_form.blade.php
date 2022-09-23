@@ -33,9 +33,6 @@
 </div>
 <h5>Datos del producto</h5>
 <hr>
-
-
-
 <div class="row">
     <div class="col">
         <div class="form-group">
@@ -49,13 +46,6 @@
             <small id="helpId" class="text-muted">Campo obligatorio.</small>
         </div>
     </div>
-
-
-
-
-
-
-
     <div class="col">
         <div class="form-group">
         <label for="code" class="label">Código de barra del producto.</label>
@@ -69,6 +59,23 @@
         </div>
     </div>
 </div>
+
+
+<div class="row">
+    <div class="col">
+        <label for="sale"><h5>Vender</h5></label>
+        <div class="form-inline">
+            <div class="form-check mr-3 ">
+                <label class="form-check-label">{!! Form::radio('sale', 'DETAL') !!} DETAL</label>
+            </div>
+            <div class="form-check">
+                <label class="form-check-label">{!! Form::radio('sale', 'MAYOR') !!} MAYOR</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
 <div class="row">
     <div class="col">
         <div class="form-group">
@@ -76,6 +83,9 @@
             <div class="input-group flex-nowrap">
                 <span class="input-group-text" id="measure"></span>
                 <input type="number" class="form-control" name="quantity" id="quantity" step="0.01" placeholder="Cantidad a vender" aria-describedby="addon-wrapping" >
+                <input type="hidden" class="form-control" name="quantity_total" id="quantity_total" step="0.01"  aria-describedby="addon-wrapping" >
+                <input type="hidden" class="form-control" name="measure_total" id="measure_total" step="0.01" aria-describedby="addon-wrapping" >
+                <input type="hidden" class="form-control" name="product_total" id="product_total" step="0.01" aria-describedby="addon-wrapping" >
             </div>
             <small id="helpId" class="text-muted">Campo obligatorio.</small>
         </div>
@@ -86,6 +96,7 @@
             <div class="input-group flex-nowrap">
                 <span class="input-group-text" id="measure_stock"></span>
                 <input type="number" class="form-control" name="stock" id="stock" placeholder="Stock actual" aria-describedby="addon-wrapping" disabled>
+                <input type="hidden" class="form-control" name="stock_total" id="stock_total" step="0.01" aria-describedby="addon-wrapping" >
             </div>
             <small id="helpId" class="text-muted">Campo obligatorio.</small>
         </div>
@@ -139,6 +150,7 @@
                     <th>Precio de venta(Bs.)</th>
                     <th>Descuento(%)</th>
                     <th>Cantidad</th>
+                    <th>Unid.</th>
                     <th>Impuesto(%)</th>
                     <th>SubTotal(Bs.)</th>
                     <th>Total(Bs.)</th>
@@ -149,7 +161,7 @@
             </thead>
             <tfoot>
                 <tr>
-                    <th colspan="10">
+                    <th colspan="11">
                         <p align="right">TOTAL EXENTO:</p>
                     </th>
                     <th>
@@ -157,7 +169,7 @@
                     </th>
                 </tr>
                 <tr>
-                    <th colspan="10">
+                    <th colspan="11">
                         <p align="right">BASE IMPONIBLE:</p>
                     </th>
                     <th>
@@ -165,7 +177,7 @@
                     </th>
                 </tr>
                 <tr id="dvOcultar">
-                    <th colspan="10">
+                    <th colspan="11">
                         <p align="right">I.V.A (16%):</p>
                     </th>
                     <th>
@@ -173,17 +185,9 @@
                         <input type="hidden" name="total_tax" id="total_tax">
                     </th>
                 </tr>
-                <tr>
-                    <th colspan="10">
-                        <p align="right">TOTAL:</p>
-                    </th>
-                    <th>
-                        <p align="right"><span id="total">Bs. 0.00</span></p>
-                    </th>
-                </tr>
                 
                 <tr>
-                    <th colspan="10">
+                    <th colspan="11">
                         <p align="right">TOTAL PAGAR:</p>
                     </th>
                     <th>
@@ -272,15 +276,15 @@
 
 <div class="row">
     <div class="col">
-        <label class="label" for="cuenta_total">Total:</label>
+        <label class="label" for="cuenta_total">Total (Bs.):</label>
         <input type="number" class="form-control" name="cuenta_total" id="cuenta_total" step="any" value="0" disabled>
     </div>
     <div class="col">
-        <label class="label" for="cuenta_lleva">Lleva:</label>
+        <label class="label" for="cuenta_lleva">Lleva (Bs.):</label>
         <input type="number" class="form-control" name="cuenta_lleva" id="cuenta_lleva"  step="any" value="0" disabled>
     </div>
     <div class="col">
-        <label class="label" for="cuenta_falta">Falta:</label>
-        <input type="number" class="form-control" name="cuenta_falta" id="cuenta_falta" step="any" value="0" >
+        <label class="label" for="cuenta_falta">Falta (Bs.):</label>
+        <input type="number" class="form-control" name="cuenta_falta" id="cuenta_falta" step="any" value="0" disabled>
     </div>
 </div>

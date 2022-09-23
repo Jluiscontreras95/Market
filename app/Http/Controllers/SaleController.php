@@ -62,14 +62,25 @@ class SaleController extends Controller
         ]);
 
         foreach ($request->product_id as $key =>$product){
-            $results[] = array("product_id"=>$request->product_id[$key],
-            "quantity"=>$request->quantity[$key], "price"=>$request->price[$key], "discount"=>$request->discount[$key], "tax"=>$request->tax[$key], "cash"=>$request->input("cash"), "debit"=>$request->input("debit"), "biopayment"=>$request->input("biopayment"), "dollar"=>$request->input("dollar"), "movilpayment"=>$request->input("movilpayment"), "transfer"=>$request->input("transfer"));
+            $results[] = array(
+            
+                "product_id"=>$request->product_id[$key],
+                "quantity"=>$request->quantity[$key],
+                "measure"=>$request->measure[$key],
+                "price"=>$request->price[$key], 
+                "discount"=>$request->discount[$key],
+                "tax"=>$request->tax[$key], 
+                "cash"=>$request->input("cash"), 
+                "debit"=>$request->input("debit"), 
+                "biopayment"=>$request->input("biopayment"), 
+                "dollar"=>$request->input("dollar"), 
+                "movilpayment"=>$request->input("movilpayment"), 
+                "transfer"=>$request->input("transfer")
+        
+            );
         }
 
-        
-
         $sale->saleDetails()->createMany($results);
-
 
         $sale = Sale::get()->last();
         $cont = new Contability();
