@@ -14,8 +14,8 @@ class CategorySeeder extends Seeder
     {
         //
         Category::create([
-            'name'=>'Frutería',
-            'description'=>'Todo lo relacionado con frutas en general',
+            'name'=>'Analgésicos',
+            'description'=>'Todo lo relacionado con analgésicos',
         ]);
     }
 }

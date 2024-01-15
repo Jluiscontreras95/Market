@@ -95,7 +95,12 @@
                                                 <strong>
                                                     <i class="fas fa-check-circle mr-1"></i> Stock
                                                 </strong>
-                                                <h5 class="pl-5 pt-2">{{$product->stock}} {{$product->measure}} || {{ number_format($product->stock / $product->measure_alter_cant , 2) }} {{ $product->measure_alter }}</h5>
+                                                @if($product->measure_alter_cant)
+                                                    <h5 class="pl-5 pt-2">{{$product->stock}} {{$product->measure}} || {{ number_format($product->stock / $product->measure_alter_cant , 2) }} {{ $product->measure_alter }}</h5>
+                                                @else
+                                                    <h5 class="pl-5 pt-2">{{$product->stock}} {{$product->measure}}</h5>
+
+                                                @endif
                                                 <hr>
                                             </div>
                                         </div>

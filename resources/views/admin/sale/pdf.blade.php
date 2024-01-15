@@ -52,9 +52,9 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-6 float-left py-5 border border-danger">
+            <div class="col-6 float-left py-5 text-center">
                 @foreach ($businesses as $business)
-                    <img src="{{ public_path('image/'.$business->logo) }}" class="img-fluid " width="700px" height="200px">
+                    <img src="{{ public_path('image/'.$business->logo) }}" class="img-fluid " width="200" height="200">
                 @endforeach
             </div>
         </div>

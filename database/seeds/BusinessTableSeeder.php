@@ -13,14 +13,14 @@ class BusinessTableSeeder extends Seeder
     public function run()
     {
         Business::create([
-            'name'=>'Unicos de Los Valles & 2016 C.A.',
-            'description'=>'Empresa de verduras y hortalizas de primera calidad.',
-            'logo'=>'logo-login.png',
+            'name'=>'Farmacia',
+            'description'=>'Farmacéutica',
+            'logo'=>'farma.png',
             'email'=>'Ejemplo@gmail.com',
-            'phone_1'=>'04129379145',
-            'phone_2'=>'04140296361',
-            'address'=>'Calle Ppal. de Tocuyito- Local N°192- Sector Candelero- Ocumare del tuy, Edo. Miranda- Zona Postal 1209.',
-            'rif'=>'J-408960079',
+            'phone_1'=>'04120000000',
+            'phone_2'=>'04140000000',
+            'address'=>'Caracas-Venezuela',
+            'rif'=>'J-000000000',
             'taxpayer'=>'NO',
         ]);
     }
