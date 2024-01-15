@@ -59,6 +59,35 @@
 
 <script>
 
+// AGREGAR DATOS DEL CLIENTE
+
+$(obtener_registro_clientes());
+function obtener_registro_clientes(dni){
+    $.ajax({
+        url: "{{route('get_Clients_by_dni')}}",
+        type: 'GET',
+        data:{
+            dni: dni
+        },
+        dataType: 'json',
+        success:function(data){
+            $("#client_name").val(data.name);
+            $("#client_id").val(data.id);
+        }
+    });
+}
+
+$(document).on('keyup', '#dni', function(){
+    var valorResultado = $(this).val();
+    if(valorResultado!=""){
+        obtener_registro_clientes(valorResultado);
+    }else{
+        obtener_registro_clientes();
+    }
+});
+
+// AGREGAR PRODUCTOS POR SU ID
+
 $('#product').change(function (){
     $.ajax({
         url: "{{route('get_products_by_id')}}",
@@ -81,6 +110,7 @@ $('#product').change(function (){
                     $("#measure").html(data.measure);
                     $("#measure_stock").html(data.measure);
                     $("#measure_total").val(data.measure);
+                    $("#utilidad").val(data.utility);
                     $("#quantity_total").val(1);
 
                 }else{
@@ -90,7 +120,8 @@ $('#product').change(function (){
                     $("#measure").html(data.measure_alter);
                     $("#measure_stock").html(data.measure_alter);
                     $("#quantity_total").val(data.measure_alter_cant);
-                    $("#measure_total").val(data.measure);
+                    $("#measure_total").val(data.measure_alter);
+                    $("#utilidad").val(data.utility_may);
 
                 }
             });        
@@ -99,13 +130,7 @@ $('#product').change(function (){
 });
 
 
-$("#product").change(mostrarValores);
-
-function mostrarValores(){
-    datosProducto =document.getElementById('product').value.split('_');
-    $("#price").val(datosProducto[2]);
-    $("#stock").val(datosProducto[1]);
-}
+// AGREGAR PRODUCTOS POR SU CODIGO DE BARRAS
 
 $(obtener_registro());
 function obtener_registro(code){
@@ -146,15 +171,7 @@ function obtener_registro(code){
     });
 }
 
-$(document).on('keyup', '#code', function(){
-    var valorResultado = $(this).val();
-    if(valorResultado!=""){
-        obtener_registro(valorResultado);
-    }else{
-        obtener_registro();
-    }
-});
-
+// CANTIDADES AL MAYOR
 
 $("#quantity").keyup(function(){
 
@@ -168,13 +185,15 @@ $(document).ready(function (){
     });
 });
 
+// AGREGAR AL CARRITO
 
-var cont = 0;
+cont = 0;
 total = [];
 total_exento = [];
 base_imponible = [];
 iva = [];
 subtotal = [];
+utilidad_total = [];
 
 function agregar(){
     datosProducto =document.getElementById('product').value.split('_');
@@ -182,11 +201,12 @@ function agregar(){
     product = $("#product option:selected").text();
     discount = $("#discount").val();
     price = $("#price").val();
-    quantity = $("#product_total").val();
+    quantity = $("#quantity").val();
+    quantity_total = $("#product_total").val();
     measure = $("#measure_total").val();
     stock = $("#stock_total").val();
     tax = $("#tax_product").val();
-    sale = $("#sale").val();
+    utility = parseFloat($("#utilidad").val());
 
     if (product_id != "" && quantity !="" && quantity > 0 &&  price != "" &&  tax != "") {
 
@@ -196,6 +216,7 @@ function agregar(){
         if(parseInt(stock) >= parseInt(quantity)){
             subtotal[cont] = (quantity * price) - (quantity * price * discount / 100);
             total[cont] = subtotal[cont]+(subtotal[cont] * tax /100);
+            utilidad_total[cont] = utility;
 
             if (tax == 0) {
 
@@ -209,8 +230,17 @@ function agregar(){
                 iva[cont] = base_imponible[cont] * tax /100;
 
             }
+            
+            if ($("input[name='sale']:checked").val() == 'DETAL'){
+                sale = 'DETAL';
 
-            var fila ='<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar(' + cont + ');"><i class="fa fa-times"></i></button></td><td><input type="hidden" id="product_id[]" name="product_id[]" value="' + product_id +'"/>' + product + '</td><td><input type="hidden" id="price[]" name="price[]" value="' + price + '"/><input class="form-control" type="number"  value="' + parseFloat(price).toFixed(2) + '" disabled/></td><td><input type="hidden" id="discount[]" name="discount[]" value="' + parseFloat(discount).toFixed(2) + '"/><input class="form-control" type="number" value="' + parseFloat(discount).toFixed(2) + '" disabled/></td><td><input type="hidden" id="quantity[]" name="quantity[]" value="' + quantity + '"/><input class="form-control" type="number" value="' + quantity + '" disabled/></td><td><input type="hidden" id="measure[]" name="measure[]" value="' + measure + '"/><input class="form-control" type="text" value="' + measure + '" disabled/></td><td><input type="hidden" id="tax[]" name="tax[]" onload="myScript()" value="' + tax + '"/><input class="form-control" type="number" value="' + parseFloat(tax).toFixed(2) + '" disabled/></td><td align="right">' + parseFloat(subtotal[cont]).toFixed(2) + '<td align="right">' + parseFloat(total[cont]).toFixed(2) + '</td></td><td align="right">' + parseFloat(total_exento[cont]).toFixed(2) + '</td><td align="right">' + parseFloat(base_imponible[cont]).toFixed(2) + '</td><td align="right">' + parseFloat(iva[cont]).toFixed(2) + '</td></tr>';
+            } else {
+                sale = 'MAYOR';
+
+            }
+
+
+            var fila ='<tr class="selected" id="fila' + cont + '"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar(' + cont + ');"><i class="fa fa-times"></i></button></td><td><input type="hidden" id="product_id[]" name="product_id[]" value="' + product_id +'"/>' + product + '</td><td><input type="hidden" id="price[]" name="price[]" value="' + price + '"/><input class="form-control" type="number"  value="' + parseFloat(price).toFixed(2) + '" disabled/></td><td><input type="hidden" id="discount[]" name="discount[]" value="' + parseFloat(discount).toFixed(2) + '"/><input class="form-control" type="number" value="' + parseFloat(discount).toFixed(2) + '" disabled/></td><td><input type="hidden" id="quantity[]" name="quantity[]" value="' + quantity + '"/><input type="hidden" id="quantity_total[]" name="quantity_total[]" value="' + quantity_total + '"/><input class="form-control" type="number" value="' + quantity + '" disabled/></td><td><input type="hidden" id="measure[]" name="measure[]" value="' + measure + '"/><input class="form-control" type="text" value="' + measure + '" disabled/></td><td><input type="hidden" id="sale[]" name="sale[]" value="' + sale + '"/><input class="form-control" type="text" value="' + sale + '" disabled/></td><td><input type="hidden" id="tax[]" name="tax[]" onload="myScript()" value="' + tax + '"/><input class="form-control" type="number" value="' + parseFloat(tax).toFixed(2) + '" disabled/></td><td align="right">' + parseFloat(subtotal[cont]).toFixed(2) + '<td align="right">' + parseFloat(total[cont]).toFixed(2) + '</td></td><td align="right">' + parseFloat(total_exento[cont]).toFixed(2) + '</td><td align="right">' + parseFloat(base_imponible[cont]).toFixed(2) + '<input type="hidden" id="utility[]" name="utility[]" value="' + utility + '"/></td><td align="right">' + parseFloat(iva[cont]).toFixed(2) + '</td></tr>';
            
             cont++;
             
@@ -232,6 +262,8 @@ function agregar(){
     }
 }
 
+// LIMPIAR VALORES DE COMPRAS 
+
 function limpiar(){
     $("#quantity").val("");
     $("#price").val("");
@@ -245,20 +277,21 @@ function limpiar(){
     $('#product').selectpicker('refresh');
     $('#tax_product').val("");
     $("input[name=sale]").prop('checked', false);
+    $("#utilidad").val("");
 }
+
+// CALCULO DE TOTALES
 
 function totales(){
 
-    $('#tax').onload = function(){
-        var elemt = [];
-        numero = 0;     
-    };
-    
-        const initialValue = 0;
-        const suma = total_exento.reduce((total_exento, elem) => total_exento + elem, initialValue);
-        const suma2 = base_imponible.reduce((base_imponible, elem) => base_imponible + elem, initialValue);
-        const suma3 = iva.reduce((iva, elem) => iva + elem, initialValue);
-        const suma4 = total.reduce((total, elem) => total + elem, initialValue);
+        initialValue = 0;
+        suma = total_exento.reduce((total_exento, elem) => total_exento + elem, initialValue);
+        suma2 = base_imponible.reduce((base_imponible, elem) => base_imponible + elem, initialValue);
+        suma3 = iva.reduce((iva, elem) => iva + elem, initialValue);
+        suma4 = total.reduce((total, elem) => total + elem, initialValue);
+        suma5 = utilidad_total.reduce((utilidad_total, elem) => utilidad_total + elem, initialValue);
+
+        console.log(suma5);
         exchange = '{{$exchange->description}}';
         total_divisas = suma4 / exchange;
           
@@ -272,57 +305,27 @@ function totales(){
         $("#total_pagar_divisas_html").html("$. "+total_divisas.toFixed(2));
         $("#total_pagar_divisas").val(total_divisas.toFixed(2));
         $("#cuenta_total").val(suma4.toFixed(2));
+
 }
 
+// ELIMINAR PRODUCTO DE CARRITO
+
 function eliminar(index){
-    
-    const initialValue = 0;
-    const suma = total_exento.reduce((total_exento, elem) => total_exento + elem, initialValue);
-    const suma2 = base_imponible.reduce((base_imponible, elem) => base_imponible + elem, initialValue);
-    const suma3 = iva.reduce((iva, elem) => iva + elem, initialValue);
-    const suma4 = total.reduce((total, elem) => total + elem, initialValue);
-    exchange = '{{$exchange->description}}';
-    total_divisas = suma4 / exchange;
-        
-    $("#total_exento").html("Bs. " + suma);
-    $("#base_imponible").html("Bs. " + suma2.toFixed(2));
-    $("#total_impuesto").html("Bs. " + suma3.toFixed(2));
-    $("#total_tax").val(suma3.toFixed(2));
-    $("#total").html("Bs. " + suma4.toFixed(2));
-    $("#total_pagar_html").html("Bs. " + suma4.toFixed(2));
-    $("#total_pagar").val(suma4.toFixed(2));
-    $("#total_pagar_divisas_html").html("$. "+total_divisas.toFixed(2));
-    $("#total_pagar_divisas").val(total_divisas.toFixed(2));
-    $("#cuenta_total").val(suma4.toFixed(2));
+
+    total_exento.splice(index, 1);
+    base_imponible.splice(index, 1);
+    iva.splice(index, 1);
+    total.splice(index, 1);
+    utilidad_total.splice(index, 1);
 
     $("#fila" + index).remove();
 
+    totales();
+    
 }
 
-$(obtener_registro_clientes());
-function obtener_registro_clientes(dni){
-    $.ajax({
-        url: "{{route('get_Clients_by_dni')}}",
-        type: 'GET',
-        data:{
-            dni: dni
-        },
-        dataType: 'json',
-        success:function(data){
-            $("#client_name").val(data.name);
-            $("#client_id").val(data.id);
-        }
-    });
-}
 
-$(document).on('keyup', '#dni', function(){
-    var valorResultado = $(this).val();
-    if(valorResultado!=""){
-        obtener_registro_clientes(valorResultado);
-    }else{
-        obtener_registro_clientes();
-    }
-});
+// BOTON DE GUARDAR DESPUES QUE PAGUE CON DIVISAS, EFECTIVO, ETC.
 
 $("#guardar").hide();
 var vuelto = 0;
@@ -378,13 +381,9 @@ $(".vuelto, #dollar").on("focusout", event => {
     const lleva = parseFloat($("#cuenta_lleva").val()).toFixed(2);
 
     if (total === lleva){
-
         $("#guardar").show();
-    
     }else{
-    
         $("#guardar").hide();
-    
     }
 
 });

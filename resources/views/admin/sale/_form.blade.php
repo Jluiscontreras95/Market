@@ -86,6 +86,7 @@
                 <input type="hidden" class="form-control" name="quantity_total" id="quantity_total" step="0.01"  aria-describedby="addon-wrapping" >
                 <input type="hidden" class="form-control" name="measure_total" id="measure_total" step="0.01" aria-describedby="addon-wrapping" >
                 <input type="hidden" class="form-control" name="product_total" id="product_total" step="0.01" aria-describedby="addon-wrapping" >
+                <input type="hidden" class="form-control" name="utilidad" id="utilidad" step="0.01" aria-describedby="addon-wrapping" >
             </div>
             <small id="helpId" class="text-muted">Campo obligatorio.</small>
         </div>
@@ -151,6 +152,7 @@
                     <th>Descuento(%)</th>
                     <th>Cantidad</th>
                     <th>Unid.</th>
+                    <th>Venta</th>
                     <th>Impuesto(%)</th>
                     <th>SubTotal(Bs.)</th>
                     <th>Total(Bs.)</th>
@@ -161,7 +163,7 @@
             </thead>
             <tfoot>
                 <tr>
-                    <th colspan="11">
+                    <th colspan="12">
                         <p align="right">TOTAL EXENTO:</p>
                     </th>
                     <th>
@@ -169,7 +171,7 @@
                     </th>
                 </tr>
                 <tr>
-                    <th colspan="11">
+                    <th colspan="12">
                         <p align="right">BASE IMPONIBLE:</p>
                     </th>
                     <th>
@@ -177,7 +179,7 @@
                     </th>
                 </tr>
                 <tr id="dvOcultar">
-                    <th colspan="11">
+                    <th colspan="12">
                         <p align="right">I.V.A (16%):</p>
                     </th>
                     <th>
@@ -185,9 +187,8 @@
                         <input type="hidden" name="total_tax" id="total_tax">
                     </th>
                 </tr>
-                
                 <tr>
-                    <th colspan="11">
+                    <th colspan="12">
                         <p align="right">TOTAL PAGAR:</p>
                     </th>
                     <th>

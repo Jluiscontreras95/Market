@@ -142,6 +142,40 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <i class="fas fa-envelope"></i>
+                        categorias más vendidas (totales)
+                    </h4>
+                    <div class="table-responsive">
+                        <table id="order-listing" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Posición</th>
+                                    <th>categoria</th>
+                                    <th>Cantidad vendida</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($categoriavendidas as $categoriavendida)
+                                    <tr>
+                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$categoriavendida->categorias}}</td>
+                                        <td>Bs. {{$categoriavendida->total}}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </div>
 @endsection
 @section('scripts')

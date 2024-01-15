@@ -66,7 +66,10 @@ class SaleController extends Controller
             
                 "product_id"=>$request->product_id[$key],
                 "quantity"=>$request->quantity[$key],
+                "quantity_stock"=>$request->quantity_total[$key],
                 "measure"=>$request->measure[$key],
+                "utility_total"=>$request->utility[$key], 
+                "sale"=>$request->sale[$key],
                 "price"=>$request->price[$key], 
                 "discount"=>$request->discount[$key],
                 "tax"=>$request->tax[$key], 

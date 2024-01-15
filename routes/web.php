@@ -95,9 +95,5 @@ Route::get('get_Retention_edit', 'RetentionController@get_Retention_edit')-> nam
 Route::post('get_Retention_update', 'RetentionController@get_Retention_update')-> name('get_Retention_update');
 
 
-
-
-
-
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/prueba/{sale}', 'SaleController@prueba')->name('prueba');

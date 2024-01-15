@@ -97,7 +97,7 @@
                                     <td>Bs.{{$saleDetail->price}}</td>
                                     <td>% {{$saleDetail->tax}}</td>
                                     <td>{{$saleDetail->discount}}</td>
-                                    <td>{{$saleDetail->quantity}} {{$saleDetail->product->measure}}</td>
+                                    <td>{{$saleDetail->quantity}} {{$saleDetail->measure}}</td>
                                     <td>Bs.{{number_format($saleDetail->quantity * $saleDetail->price - $saleDetail->quantity * $saleDetail->price * $saleDetail->discount /100,2)}}</td>
 
                                 </tr>

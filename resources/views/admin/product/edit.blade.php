@@ -269,9 +269,17 @@
 
 <script>
 
+$("#tax_div").hide();
+$("input[name='taxproduct']").change(function (){
 
-var cost_price = $('#cost_price');
-var utility = $('#utility');
+    if ($(this).val() == 'SI') {
+        $("#tax_div").show();
+    }else{
+        $("#tax_div").hide();
+        $("#tax").val(0);
+    };
+
+});
 
 
 $('#cost_price, #utility').keyup(function(){
@@ -279,37 +287,32 @@ $('#cost_price, #utility').keyup(function(){
     if (isNaN(parseFloat($('#cost_price').val())) &&  isNaN(parseFloat($('#utility').val()))) {
         total += 0;
     } else {
-        total = parseFloat($('#cost_price').val()) * parseFloat($('#utility').val());
+        total = parseFloat($('#cost_price').val()) + (parseFloat($('#cost_price').val()) *  parseFloat($('#utility').val()) / 100);
     }
-    $("#sell_price").val(total);
+
+    parseFloat($("#sell_price").val(total));
     
 });
 
-$('#cost_price_may, #utility_may').keyup(function(){
+$("#measure_alter_cant").keyup(function(){
 
-    if (isNaN(parseFloat($('#cost_price_may').val())) &&  isNaN(parseFloat($('#utility_may').val()))) {
-        total += 0;
-    } else {
+    var costo_mayor = parseFloat($("#cost_price_may").val());
+    var utilidad_mayor = parseFloat($("#utility_may").val());
+    var precio_mayor = parseFloat($("#sell_price_may").val());
+    var catidad_mayor = parseFloat($("#measure_alter_cant").val());
+    var total = 0;
+
+    if (isNaN( parseFloat($("#cost_price_may").val())  ) && isNaN( parseFloat($("#utility_may").val()) )){
         
-        total = parseFloat($('#cost_price_may').val()) + (parseFloat($('#cost_price_may').val()) *  parseFloat($('#utility_may').val()) / 100);
+        total += 0;
+        parseFloat($("#sell_price_may").val(total));
+
+    } else {
+
+        total = parseFloat($("#cost_price_may").val()) + (parseFloat($("#cost_price_may").val()) + parseFloat($("#utility_may").val()) / 100);
+        total_venta = total * parseFloat($("#measure_alter_cant").val());
+        parseFloat($("#sell_price_may").val(total_venta)).toFixed(2);
     }
-    $("#sell_price_may").val(total);
-
-});
-
-$("input[name='taxproduct']").change(function (){
-
-    
-    if ($(this).val() == 'SI') {
-
-        $("#tax_div").show();
-
-    }else{
-
-        $("#tax_div").hide();
-        $("#tax").val(0);
-
-    };
 
 });
 

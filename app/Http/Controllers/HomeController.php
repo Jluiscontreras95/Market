@@ -58,10 +58,16 @@ class HomeController extends Controller
         inner join sales v on dv.sale_id=v.id where v.status="VALID" 
         and year(v.sale_date)=year(curdate()) 
         group by p.code ,p.name, p.id , p.stock, p.measure order by sum(dv.quantity) desc limit 10');
+
+        $categoriavendidas=DB::select('SELECT categories.name as categorias, sum(sales.total) as total FROM categories, products, sales, sale_details 
+        WHERE products.category_id = categories.id 
+        AND sales.id = sale_details.sale_id
+        AND sale_details.product_id = products.id
+        GROUP BY categories.name ');
        
        $exchange = Exchange::latest()->first();
 
-        return view('home', compact( 'comprasmes', 'ventasmes', 'ventasdia', 'totales', 'productosvendidos', 'exchange'));
+        return view('home', compact( 'comprasmes', 'ventasmes', 'ventasdia', 'totales', 'productosvendidos', 'exchange','categoriavendidas'));
                  
 
        

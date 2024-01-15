@@ -39,7 +39,7 @@ DELIMITER //
 CREATE TRIGGER `tr_updStockVenta` AFTER INSERT ON `sale_details`
         FOR EACH ROW BEGIN
         UPDATE products 
-        SET stock = stock - NEW.quantity
+        SET stock = stock - NEW.quantity_stock
         WHERE products.id = NEW.product_id;
 END;
 //
@@ -53,7 +53,7 @@ CREATE TRIGGER `tr_updStockVentaAnular` AFTER UPDATE ON `sales`
         JOIN sale_details dv
         ON dv.product_id = p.id
         AND dv.sale_id = NEW.id
-        SET p.stock = p.stock - dv.quantity;
+        SET p.stock = p.stock - dv.quantity_stock;
     END;
     END IF;
     IF NEW.status = "CANCELED" THEN BEGIN
@@ -61,7 +61,7 @@ CREATE TRIGGER `tr_updStockVentaAnular` AFTER UPDATE ON `sales`
         JOIN sale_details dv
         ON dv.product_id = p.id
         AND dv.sale_id = NEW.id
-        SET p.stock = p.stock + dv.quantity;
+        SET p.stock = p.stock + dv.quantity_stock;
     END;
     END IF;
 END;
