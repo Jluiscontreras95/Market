@@ -152,6 +152,7 @@
                                                 <option value="KG">KG</option>
                                                 <option value="LTRS">LTRS</option>
                                                 <option value="UND">UND</option> 
+                                                <option value="BLISTER">BLSTR</option>
                                             </select>
                                         </div>
                                         <small id="helpId" class="text-muted">Campo obligatorio.</small>
@@ -205,7 +206,6 @@
                                                 <option value="CAJA">CAJA</option>
                                                 <option value="BULTO">BULTO</option>
                                                 <option value="CESTA">CESTA</option> 
-                                                <option value="BLISTER">BLISTER</option>
                                                 <option value="SACO">SACO</option>
                                             </select>
                                         </div>

@@ -15,7 +15,7 @@
 @section('create')
     <li class="nav-item d-none d-lg-flex">
         <a class="nav-link" href="{{route('users.create')}}">
-            <span class="btn btn-primary">+ Crear nuevo usuario</span>
+            <span class="btn btn-primary">+ nuevo usuario</span>
         </a>
     </li>
 @endsection
