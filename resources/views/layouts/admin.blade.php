@@ -4,13 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <link rel="shortcut icon" href="{{ asset('image/favicon.ico') }}" type="image/x-icon">
-        <link rel="icon" href="{{ asset('image/favicon.ico') }}" type="image/x-icon">
-
-
-
-
-
+        <link rel="shortcut icon" href="{{ asset('image/farma.png') }}" type="image/x-icon">
+        <link rel="icon" href="{{ asset('image/farma.png') }}" type="image/x-icon">
 
         <title>@yield('title')</title>
         {!! Html::style('web/vendors/iconfonts/font-awesome/css/all.min.css') !!}
@@ -27,8 +22,8 @@
         <div class="container-scroller">
             <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
                 <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                    <a class="navbar-brand brand-logo" href=""><img src="{{asset('image/logo2.png')}}"  alt="logo" /></a>
-                    <a class="navbar-brand brand-logo-mini" href=""><img src="{{asset('image/logo-mini.png')}}"  alt="logo"/></a>
+                    <!-- <a class="navbar-brand brand-logo" href=""><img src="{{asset('image/farma.png')}}"  alt="logo" /></a> -->
+                    <a class="navbar-brand brand-logo-mini" href=""><img src="{{asset('image/farma.png')}}"  alt="logo"/></a>
                 </div>
                 <div class="navbar-menu-wrapper d-flex align-items-stretch">
                     <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -76,7 +71,7 @@
                         </li>
                         <li class="nav-item nav-profile dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                                <img src="{{asset('image/logo-mini.png')}}" alt="profile" />
+                                <img src="{{asset('image/farma.png')}}" alt="profile" />
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                                 <div class="dropdown-divider"></div>
