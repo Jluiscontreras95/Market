@@ -126,7 +126,7 @@
             <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false"
                 aria-controls="page-layouts">
                 <i class="fas fa-cogs menu-icon"></i>
-                <span class="menu-title">Configuración</span>
+                <span class="menu-title">Configuraciónn</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="page-layouts">
